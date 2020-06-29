@@ -38,7 +38,7 @@ public class SDecanato {
     
     public Decanato crearOActualizar(Decanato decanato)
     {
-        if(decanato.getId() == 0)
+        if(decanato.getId() == null)
         {
         	decanato.setEstado(true);
             decanato = rDecanato.save(decanato);

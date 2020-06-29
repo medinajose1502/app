@@ -38,7 +38,7 @@ public class SActa {
     
     public Acta crearOActualizar(Acta acta)
     {
-        if(acta.getId() == 0)
+        if(acta.getId() == null)
         {
         	acta.setEstado(true);
             acta = rActa.save(acta);

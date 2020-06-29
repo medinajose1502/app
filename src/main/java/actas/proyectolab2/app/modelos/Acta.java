@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
@@ -49,13 +50,14 @@ public class Acta {
 	
 	@JsonProperty
 	@Column (name = "estado")
-	@NotBlank
 	private boolean estado;
 
+	@JsonBackReference
 	@ManyToOne
     @JoinColumn(name="iddecanato", nullable=false)
     private Decanato decanato;
 	
+	@JsonBackReference
 	@ManyToOne
     @JoinColumn(name="idusuario", nullable=false)
     private Usuario usuario;

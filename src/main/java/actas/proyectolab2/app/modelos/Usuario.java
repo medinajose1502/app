@@ -11,12 +11,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
@@ -59,16 +62,19 @@ public class Usuario {
 	private String apellidos;
 	
 	@JsonProperty
-	@Column (name = "estado")
+	@Column(name = "estado")
 	private boolean estado;
 	
+	@JsonBackReference
 	@ManyToOne
     @JoinColumn(name="iddecanato", nullable=false)
     private Decanato decanato;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="usuario", cascade = CascadeType.ALL)
     private List<Acta> actas = new ArrayList<Acta>();
 	
-	@OneToOne(mappedBy="usuario")
+	@OneToOne
+	@MapsId
     private Rol rol;
 }

@@ -27,6 +27,5 @@ public class Rol {
     private String tipo;
 
     @OneToOne
-    @JoinColumn(name="usuario")
     private Usuario usuario;
 }

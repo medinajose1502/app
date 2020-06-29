@@ -1,4 +1,4 @@
-/*package actas.proyectolab2.app.servicios;
+package actas.proyectolab2.app.servicios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,15 +25,8 @@ public class SUserDetailsService implements UserDetailsService {
     {
 		
      Usuario usuario = rUsuario.findByCedula(cedula).get();
-		
-     boolean enabled = true;
-     boolean accountNonExpired = true;
-     boolean credentialsNotExpired = true;
-     boolean accountNonLocked = true;
      
-     UsuarioPrincipal principal = new UsuarioPrincipal(usuario, enabled, accountNonExpired,
-    		 credentialsNotExpired, accountNonLocked,
-             getAuthorities(usuario));
+     UsuarioPrincipal principal = new UsuarioPrincipal(usuario, true, true, true, true, getAuthorities(usuario));
      
      return principal;
     }
@@ -46,4 +39,3 @@ public class SUserDetailsService implements UserDetailsService {
 		return grantList;
     }
 }
-*/
