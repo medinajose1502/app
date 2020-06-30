@@ -3,6 +3,8 @@ package actas.proyectolab2.app.controladores;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -33,7 +35,7 @@ public class CDecanato {
 		Decanato decanato = sDecanato.encontrarPorId(id);
 		if (decanato != null)
 			return decanato;
-		else throw new RecursoNoEncontrado("No se pudo encontrar el Decanato solicitado");
+		else throw new RecursoNoEncontrado("No se pudo encontrar el decanato solicitado.");
 					
 	}
 	
@@ -43,11 +45,11 @@ public class CDecanato {
 		List<Decanato> decanatos = sDecanato.encontrarTodos();
 		if(decanatos != null)
 			return decanatos;
-		else throw new RecursoNoEncontrado("No se pudieron encontrar Decanatos registrados");
+		else throw new RecursoNoEncontrado("No hay registros de decanatos.");
 	}
 	
 	@PostMapping("/decanato/guardar")
-	Decanato guardarDecanato(@RequestBody Decanato decanato)
+	Decanato guardarDecanato(@Valid @RequestBody Decanato decanato)
 	{
 		return sDecanato.crearOActualizar(decanato);
 	}

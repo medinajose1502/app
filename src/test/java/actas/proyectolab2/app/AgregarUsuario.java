@@ -1,7 +1,6 @@
 package actas.proyectolab2.app;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,11 +61,11 @@ class AgregarUsuario {
 		decanato2.setUbicacion("CENTRO");
 		sDecanato.crearOActualizar(decanato2);
 		
-		rol.setTipo("admin");
+		rol.setTipo("ROLA_ADMIN");
 		Rol admin = sRol.crearOActualizar(rol);
 		
 		
-		rol2.setTipo("secretario");
+		rol2.setTipo("ROLE_SECRETARIO");
 		Rol secretario = sRol.crearOActualizar(rol2);
 		
 		
@@ -75,6 +74,7 @@ class AgregarUsuario {
 		usuario.setNombres("Daniel Adolfo");
 		usuario.setApellidos("Majano Manzano");
 		usuario.setDecanato(decanato);
+		usuario.agregarRol(admin);
 		sUsuario.crearOActualizar(usuario);
 		
 		

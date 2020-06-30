@@ -2,15 +2,24 @@ package actas.proyectolab2.app.controladores;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import actas.proyectolab2.app.excepciones.MensajeErrorDeCampo;
 import actas.proyectolab2.app.excepciones.RecursoNoEncontrado;
 import actas.proyectolab2.app.modelos.Usuario;
 import actas.proyectolab2.app.servicios.SUsuario;
@@ -27,7 +36,7 @@ public class CUsuario {
 		Usuario usuario = sUsuario.encontrarPorCedula(id);
 		if(usuario != null)
 			return usuario;
-		else throw new RecursoNoEncontrado("No se pudiero encontrar Usuario solicitado");
+		else throw new RecursoNoEncontrado("No se pudo encontrar el usuario solicitado.");
 	}
 	
 	@GetMapping("/usuario/ver/todos")
@@ -36,13 +45,21 @@ public class CUsuario {
 		List<Usuario> usuarios = sUsuario.encontrarTodos();
 		if(usuarios != null)
 			return usuarios;
-		else throw new RecursoNoEncontrado("No se pudieron encontrar Decanatos registrados");
+		else throw new RecursoNoEncontrado("No hay registros de usuarios.");
 	}
 	
 	@PostMapping("/usuario/guardar")
-	Usuario guardarUsuario(@RequestBody Usuario usuario)
+	Usuario guardarUsuario(@Valid @RequestBody Usuario usuario)
 	{
 		return sUsuario.crearOActualizar(usuario);
+	}
+	
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	List<MensajeErrorDeCampo> manejadorDeExcepcion(MethodArgumentNotValidException e){
+		List<FieldError> erroresDeCampo = e.getBindingResult().getFieldErrors();
+		List<MensajeErrorDeCampo> mensajesErrorDeCampo = erroresDeCampo.stream().map(errorDeCampo -> new MensajeErrorDeCampo(errorDeCampo.getField(), errorDeCampo.getDefaultMessage())).collect(Collectors.toList());
+		return mensajesErrorDeCampo;
 	}
 	
 	@DeleteMapping("/usuario/eliminar/{id}")

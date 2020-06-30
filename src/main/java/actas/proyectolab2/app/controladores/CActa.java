@@ -35,26 +35,26 @@ public class CActa {
 		@Autowired
 		SActa sActa;
 		
+		@Autowired
+		SUsuario sUsuario;
+		
+		@Autowired
+		SDecanato sDecanato;
+		
 		@GetMapping("/acta/ver/{id}")
 		Acta verActa(@PathVariable Long id, Authentication auth) throws RecursoNoEncontrado
 		{
-			
-			SUsuario sUsuario = new SUsuario();
-			SDecanato sDecanato = new SDecanato();
-			Usuario usuario = new Usuario();
-			Decanato decanato = new Decanato();
+			Usuario usuario = sUsuario.encontrarPorCedula(((UsuarioPrincipal)auth.getPrincipal()).getUsuario().getCedula());
+			Decanato decanato = sDecanato.encontrarPorId(((UsuarioPrincipal)auth.getPrincipal()).getUsuario().getDecanato().getId());
 			Acta acta = sActa.encontrarPorId(id);
 			
-			usuario = sUsuario.encontrarPorCedula(((UsuarioPrincipal)auth.getPrincipal()).getUsuario().getCedula());
-			decanato = sDecanato.encontrarPorId(((UsuarioPrincipal)auth.getPrincipal()).getUsuario().getDecanato().getId());
-			
 			if(acta != null)
-				if (usuario.getRoles().get(0).getTipo() == "admin")
+				if (usuario.getRoles().get(0).getTipo().toString() == "a")
 					return acta;
 				else if(decanato == acta.getDecanato())
 					return acta;
-				else throw new RecursoNoEncontrado("No se pudo encontrar el Acta solicitada");
-			else throw new RecursoNoEncontrado("No se pudo encontrar el Acta solicitada");
+				else throw new RecursoNoEncontrado("No se pudo encontrar la acta solicitada");
+			else throw new RecursoNoEncontrado("No se pudo encontrar la acta solicitada");
 		}
 		
 		@GetMapping("/acta/ver/todas")
@@ -63,7 +63,7 @@ public class CActa {
 			List<Acta> actas = sActa.encontrarTodas();
 			if(actas != null)
 				return actas;
-			else throw new RecursoNoEncontrado("No se pudieron encontrar Actas registradas");
+			else throw new RecursoNoEncontrado("No se pudieron encontrar actas registradas");
 		}
 		
 		@GetMapping("/acta/ver/decanato")
@@ -73,7 +73,7 @@ public class CActa {
 			List<Acta> actas = sActa.encontrarPorDecanato(decanato);
 			if(actas != null)
 				return actas;
-			else throw new RecursoNoEncontrado("No se pudieron encontrar Actas registradas para el Decanato");
+			else throw new RecursoNoEncontrado("No se pudieron encontrar actas registradas para el decanato");
 		}
 		
 		@GetMapping("/acta/ver/usuario")
@@ -83,7 +83,7 @@ public class CActa {
 			List<Acta> actas = sActa.encontrarPorUsuario(usuario);
 			if(actas != null)
 				return actas;
-			else throw new RecursoNoEncontrado("No se pudieron encontrar Actas registradas");
+			else throw new RecursoNoEncontrado("No se pudieron encontrar actas registradas para el usuario");
 		}
 		
 		@PostMapping("/acta/guardar")
