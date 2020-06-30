@@ -26,6 +26,8 @@ import actas.proyectolab2.app.modelos.Acta;
 import actas.proyectolab2.app.modelos.Decanato;
 import actas.proyectolab2.app.modelos.Usuario;
 import actas.proyectolab2.app.servicios.SActa;
+import actas.proyectolab2.app.servicios.SDecanato;
+import actas.proyectolab2.app.servicios.SUsuario;
 
 @RestController
 public class CActa {
@@ -36,12 +38,20 @@ public class CActa {
 		@GetMapping("/acta/ver/{id}")
 		Acta verActa(@PathVariable Long id, Authentication auth) throws RecursoNoEncontrado
 		{
+			
+			SUsuario sUsuario = new SUsuario();
+			SDecanato sDecanato = new SDecanato();
+			Usuario usuario = new Usuario();
+			Decanato decanato = new Decanato();
 			Acta acta = sActa.encontrarPorId(id);
 			
+			usuario = sUsuario.encontrarPorCedula(((UsuarioPrincipal)auth.getPrincipal()).getUsuario().getCedula());
+			decanato = sDecanato.encontrarPorId(((UsuarioPrincipal)auth.getPrincipal()).getUsuario().getDecanato().getId());
+			
 			if(acta != null)
-				if (((UsuarioPrincipal)auth.getPrincipal()).getUsuario().getRoles().get(0).getTipo() == "admin")
+				if (usuario.getRoles().get(0).getTipo() == "admin")
 					return acta;
-				else if(((UsuarioPrincipal)auth.getPrincipal()).getUsuario().getDecanato() == acta.getDecanato())
+				else if(decanato == acta.getDecanato())
 					return acta;
 				else throw new RecursoNoEncontrado("No se pudo encontrar el Acta solicitada");
 			else throw new RecursoNoEncontrado("No se pudo encontrar el Acta solicitada");

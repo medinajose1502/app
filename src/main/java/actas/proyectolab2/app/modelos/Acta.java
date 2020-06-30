@@ -1,6 +1,7 @@
 package actas.proyectolab2.app.modelos;
 
-import java.util.Date;
+
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -33,8 +35,6 @@ public class Acta {
 	
 	@JsonProperty
 	@Column (name = "tipo")
-	@NotBlank
-	@Size(min = 1, max = 1)
 	private char tipo;	
 	
 	@JsonProperty
@@ -45,8 +45,7 @@ public class Acta {
 	
 	@JsonProperty
 	@Column (name = "fecha")
-	@NotBlank(message="Por favor, debe ingresar la fecha de la sesi�n.")
-	private Date fecha;
+	private LocalDateTime fecha;
 	
 	@JsonProperty
 	@Column (name = "estado")
