@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import actas.proyectolab2.app.servicios.SUserDetailsService;
 
@@ -16,14 +17,13 @@ import actas.proyectolab2.app.servicios.SUserDetailsService;
 @EnableWebSecurity
 public class ConfiguracionDeSeguridad extends WebSecurityConfigurerAdapter{
 	
-    //private AuthenticationSuccessHandler authenticationSuccessHandler;
-    
-/*    @Autowired
-    public ConfiguracionSeguridadWeb(AuthenticationSuccessHandler authenticationSuccessHandler) 
+    @SuppressWarnings("unused")
+	private AuthenticationSuccessHandler authenticationSuccessHandler;
+    @Autowired
+    public void ConfiguracionSeguridadWeb(AuthenticationSuccessHandler authenticationSuccessHandler) 
     {
         this.authenticationSuccessHandler = authenticationSuccessHandler;
     }
-*/
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -32,11 +32,12 @@ public class ConfiguracionDeSeguridad extends WebSecurityConfigurerAdapter{
                 .anyRequest().authenticated()
                 .and()
             .formLogin().and()
+            .csrf().disable()
             .httpBasic();
     }
     
     
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Bean
     public BCryptPasswordEncoder passwordEncoder() 
     {
