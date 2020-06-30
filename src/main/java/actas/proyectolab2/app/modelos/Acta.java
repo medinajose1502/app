@@ -28,7 +28,7 @@ public class Acta {
 	@JsonProperty
 	@Id
 	@Column(name = "codigo")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@JsonProperty

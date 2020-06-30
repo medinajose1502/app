@@ -4,13 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+@SuppressWarnings("serial")
 @AllArgsConstructor
 @Getter
 @Setter
 public class RegistroNoEncontrado extends Exception {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	String mensaje;
 }

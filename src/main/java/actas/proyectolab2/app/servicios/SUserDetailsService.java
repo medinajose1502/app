@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import actas.proyectolab2.app.miscelaneos.UsuarioPrincipal;
+import actas.proyectolab2.app.modelos.Rol;
 import actas.proyectolab2.app.modelos.Usuario;
 import actas.proyectolab2.app.repositorios.RUsuario;
 
@@ -34,8 +35,13 @@ public class SUserDetailsService implements UserDetailsService {
     private List<GrantedAuthority> getAuthorities(Usuario usuario) 
     {
     	List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
-        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(usuario.getRol().getTipo());
-        grantList.add(grantedAuthority);
+        GrantedAuthority grantedAuthority;
+        for (Rol rol : usuario.getRoles()) 
+        {
+        	grantedAuthority = new SimpleGrantedAuthority(rol.getTipo());
+        	grantList.add(grantedAuthority);
+		}
+        
 		return grantList;
     }
 }

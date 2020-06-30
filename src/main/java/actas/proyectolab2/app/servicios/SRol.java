@@ -47,7 +47,6 @@ public class SRol
         if(rol.getId() == null)
         {
             rol = rRol.save(rol);
-             
             return rol;
         }
         else
@@ -59,7 +58,6 @@ public class SRol
                 Rol rolActualizado = rolEncontrado.get();
                 rolActualizado.setId(rol.getId());
                 rolActualizado.setTipo(rol.getTipo());
-                rolActualizado.setUsuario(rol.getUsuario());
                 rolActualizado = rRol.save(rolActualizado);
                  
                 return rolActualizado;

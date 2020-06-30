@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import actas.proyectolab2.app.excepciones.RegistroNoEncontrado;
+import actas.proyectolab2.app.modelos.Rol;
 import actas.proyectolab2.app.modelos.Usuario;
+import actas.proyectolab2.app.repositorios.RRol;
 import actas.proyectolab2.app.repositorios.RUsuario;
 
 @Service
@@ -16,6 +18,9 @@ public class SUsuario {
 
 	@Autowired
     RUsuario rUsuario;
+	
+	@Autowired
+	RRol rRol;
      
     public List<Usuario> encontrarTodos()
     {

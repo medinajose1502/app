@@ -30,7 +30,7 @@ public class Decanato {
 	@JsonProperty
 	@Id
 	@Column (name = "id")
-	@GeneratedValue (strategy = GenerationType.AUTO)
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@JsonProperty
