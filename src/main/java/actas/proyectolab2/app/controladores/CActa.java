@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -57,6 +58,7 @@ public class CActa {
 			else throw new RecursoNoEncontrado("No se pudo encontrar la acta solicitada");
 		}
 		
+		@Secured("ROLE_ADMIN")
 		@GetMapping("/acta/ver/todas")
 		List <Acta> verActas() throws RecursoNoEncontrado
 		{

@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,6 +30,7 @@ public class CDecanato {
 	@Autowired
 	SDecanato sDecanato;
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/decanato/ver/{id}")
 	Decanato verDecanato(@PathVariable Long id) throws RecursoNoEncontrado
 	{
@@ -39,6 +41,7 @@ public class CDecanato {
 					
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/decanato/ver/todos")
 	List <Decanato> verDecanatos() throws RecursoNoEncontrado
 	{
@@ -48,6 +51,7 @@ public class CDecanato {
 		else throw new RecursoNoEncontrado("No hay registros de decanatos.");
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/decanato/guardar")
 	Decanato guardarDecanato(@Valid @RequestBody Decanato decanato)
 	{
@@ -62,6 +66,7 @@ public class CDecanato {
 		return mensajesErrorDeCampo;
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@DeleteMapping("/decanato/eliminar/{id}")
 	void eliminarDecanato(@PathVariable Long id)
 	{

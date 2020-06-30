@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,6 +40,7 @@ public class CUsuario {
 		else throw new RecursoNoEncontrado("No se pudo encontrar el usuario solicitado.");
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/usuario/ver/todos")
 	List <Usuario> verUsuarios() throws RecursoNoEncontrado
 	{
@@ -48,6 +50,7 @@ public class CUsuario {
 		else throw new RecursoNoEncontrado("No hay registros de usuarios.");
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/usuario/guardar")
 	Usuario guardarUsuario(@Valid @RequestBody Usuario usuario)
 	{
@@ -62,6 +65,7 @@ public class CUsuario {
 		return mensajesErrorDeCampo;
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@DeleteMapping("/usuario/eliminar/{id}")
 	void eliminarUsuario(@PathVariable Long id)
 	{

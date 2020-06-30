@@ -61,7 +61,7 @@ class AgregarUsuario {
 		decanato2.setUbicacion("CENTRO");
 		sDecanato.crearOActualizar(decanato2);
 		
-		rol.setTipo("ROLA_ADMIN");
+		rol.setTipo("ROLE_ADMIN");
 		Rol admin = sRol.crearOActualizar(rol);
 		
 		
