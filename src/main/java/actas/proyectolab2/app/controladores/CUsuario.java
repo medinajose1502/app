@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import actas.proyectolab2.app.excepciones.RegistroNoEncontrado;
+import actas.proyectolab2.app.excepciones.RecursoNoEncontrado;
 import actas.proyectolab2.app.modelos.Usuario;
 import actas.proyectolab2.app.servicios.SUsuario;
 
@@ -22,16 +22,21 @@ public class CUsuario {
 	SUsuario sUsuario;
 	
 	@GetMapping("/usuario/ver/{id}")
-	Usuario verUsuario(@PathVariable String id) throws RegistroNoEncontrado
+	Usuario verUsuario(@PathVariable String id) throws RecursoNoEncontrado
 	{
-		return sUsuario.encontrarPorCedula(id);
+		Usuario usuario = sUsuario.encontrarPorCedula(id);
+		if(usuario != null)
+			return usuario;
+		else throw new RecursoNoEncontrado("No se pudiero encontrar Usuario solicitado");
 	}
 	
 	@GetMapping("/usuario/ver/todos")
-	List <Usuario> verUsuarios()
+	List <Usuario> verUsuarios() throws RecursoNoEncontrado
 	{
 		List<Usuario> usuarios = sUsuario.encontrarTodos();
-		return usuarios;
+		if(usuarios != null)
+			return usuarios;
+		else throw new RecursoNoEncontrado("No se pudieron encontrar Decanatos registrados");
 	}
 	
 	@PostMapping("/usuario/guardar")
@@ -41,7 +46,7 @@ public class CUsuario {
 	}
 	
 	@DeleteMapping("/usuario/eliminar/{id}")
-	void eliminarUsuario(@PathVariable Long id) throws RegistroNoEncontrado
+	void eliminarUsuario(@PathVariable Long id)
 	{
 		sUsuario.eliminarPorId(id);
 	}

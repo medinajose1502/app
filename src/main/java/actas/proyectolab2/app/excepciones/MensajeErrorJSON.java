@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@SuppressWarnings("serial")
 @AllArgsConstructor
 @Getter
 @Setter
-public class RegistroNoEncontrado extends Exception {
+public class MensajeErrorJSON{
+	String codigo;
 	String mensaje;
 }

@@ -1,14 +1,11 @@
 package actas.proyectolab2.app.servicios;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import actas.proyectolab2.app.excepciones.RegistroNoEncontrado;
-import actas.proyectolab2.app.modelos.Rol;
 import actas.proyectolab2.app.modelos.Usuario;
 import actas.proyectolab2.app.repositorios.RRol;
 import actas.proyectolab2.app.repositorios.RUsuario;
@@ -29,17 +26,17 @@ public class SUsuario {
         if(result.size() > 0) 
             return result;
         else
-            return new ArrayList<Usuario>();
+        	return null;
     }
      
-    public Usuario encontrarPorCedula(String id) throws RegistroNoEncontrado
+    public Usuario encontrarPorCedula(String id)
     {
         Optional<Usuario> usuarioEncontrado = rUsuario.findByCedula(id);
          
         if(usuarioEncontrado.isPresent()) 
             return usuarioEncontrado.get();     
         else     
-            throw new RegistroNoEncontrado("No se pudo encontrar al usuario con la cédula especificada.");
+        	return null;
     }
     
     public Usuario crearOActualizar(Usuario usuario)
@@ -78,14 +75,12 @@ public class SUsuario {
         }
     }
      
-    public void eliminarPorId(Long id) throws RegistroNoEncontrado
+    public void eliminarPorId(Long id)
     {
         Optional<Usuario> usuarioEncontrado = rUsuario.findById(id);
          
         if(usuarioEncontrado.isPresent())
             rUsuario.deleteById(id);
-        else 
-            throw new RegistroNoEncontrado("No se pudo encontrar al usuario con la cédula especificada.");
     }
 	
 }

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import actas.proyectolab2.app.excepciones.MensajeErrorDeCampo;
-import actas.proyectolab2.app.excepciones.RegistroNoEncontrado;
+import actas.proyectolab2.app.excepciones.RecursoNoEncontrado;
 import actas.proyectolab2.app.modelos.Acta;
 import actas.proyectolab2.app.servicios.SActa;
 
@@ -30,16 +30,21 @@ public class CActa {
 		SActa sActa;
 		
 		@GetMapping("/acta/ver/{id}")
-		Acta verActa(@PathVariable Long id) throws RegistroNoEncontrado
+		Acta verActa(@PathVariable Long id) throws RecursoNoEncontrado
 		{
-			return sActa.encontrarPorId(id);
+			Acta acta = sActa.encontrarPorId(id);
+			if(acta != null)
+				return acta;
+			else throw new RecursoNoEncontrado("No se pudo encontrar el Acta solicitada");
 		}
 		
 		@GetMapping("/acta/ver/todas")
-		List <Acta> verActas()
+		List <Acta> verActas() throws RecursoNoEncontrado
 		{
 			List<Acta> actas = sActa.encontrarTodas();
-			return actas;
+			if(actas != null)
+				return actas;
+			else throw new RecursoNoEncontrado("No se pudieron encontrar Actas registradas");
 		}
 		
 		@PostMapping("/acta/guardar")
@@ -57,7 +62,7 @@ public class CActa {
 		}
 		
 		@DeleteMapping("/acta/eliminar/{id}")
-		void eliminarActas(@PathVariable Long id) throws RegistroNoEncontrado
+		void eliminarActas(@PathVariable Long id)
 		{
 			sActa.eliminarPorId(id);
 		}

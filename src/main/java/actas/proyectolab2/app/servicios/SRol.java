@@ -1,12 +1,11 @@
 package actas.proyectolab2.app.servicios;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import actas.proyectolab2.app.excepciones.RegistroNoEncontrado;
 import actas.proyectolab2.app.modelos.Rol;
 import actas.proyectolab2.app.repositorios.RRol;
  
@@ -21,25 +20,20 @@ public class SRol
     {
         List<Rol> result = (List<Rol>) rRol.findAll();
          
-        if(result.size() > 0) {
+        if(result.size() > 0)
             return result;
-        } else {
-            return new ArrayList<Rol>();
-        }
+        else
+            return null;
     }
      
-    public Rol encontrarPorId(Long id) throws RegistroNoEncontrado
+    public Rol encontrarPorId(Long id)
     {
         Optional<Rol> rolEncontrado = rRol.findById(id);
          
         if(rolEncontrado.isPresent()) 
-        {
             return rolEncontrado.get();
-        } 
-        else 
-        {
-            throw new RegistroNoEncontrado("No rolEncontrado record exist for given id");
-        }
+        else
+        	return null;
     }
      
     public Rol crearOActualizar(Rol rol)
@@ -72,17 +66,11 @@ public class SRol
         }
     }
      
-    public void eliminarPorId(Long id) throws RegistroNoEncontrado
+    public void eliminarPorId(Long id)
     {
         Optional<Rol> rolEncontrado = rRol.findById(id);
          
         if(rolEncontrado.isPresent())
-        {
             rRol.deleteById(id);
-        } 
-        else 
-        {
-            throw new RegistroNoEncontrado("No rolEncontrado record exist for given id");
-        }
     }
 }

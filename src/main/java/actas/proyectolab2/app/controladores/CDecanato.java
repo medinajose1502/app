@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import actas.proyectolab2.app.excepciones.MensajeErrorDeCampo;
-import actas.proyectolab2.app.excepciones.RegistroNoEncontrado;
+import actas.proyectolab2.app.excepciones.RecursoNoEncontrado;
 import actas.proyectolab2.app.modelos.Decanato;
 import actas.proyectolab2.app.servicios.SDecanato;
 
@@ -28,16 +28,22 @@ public class CDecanato {
 	SDecanato sDecanato;
 	
 	@GetMapping("/decanato/ver/{id}")
-	Decanato verDecanatos(@PathVariable Long id) throws RegistroNoEncontrado 
+	Decanato verDecanato(@PathVariable Long id) throws RecursoNoEncontrado
 	{
-		return sDecanato.encontrarPorId(id);
+		Decanato decanato = sDecanato.encontrarPorId(id);
+		if (decanato != null)
+			return decanato;
+		else throw new RecursoNoEncontrado("No se pudo encontrar el Decanato solicitado");
+					
 	}
 	
 	@GetMapping("/decanato/ver/todos")
-	List <Decanato> verDecanato()
+	List <Decanato> verDecanatos() throws RecursoNoEncontrado
 	{
 		List<Decanato> decanatos = sDecanato.encontrarTodos();
-		return decanatos;
+		if(decanatos != null)
+			return decanatos;
+		else throw new RecursoNoEncontrado("No se pudieron encontrar Decanatos registrados");
 	}
 	
 	@PostMapping("/decanato/guardar")
@@ -55,7 +61,7 @@ public class CDecanato {
 	}
 	
 	@DeleteMapping("/decanato/eliminar/{id}")
-	void eliminarDecanato(@PathVariable Long id) throws RegistroNoEncontrado
+	void eliminarDecanato(@PathVariable Long id)
 	{
 		sDecanato.eliminarPorId(id);
 	}

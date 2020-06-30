@@ -1,13 +1,11 @@
 package actas.proyectolab2.app.servicios;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import actas.proyectolab2.app.excepciones.RegistroNoEncontrado;
 import actas.proyectolab2.app.modelos.Acta;
 import actas.proyectolab2.app.repositorios.RActa;
 
@@ -23,17 +21,17 @@ public class SActa {
         if(result.size() > 0) 
             return result;
         else 
-            return new ArrayList<Acta>();
+        	return null;
     }
      
-    public Acta encontrarPorId(Long id) throws RegistroNoEncontrado
+    public Acta encontrarPorId(Long id)
     {
         Optional<Acta> actaEncontrada = rActa.findById(id);
          
         if(actaEncontrada.isPresent()) 
             return actaEncontrada.get();
-        else 
-            throw new RegistroNoEncontrado("No actaEncontrada record exist for given id");
+        else return null;
+        
     }
     
     public Acta crearOActualizar(Acta acta)
@@ -65,13 +63,11 @@ public class SActa {
         }
     }
      
-    public void eliminarPorId(Long id) throws RegistroNoEncontrado
+    public void eliminarPorId(Long id)
     {
         Optional<Acta> actaEncontrada = rActa.findById(id);
-         
+        
         if(actaEncontrada.isPresent())
             rActa.deleteById(id);
-        else 
-            throw new RegistroNoEncontrado("No actaEncontrada record exist for given id");
     }
 }

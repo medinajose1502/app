@@ -1,13 +1,11 @@
 package actas.proyectolab2.app.servicios;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import actas.proyectolab2.app.excepciones.RegistroNoEncontrado;
 import actas.proyectolab2.app.modelos.Decanato;
 import actas.proyectolab2.app.repositorios.RDecanato;
 
@@ -23,17 +21,17 @@ public class SDecanato {
         if(result.size() > 0) 
             return result;
         else 
-            return new ArrayList<Decanato>();
+            return null;
     }
      
-    public Decanato encontrarPorId(Long id) throws RegistroNoEncontrado
+    public Decanato encontrarPorId(Long id)
     {
         Optional<Decanato> decanatoEncontrado = rDecanato.findById(id);
          
         if(decanatoEncontrado.isPresent()) 
             return decanatoEncontrado.get();
         else 
-            throw new RegistroNoEncontrado("No decanatoEncontrado record exist for given id");
+            return null;
     }
     
     public Decanato crearOActualizar(Decanato decanato)
@@ -69,14 +67,12 @@ public class SDecanato {
         }
     }
      
-    public void eliminarPorId(Long id) throws RegistroNoEncontrado
+    public void eliminarPorId(Long id)
     {
         Optional<Decanato> decanatoEncontrado = rDecanato.findById(id);
          
         if(decanatoEncontrado.isPresent())
             rDecanato.deleteById(id);        
-        else 
-            throw new RegistroNoEncontrado("No decanatoEncontrado record exist for given id");
     }
 	
 }
