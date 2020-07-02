@@ -89,8 +89,11 @@ public class CActa {
 		}
 		
 		@PostMapping("/acta/guardar")
-		Acta guardarActa(@Valid @RequestBody Acta acta)
-		{
+		Acta guardarActa(@Valid @RequestBody Acta acta, Authentication auth)
+		{	
+			Usuario usuario = sUsuario.encontrarPorCedula(((UsuarioPrincipal)auth.getPrincipal()).getUsuario().getCedula());
+			acta.setUsuario(usuario);
+			acta.setDecanato(usuario.getDecanato());
 			return sActa.crearOActualizar(acta);
 		}
 		

@@ -1,7 +1,7 @@
 package actas.proyectolab2.app.modelos;
 
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -45,17 +44,19 @@ public class Acta {
 	
 	@JsonProperty
 	@Column (name = "fecha")
-	private LocalDateTime fecha;
+	private LocalDate fecha;
 	
 	@JsonProperty
 	@Column (name = "estado")
 	private boolean estado;
 
+	@JsonProperty
 	@JsonBackReference
 	@ManyToOne
     @JoinColumn(name="iddecanato", nullable=false)
     private Decanato decanato;
 	
+	@JsonProperty
 	@JsonBackReference
 	@ManyToOne
     @JoinColumn(name="idusuario", nullable=false)

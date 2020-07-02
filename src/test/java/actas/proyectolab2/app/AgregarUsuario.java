@@ -1,5 +1,6 @@
 package actas.proyectolab2.app;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
@@ -113,14 +114,14 @@ class AgregarUsuario {
 		acta.setDecanato(decanato);
 		acta.setTipo('E');
 		acta.setDescripcion("Acta de la sesión de prueba 1");
-		acta.setFecha(LocalDateTime.now());
+		acta.setFecha(LocalDate.now());
 		acta.setUsuario(usuario2);
 		sActa.crearOActualizar(acta);
 		
 		acta2.setDecanato(decanato2);
 		acta2.setTipo('O');
 		acta2.setDescripcion("Acta de la sesión de prueba 2");
-		acta2.setFecha(LocalDateTime.now());
+		acta2.setFecha(LocalDate.now());
 		acta2.setUsuario(usuario5);
 		sActa.crearOActualizar(acta2);
 	}

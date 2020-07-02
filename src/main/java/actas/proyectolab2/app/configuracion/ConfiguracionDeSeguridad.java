@@ -1,13 +1,21 @@
 package actas.proyectolab2.app.configuracion;
 
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import actas.proyectolab2.app.servicios.SUserDetailsService;
 
@@ -31,9 +39,13 @@ public class ConfiguracionDeSeguridad extends WebSecurityConfigurerAdapter{
             .authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
-            .formLogin().and()
+            .formLogin().loginPage("/login").permitAll()
+            .and()
             .csrf().disable()
             .httpBasic();
+        
+        http.cors().disable();
+        http.headers().disable();
     }
     
     
@@ -48,6 +60,23 @@ public class ConfiguracionDeSeguridad extends WebSecurityConfigurerAdapter{
     @Autowired
     SUserDetailsService userDetailsService;
 	
+    
+    @SuppressWarnings("rawtypes")
+	@Bean
+    public FilterRegistrationBean simpleCorsFilter() {  
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();  
+        CorsConfiguration config = new CorsConfiguration();  
+        config.setAllowCredentials(true); 
+        // *** URL below needs to match the Vue client URL and port ***
+        config.setAllowedOrigins(Collections.singletonList("*")); 
+        config.setAllowedMethods(Collections.singletonList("*"));  
+        config.setAllowedHeaders(Collections.singletonList("*"));  
+        source.registerCorsConfiguration("/**", config);  
+        FilterRegistrationBean bean = new FilterRegistrationBean<>(new CorsFilter(source));
+        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);  
+        return bean;  
+    }
+    
 
     /*public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception 
     { 
