@@ -1,79 +1,68 @@
 <template>
-  <div>
-    <b-container>
-      <b-row>
-        <b-col></b-col>
-        <b-col cols="8">
-          <b-card>
-            <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-              <b-calendar
-                v-model="value"
-                v-bind="labels[locale] || {}"
-                :locale="locale"
-                :start-weekday="weekday"
-                :hide-header="hideHeader"
-                :show-decade-nav="showDecadeNav"
-                @context="onContext"
-              ></b-calendar>
-
-              <b-form-group
-                id="input-group-2"
-                label="Fecha de la sesión"
-                label-for="input-2"
-                align="left"
-              >
-                <b-form-input
-                  id="input-2"
-                  v-model="formulario.fecha"
-                  type="password"
-                  required
-                  placeholder="Ingrese su contraseña"
-                ></b-form-input>
-              </b-form-group>
-
-              <b-form-group id="input-group-3" label="Descripción" label-for="input-3" align="left">
+  <b-container>
+    <b-row>
+      <b-col></b-col>
+      <b-col cols="10">
+        <b-card
+          border-variant="primary"
+          header-bg-variant="primary"
+          header="Crear una acta"
+          text-variant="white"
+          footer-bg-variant="primary"
+        >
+          <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+            <b-row>
+              <b-col md="auto">
+                <b-form-select id="tipo" v-model="acta.tipo" class="mb-3">
+                  <b-form-select-option value="O">Ordinaria</b-form-select-option>
+                  <b-form-select-option value="E">Extraordinaria</b-form-select-option>
+                </b-form-select>
+                <p></p>
+                <b-calendar
+                  v-model="acta.fecha"
+                  @context="onContext"
+                  :locale="es"
+                  v-bind="labels[locale]"
+                  :start-weekday="weekday"
+                  :hide-header="hideHeader"
+                  :show-decade-nav="showDecadeNav"
+                ></b-calendar>
+              </b-col>
+              <b-col>
                 <b-form-textarea
-                  id="input-3"
-                  v-model="formulario.descripcion"
-                  type="text"
-                  required
-                  placeholder="Ingrese la descripción del acta"
+                  id="textarea"
+                  v-model="acta.descripcion"
+                  placeholder="Ingrese los detalles de la sesión a registrar..."
+                  rows="17"
+                  max-rows="10000"
                 ></b-form-textarea>
-              </b-form-group>
-
-              <div align="right">
-                <b-button type="reset" variant="danger">Limpiar</b-button>
-                <b-button type="submit" variant="primary">Ingresar</b-button>
-              </div>
-            </b-form>
-          </b-card>
-        </b-col>
-        <b-col></b-col>
-      </b-row>
-    </b-container>
-  </div>
+              </b-col>
+            </b-row>
+            <b-card-footer align="right">
+              <b-button variant="danger">Limpiar</b-button>
+              <b-button variant="primary">Enviar</b-button>
+            </b-card-footer>
+          </b-form>
+        </b-card>
+      </b-col>
+      <b-col></b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
-import ServiciosAPI from "@/services/ServiciosAPI.js";
-
 export default {
   data() {
     return {
       acta: {
-        tipo: "",
-        descripcion: "",
-        fecha: ""
+        tipo: "O",
+        fecha: "",
+        descripcion: ""
       },
-      value: "",
-      context: null,
-      showDecadeNav: true,
+      showDecadeNav: false,
       hideHeader: false,
-      locale: "en-ES",
-      locales: [
-        { value: "en-US", text: "English US (en-US)" },
-        { value: "es-ES", text: "Español" }
-      ],
+      locale: "es",
+      locales: [{ value: "es", text: "Español (es-VE)" }],
       weekday: 0,
       weekdays: [
         { value: 0, text: "Domingo" },
@@ -86,44 +75,26 @@ export default {
       ],
       labels: {
         es: {
-          labelPrevDecade: "Decada anterior",
+          labelPrevDecade: "Década pasda",
           labelPrevYear: "Año pasado",
           labelPrevMonth: "Mes pasado",
           labelCurrentMonth: "Mes actual",
-          labelNextMonth: "Proximo mes",
-          labelNextYear: "Proximo año",
-          labelNextDecade: "Proxima decada",
+          labelNextMonth: "Próximo mes",
+          labelNextYear: "Próximo año",
+          labelNextDecade: "Próxima década",
           labelToday: "Hoy",
           labelSelected: "Fecha seleccionada",
-          labelNoDateSelected: "No ha elegido una fecha",
+          labelNoDateSelected: "No ha seleccinado una fecha",
           labelCalendar: "Calendario",
           labelNav: "Navegación",
-          labelHelp: "Use las teclas para cambiar la fecha"
-        },
-        show: true
-      },
-      methods: {
-        onContext(ctx) {
-          this.context = ctx;
-        },
-        onSubmit(evt) {
-          evt.preventDefault();
-          ServiciosAPI.registrarActa(this.acta);
-        },
-        onReset(evt) {
-          evt.preventDefault();
-          // Reset our form values
-          this.acta.tipo = "";
-          this.acta.descripcion = "";
-          this.acta.fecha = "";
-          // Trick to reset/clear native browser form validation state
-          this.show = false;
-          this.$nextTick(() => {
-            this.show = true;
-          });
+          labelHelp: "Use las flechas para selecciona una fecha"
         }
       }
     };
-  }
+  },
+  methods: {}
 };
 </script>
+
+<style>
+</style>
