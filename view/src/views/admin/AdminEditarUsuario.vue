@@ -5,7 +5,7 @@
       <b-col cols="10">
         <b-card>
           <b-card-header header-bg-variant="primary" header-text-variant="white">
-            <h3>Crear usuario</h3>
+            <h3>Editar usuario</h3>
           </b-card-header>
           <b-form @submit="onSubmit" @reset="onReset" v-if="show">
             <b-row>
@@ -32,7 +32,7 @@
               <b-form-group id="input-group-3" label="Nombres" label-for="input-3" align="left">
                 <b-form-input
                   id="input-3"
-                  v-model="usuario.nombre"
+                  v-model="usuario.nombres"
                   required
                   placeholder="Ingrese los nombres del usuario."
                 ></b-form-input>
@@ -49,7 +49,12 @@
 
               <p></p>
 
-              <b-form-select id="decanato" v-model="decanato" :options="opciones" class="mb-3"></b-form-select>
+              <b-form-select
+                id="decanato"
+                v-model="usuario.decanato.id"
+                :options="opc"
+                class="mb-3"
+              ></b-form-select>
 
               <b-form-select id="tipo" v-model="rol.tipo" class="mb-3">
                 <b-form-select-option value="ROLE_ADMIN">Admin</b-form-select-option>
@@ -74,8 +79,14 @@
 import ServiciosAPI from "@/services/ServiciosAPI.js";
 
 export default {
+  props: {
+    cedula: {
+      type: Number
+    }
+  },
   data() {
     return {
+      decanatos: [],
       rol: {
         id: "",
         tipo: ""
@@ -86,21 +97,37 @@ export default {
         nombres: "",
         apellidos: "",
         roles: [],
-        decanato: ""
+        decanato: {
+          id: ""
+        },
+        actas: []
       },
-      opciones: [],
-      decanatos: [],
-      show: true
+      show: true,
+      opc: []
     };
   },
   created() {
-    this.decanatos = ServiciosAPI.getDecanatos();
+    ServiciosAPI.getDecanatos()
+      .then(response => {
+        this.decanatos = response.data;
+      })
+      .catch(error => {
+        console.log("Ocurrió un error: " + error.response);
+      });
+
+    ServiciosAPI.getUsuario(this.cedula)
+      .then(response => {
+        this.usuario = response.data;
+      })
+      .catch(error => {
+        console.log("Ocurrió un error: " + error.response);
+      });
   },
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      this.acta.roles.push(rol);
-      ServiciosAPI.guardarUsuario(this.acta);
+      this.usuario.roles.push(this.rol);
+      ServiciosAPI.guardarUsuario(this.usuario);
     },
     onReset(evt) {
       evt.preventDefault();
@@ -110,7 +137,7 @@ export default {
       this.usuario.nombres = "";
       this.usuario.apellidos = "";
       this.usuario.roles = [];
-      this.usuario.decanato = "";
+      this.usuario.decanato.id = "";
       this.rol.id = "";
       this.rol.tipo = "";
       // Trick to reset/clear native browser form validation state
@@ -121,10 +148,10 @@ export default {
     }
   },
   computed: {
-    opc: function() {
+    opciones: function() {
       this.decanatos.forEach(decanato => {
         var op = { value: decanato.id, text: decanato.nombre };
-        this.opciones.push(op);
+        this.opc.push(op);
       });
     }
   }

@@ -124,7 +124,7 @@ export default {
       this.usuario.nombres = "";
       this.usuario.apellidos = "";
       this.usuario.roles = [];
-      this.usuario.decanato = "";
+      this.usuario.decanato.id = "";
       this.rol.id = "";
       this.rol.tipo = "";
       // Trick to reset/clear native browser form validation state
