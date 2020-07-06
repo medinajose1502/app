@@ -94,7 +94,7 @@ export default {
         contrasenna: "",
         nombres: "",
         apellidos: "",
-        roles: [rol],
+        roles: [],
         decanato: ""
       },
       show: true
@@ -103,6 +103,7 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
+      this.acta.roles.push(rol);
       ServiciosAPI.guardarUsuario(this.acta);
     },
     onReset(evt) {

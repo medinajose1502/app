@@ -53,7 +53,7 @@ const routes = [
     component: AdminHome
   },
   {
-    path: '/admin/acta/:id',
+    path: '/admin/acta/ver/:id',
     name: 'AdminVerActa',
     component: AdminVerActa,
     props: true
@@ -70,7 +70,7 @@ const routes = [
     props: true
   },
   {
-    path: '/admin/decanato/:id',
+    path: '/admin/decanato/ver/:id',
     name: 'AdminVerDecanato',
     component: AdminVerDecanato,
     props: true
@@ -87,7 +87,7 @@ const routes = [
     props: true
   },
   {
-    path: '/admin/usuario/:id',
+    path: '/admin/usuario/ver/:id',
     name: 'AdminVerUsuario',
     component: AdminVerUsuario,
     props: true
