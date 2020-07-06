@@ -55,11 +55,11 @@ public class Decanato {
 	@Column (name = "estado")
 	private boolean estado;
 	
-	@JsonManagedReference
+	@JsonManagedReference(value = "decanato-usuario")
 	@OneToMany(mappedBy="decanato", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Usuario> usuarios = new ArrayList<Usuario>();
 	
-	@JsonManagedReference
+	@JsonManagedReference(value = "decanato-acta")
 	@OneToMany(mappedBy="decanato", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Acta> actas = new ArrayList<Acta>();
 }

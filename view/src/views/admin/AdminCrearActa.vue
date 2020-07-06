@@ -3,15 +3,13 @@
     <b-row>
       <b-col></b-col>
       <b-col cols="10">
-        <b-card
-          border-variant="primary"
-          header-bg-variant="primary"
-          header="Crear una acta"
-          text-variant="white"
-          footer-bg-variant="primary"
-        >
+        <b-card>
+          <b-card-header header-bg-variant="primary" header-text-variant="white">
+            <h3>Crear acta</h3>
+          </b-card-header>
           <b-form @submit="onSubmit" @reset="onReset" v-if="show">
             <b-row>
+              <p></p>
               <b-col md="auto">
                 <b-form-select id="tipo" v-model="acta.tipo" class="mb-3">
                   <b-form-select-option value="O">Ordinaria</b-form-select-option>
@@ -20,9 +18,7 @@
                 <p></p>
                 <b-calendar
                   v-model="acta.fecha"
-                  @context="onContext"
-                  :locale="es"
-                  v-bind="labels[locale]"
+                  v-bind="labels"
                   :start-weekday="weekday"
                   :hide-header="hideHeader"
                   :show-decade-nav="showDecadeNav"
@@ -38,9 +34,11 @@
                 ></b-form-textarea>
               </b-col>
             </b-row>
-            <b-card-footer align="right">
-              <b-button variant="danger">Limpiar</b-button>
-              <b-button variant="primary">Enviar</b-button>
+            <p></p>
+            <b-card-footer align="right" footer-bg-variant="primary">
+              <b-button variant="warning">Volver</b-button>
+              <b-button type="reset" variant="danger">Limpiar</b-button>
+              <b-button type="submit" variant="info">Enviar</b-button>
             </b-card-footer>
           </b-form>
         </b-card>
@@ -51,6 +49,8 @@
 </template>
 
 <script>
+import ServiciosAPI from "@/services/ServiciosAPI.js";
+
 export default {
   data() {
     return {
@@ -59,10 +59,9 @@ export default {
         fecha: "",
         descripcion: ""
       },
+      show: true,
       showDecadeNav: false,
       hideHeader: false,
-      locale: "es",
-      locales: [{ value: "es", text: "Español (es-VE)" }],
       weekday: 0,
       weekdays: [
         { value: 0, text: "Domingo" },
@@ -74,25 +73,40 @@ export default {
         { value: 6, text: "Sábado" }
       ],
       labels: {
-        es: {
-          labelPrevDecade: "Década pasda",
-          labelPrevYear: "Año pasado",
-          labelPrevMonth: "Mes pasado",
-          labelCurrentMonth: "Mes actual",
-          labelNextMonth: "Próximo mes",
-          labelNextYear: "Próximo año",
-          labelNextDecade: "Próxima década",
-          labelToday: "Hoy",
-          labelSelected: "Fecha seleccionada",
-          labelNoDateSelected: "No ha seleccinado una fecha",
-          labelCalendar: "Calendario",
-          labelNav: "Navegación",
-          labelHelp: "Use las flechas para selecciona una fecha"
-        }
+        labelPrevDecade: "Década pasda",
+        labelPrevYear: "Año pasado",
+        labelPrevMonth: "Mes pasado",
+        labelCurrentMonth: "Mes actual",
+        labelNextMonth: "Próximo mes",
+        labelNextYear: "Próximo año",
+        labelNextDecade: "Próxima década",
+        labelToday: "Hoy",
+        labelSelected: "Fecha seleccionada",
+        labelNoDateSelected: "No ha seleccinado una fecha",
+        labelCalendar: "Calendario",
+        labelNav: "Navegación",
+        labelHelp: "Use las flechas para selecciona una fecha"
       }
     };
   },
-  methods: {}
+  methods: {
+    onSubmit(evt) {
+      evt.preventDefault();
+      ServiciosAPI.guardarActa(this.acta);
+    },
+    onReset(evt) {
+      evt.preventDefault();
+      // Reset our form values
+      this.acta.tipo = "O";
+      this.acta.fecha = "";
+      this.acta.descripcion = "";
+      // Trick to reset/clear native browser form validation state
+      this.show = false;
+      this.$nextTick(() => {
+        this.show = true;
+      });
+    }
+  }
 };
 </script>
 

@@ -1,30 +1,28 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 import Login from '../views/Login.vue';
-import SecretarioHome from '@/views/SecretarioHome.vue';
-import SecretarioVerActa from '@/views/SecretarioVerActa.vue';
-import SecretarioCrearActa from '@/views/SecretarioCrearActa.vue';
+import AdminHome from '@/views/admin/AdminHome.vue';
+import AdminVerActa from '@/views/admin/AdminVerActa.vue';
+import AdminCrearActa from '@/views/admin/AdminCrearActa.vue';
+import AdminEditarActa from '@/views/admin/AdminEditarActa.vue';
+import AdminVerDecanato from '@/views/admin/AdminVerDecanato.vue';
+import AdminCrearDecanato from '@/views/admin/AdminCrearDecanato.vue';
+import AdminEditarDecanato from '@/views/admin/AdminEditarDecanato.vue';
+import AdminVerUsuario from '@/views/admin/AdminVerUsuario.vue';
+import AdminCrearUsuario from '@/views/admin/AdminCrearUsuario.vue';
+import AdminEditarUsuario from '@/views/admin/AdminEditarUsuario.vue';
 
+import SecretarioHome from '@/views/secretario/SecretarioHome.vue';
+import SecretarioVerActa from '@/views/secretario/SecretarioVerActa.vue';
+import SecretarioCrearActa from '@/views/secretario/SecretarioCrearActa.vue';
+import SecretarioEditarActa from '@/views/secretario/SecretarioEditarActa.vue';
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
-  {
     path: '/login',
     name: 'Login',
+    alias: '/',
     component: Login
   },
   {
@@ -42,6 +40,68 @@ const routes = [
     path: '/secretario/crear',
     name: 'SecretarioCrearActa',
     component: SecretarioCrearActa,
+  },
+  {
+    path: '/secretario/acta/editar/:id',
+    name: 'SecretarioEditarActa',
+    component: SecretarioEditarActa,
+    props: true
+  },
+  {
+    path: '/admin',
+    name: 'AdminHome',
+    component: AdminHome
+  },
+  {
+    path: '/admin/acta/:id',
+    name: 'SecretarioVerActa',
+    component: AdminVerActa,
+    props: true
+  },
+  {
+    path: '/admin/acta/crear',
+    name: 'AdminCrearActa',
+    component: AdminCrearActa,
+  },
+  {
+    path: '/admin/acta/editar/:id',
+    name: 'AdminEditarActa',
+    component: AdminEditarActa,
+    props: true
+  },
+  {
+    path: '/admin/decanato/:id',
+    name: 'AdminVerDecanato',
+    component: AdminVerDecanato,
+    props: true
+  },
+  {
+    path: '/admin/decanato/crear',
+    name: 'AdminCrearDecanato',
+    component: AdminCrearDecanato,
+  },
+  {
+    path: '/admin/decanato/editar/:id',
+    name: 'AdminEditarActa',
+    component: AdminEditarActa,
+    props: true
+  },
+  {
+    path: '/admin/usuario/:id',
+    name: 'AdminVerUsuario',
+    component: AdminVerUsuario,
+    props: true
+  },
+  {
+    path: '/admin/usuario/crear',
+    name: 'AdminCrearUsuario',
+    component: AdminCrearUsuario,
+  },
+  {
+    path: '/admin/usuario/editar/:id',
+    name: 'AdminEditarUsuario',
+    component: AdminEditarUsuario,
+    props: true
   },
 ]
 

@@ -66,12 +66,12 @@ public class Usuario {
 	@Column(name = "estado")
 	private boolean estado;
 	
-	@JsonBackReference
+	@JsonBackReference(value = "decanato-usuario")
 	@ManyToOne
     @JoinColumn(name="iddecanato", nullable=false)
     private Decanato decanato;
 	
-	@JsonManagedReference
+	@JsonManagedReference(value = "usuario-acta")
 	@OneToMany(mappedBy="usuario", cascade = CascadeType.ALL)
     private List<Acta> actas = new ArrayList<Acta>();
 	

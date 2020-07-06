@@ -51,13 +51,13 @@ public class Acta {
 	private boolean estado;
 
 	@JsonProperty
-	@JsonBackReference
+	@JsonBackReference(value = "decanato-acta")
 	@ManyToOne
     @JoinColumn(name="iddecanato", nullable=false)
     private Decanato decanato;
 	
 	@JsonProperty
-	@JsonBackReference
+	@JsonBackReference(value = "usuario-acta")
 	@ManyToOne
     @JoinColumn(name="idusuario", nullable=false)
     private Usuario usuario;

@@ -25,5 +25,16 @@ export default {
 
     getActas() {
         return apiServidor.get('/acta/ver/todas')
+    },
+    getActa(id) {
+        return apiServidor.get('/acta/ver/' + id)
+    },
+    guardarActa(Acta) {
+        return apiServidor.post('/acta/guardar', Acta)
+            .catch((error) => {
+                console.log(error.response)
+            })
     }
+
+
 }
