@@ -34,11 +34,21 @@
                     max-rows="10000"
                   ></b-form-textarea>
                 </b-col>
+                <b-form-file
+                  v-model="acta.archivo"
+                  :state="Boolean(acta.archivo)"
+                  placeholder="¡Elige un archivo o arrastralo hasta aquí!"
+                  drop-placeholder="¡Sueltalo aquí!"
+                  accept=".pdf"
+                  size="lg"
+                ></b-form-file>
               </b-row>
               <p></p>
             </b-card-body>
             <b-card-footer align="right" footer-bg-variant="primary">
-              <b-button variant="warning">Volver</b-button>
+              <router-link :to="{ name: 'SecretarioHome'}">
+                <b-button variant="warning">Volver</b-button>
+              </router-link>
               <b-button type="reset" variant="danger">Limpiar</b-button>
               <b-button type="submit" variant="info">Enviar</b-button>
             </b-card-footer>
@@ -59,7 +69,8 @@ export default {
       acta: {
         tipo: "O",
         fecha: "",
-        descripcion: ""
+        descripcion: "",
+        archivo: null
       },
       show: true,
       showDecadeNav: false,

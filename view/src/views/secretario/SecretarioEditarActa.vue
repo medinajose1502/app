@@ -37,7 +37,9 @@
             </b-row>
             <p></p>
             <b-card-footer align="right" footer-bg-variant="primary">
-              <b-button variant="warning">Volver</b-button>
+              <router-link :to="{ name: 'SecretarioHome'}">
+                <b-button variant="warning">Volver</b-button>
+              </router-link>
               <b-button type="reset" variant="danger">Eliminar</b-button>
               <b-button type="submit" variant="info">Enviar</b-button>
             </b-card-footer>
@@ -97,7 +99,13 @@ export default {
     };
   },
   created() {
-    this.acta.id = this.id;
+    ServiciosAPI.getActa(this.id)
+      .then(response => {
+        this.acta = response.data;
+      })
+      .catch(error => {
+        console.log(error.data);
+      });
   },
   methods: {
     onSubmit(evt) {
