@@ -61,7 +61,8 @@ public class SUsuario {
                 usuarioActualizado.setApellidos(usuario.getApellidos());
                 usuarioActualizado.setEstado(usuario.isEstado());
                 usuarioActualizado.setDecanato(usuario.getDecanato());
-                
+                usuarioActualizado.setActas(usuarioEncontrado.get().getActas());
+                usuarioActualizado.setEstado(true);
                 usuarioActualizado = rUsuario.save(usuarioActualizado);
                 return usuarioActualizado;
             } 

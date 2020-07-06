@@ -15,12 +15,6 @@ export default {
         formData.set("username", formulario.username);
         formData.set("password", formulario.password);
         apiServidor.post('/login', formData, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
-            .then((result) => {
-                this.loginSuccessful(result);
-            })
-            .catch((error) => {
-                this.loginFailed();
-            })
     },
 
     getActas() {
@@ -40,6 +34,9 @@ export default {
     },
     getUsuario(id) {
         return apiServidor.get('/usuario/ver/' + id)
+    },
+    getUsuarioSesion() {
+        return apiServidor.get('/usuario/sesion')
     },
     guardarActa(Acta) {
         return apiServidor.post('/acta/guardar', Acta)

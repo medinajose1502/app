@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import actas.proyectolab2.app.excepciones.MensajeErrorDeCampo;
 import actas.proyectolab2.app.excepciones.RecursoNoEncontrado;
+import actas.proyectolab2.app.miscelaneos.UsuarioPrincipal;
 import actas.proyectolab2.app.modelos.Usuario;
 import actas.proyectolab2.app.servicios.SUsuario;
 
@@ -64,6 +66,16 @@ public class CUsuario {
 		List<MensajeErrorDeCampo> mensajesErrorDeCampo = erroresDeCampo.stream().map(errorDeCampo -> new MensajeErrorDeCampo(errorDeCampo.getField(), errorDeCampo.getDefaultMessage())).collect(Collectors.toList());
 		return mensajesErrorDeCampo;
 	}
+	
+	@GetMapping("/usuario/sesion")
+	Usuario getUsuarioSesion(Authentication auth) throws RecursoNoEncontrado
+	{
+		Usuario usuario = sUsuario.encontrarPorCedula(((UsuarioPrincipal)auth.getPrincipal()).getUsuario().getCedula());
+		if(usuario != null)
+			return usuario;
+		else throw new RecursoNoEncontrado("No se pudo encontrar el usuario solicitado.");
+	}
+	
 	
 	@Secured("ROLE_ADMIN")
 	@DeleteMapping("/usuario/eliminar/{id}")
