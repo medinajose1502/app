@@ -8,7 +8,7 @@
             <h3>Listado de actas</h3>
           </b-card-header>
           <b-card-text>
-            <TarjetaActa v-for="acta in actas" :key="acta.id" :acta="acta" />
+            <TarjetaActaS v-for="acta in actas" :key="acta.id" :acta="acta" />
           </b-card-text>
           <b-card-footer align="right">
             <b-button variant="primary">Crear una nueva acta</b-button>
@@ -22,10 +22,10 @@
 
 <script>
 import ServiciosAPI from "@/services/ServiciosAPI.js";
-import TarjetaActa from "@/components/TarjetaActa.vue";
+import TarjetaActaS from "@/components/TarjetaActaS.vue";
 export default {
   components: {
-    TarjetaActa
+    TarjetaActaS
   },
   data() {
     return {

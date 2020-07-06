@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../views/Login.vue';
+import Login from '@/views/Login.vue';
 import AdminHome from '@/views/admin/AdminHome.vue';
 import AdminVerActa from '@/views/admin/AdminVerActa.vue';
 import AdminCrearActa from '@/views/admin/AdminCrearActa.vue';
@@ -54,7 +54,7 @@ const routes = [
   },
   {
     path: '/admin/acta/:id',
-    name: 'SecretarioVerActa',
+    name: 'AdminVerActa',
     component: AdminVerActa,
     props: true
   },
@@ -82,8 +82,8 @@ const routes = [
   },
   {
     path: '/admin/decanato/editar/:id',
-    name: 'AdminEditarActa',
-    component: AdminEditarActa,
+    name: 'AdminEditarDecanato',
+    component: AdminEditarDecanato,
     props: true
   },
   {

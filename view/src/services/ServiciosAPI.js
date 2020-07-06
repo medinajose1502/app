@@ -34,7 +34,11 @@ export default {
             .catch((error) => {
                 console.log(error.response)
             })
+    },
+    getDecanatos() {
+        return apiServidor.get('/decanato/ver/todos')
     }
+
 
 
 }

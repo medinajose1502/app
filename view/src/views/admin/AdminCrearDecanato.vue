@@ -5,34 +5,42 @@
       <b-col cols="10">
         <b-card>
           <b-card-header header-bg-variant="primary" header-text-variant="white">
-            <h3>Crear acta</h3>
+            <h3>Crear decanato</h3>
           </b-card-header>
           <b-form @submit="onSubmit" @reset="onReset" v-if="show">
             <b-row>
               <p></p>
-              <b-col md="auto">
-                <b-form-select id="tipo" v-model="acta.tipo" class="mb-3">
-                  <b-form-select-option value="O">Ordinaria</b-form-select-option>
-                  <b-form-select-option value="E">Extraordinaria</b-form-select-option>
-                </b-form-select>
-                <p></p>
-                <b-calendar
-                  v-model="acta.fecha"
-                  v-bind="labels"
-                  :start-weekday="weekday"
-                  :hide-header="hideHeader"
-                  :show-decade-nav="showDecadeNav"
-                ></b-calendar>
-              </b-col>
-              <b-col>
-                <b-form-textarea
-                  id="textarea"
-                  v-model="acta.descripcion"
-                  placeholder="Ingrese los detalles de la sesión a registrar..."
-                  rows="17"
-                  max-rows="10000"
-                ></b-form-textarea>
-              </b-col>
+
+              <b-form-group id="input-group-1" label="Cédula" label-for="input-1" align="left">
+                <b-form-input
+                  id="input-1"
+                  v-model="decanato.nombre"
+                  required
+                  placeholder="Ingrese el nombre del decanato"
+                ></b-form-input>
+              </b-form-group>
+
+              <p></p>
+
+              <label for="descripcion"></label>
+              <b-form-textarea
+                id="descripcion"
+                v-model="decanato.descripcion"
+                placeholder="Ingrese una descripción para el decanato..."
+                rows="17"
+                max-rows="100"
+              ></b-form-textarea>
+
+              <p></p>
+
+              <b-form-group id="input-group-2" label="Contraseña" label-for="input-2" align="left">
+                <b-form-input
+                  id="input-2"
+                  v-model="decanato.ubicacion"
+                  required
+                  placeholder="Ingrese la ubicación del decanato."
+                ></b-form-input>
+              </b-form-group>
             </b-row>
             <p></p>
             <b-card-footer align="right" footer-bg-variant="primary">
@@ -54,52 +62,25 @@ import ServiciosAPI from "@/services/ServiciosAPI.js";
 export default {
   data() {
     return {
-      acta: {
-        tipo: "O",
-        fecha: "",
-        descripcion: ""
+      decanato: {
+        nombre: "",
+        descripcion: "",
+        ubicacion: ""
       },
-      show: true,
-      showDecadeNav: false,
-      hideHeader: false,
-      weekday: 0,
-      weekdays: [
-        { value: 0, text: "Domingo" },
-        { value: 1, text: "Lunes" },
-        { value: 2, text: "Martes" },
-        { value: 3, text: "Miércoles" },
-        { value: 4, text: "Jueves" },
-        { value: 5, text: "Viernes" },
-        { value: 6, text: "Sábado" }
-      ],
-      labels: {
-        labelPrevDecade: "Década pasda",
-        labelPrevYear: "Año pasado",
-        labelPrevMonth: "Mes pasado",
-        labelCurrentMonth: "Mes actual",
-        labelNextMonth: "Próximo mes",
-        labelNextYear: "Próximo año",
-        labelNextDecade: "Próxima década",
-        labelToday: "Hoy",
-        labelSelected: "Fecha seleccionada",
-        labelNoDateSelected: "No ha seleccinado una fecha",
-        labelCalendar: "Calendario",
-        labelNav: "Navegación",
-        labelHelp: "Use las flechas para selecciona una fecha"
-      }
+      show: true
     };
   },
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      ServiciosAPI.guardarActa(this.acta);
+      ServiciosAPI.guardarDecanato(this.decanato);
     },
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
-      this.acta.tipo = "O";
-      this.acta.fecha = "";
-      this.acta.descripcion = "";
+      this.decanato.nombre = "O";
+      this.decanato.ubicacion = "";
+      this.decanato.descripcion = "";
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {

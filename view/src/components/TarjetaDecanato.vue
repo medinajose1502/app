@@ -2,16 +2,15 @@
   <b-card>
     <b-container fluid>
       <b-row>
-        <b-col cols="10">
-          <p
-            align="left"
-          >Fecha de la sesión: {{decanato.fecha}} | Tipo de sesión: {{tipoSesion}} | Acta número: {{decanato.id}}</p>
+        <b-col cols="8">
+          <h4 align="left">Nombre: {{decanato.id}}</h4>
           <p align="left">Resumen de la descripción: {{resumenDesc}}</p>
+          <p align="left">Ubicación: {{decanato.ubicacion}}</p>
         </b-col>
         <b-col>
           <router-link :to="{ name: 'AdminVerDecanato', params: {id: decanato.id} }">
             <b-button variant="warning">
-              Ver Acta
+              Ver Decanato
               <b-icon-search></b-icon-search>
             </b-button>
           </router-link>
@@ -25,11 +24,6 @@
 export default {
   props: ["decanato"],
   computed: {
-    tipoSesion: function() {
-      if (this.decanato.tipo == "E") return "Extraordinaria";
-      else return "Ordinaria";
-    },
-
     resumenDesc: function() {
       return this.decanato.descripcion.slice(0, 30) + "...";
     }
