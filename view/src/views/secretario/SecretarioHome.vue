@@ -4,14 +4,16 @@
       <b-col></b-col>
       <b-col cols="10">
         <b-card>
-          <b-card-header>
+          <b-card-header header-bg-variant="primary" header-text-variant="white">
             <h3>Listado de actas</h3>
           </b-card-header>
-          <b-card-text>
+          <b-card-body>
             <TarjetaActaS v-for="acta in actas" :key="acta.id" :acta="acta" />
-          </b-card-text>
-          <b-card-footer align="right">
-            <b-button variant="primary">Crear una nueva acta</b-button>
+          </b-card-body>
+          <b-card-footer align="right" footer-bg-variant="primary">
+            <router-link :to="{ name: 'SecretarioCrearActa'}">
+              <b-button variant="info">Crear nueva acta</b-button>
+            </router-link>
           </b-card-footer>
         </b-card>
       </b-col>
@@ -33,7 +35,7 @@ export default {
     };
   },
   created() {
-    ServiciosAPI.getActas()
+    ServiciosAPI.getActasSecretario()
       .then(response => {
         this.actas = response.data;
       })

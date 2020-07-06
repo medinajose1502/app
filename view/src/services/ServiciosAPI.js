@@ -26,23 +26,11 @@ export default {
     getActas() {
         return apiServidor.get('/acta/ver/todas')
     },
-    getDecanatos() {
-        return apiServidor.get('/decanato/ver/todos')
-    },
-    getUsuarios() {
-        return apiServidor.get('/usuario/ver/todos')
-    },
     getActa(id) {
         return apiServidor.get('/acta/ver/' + id)
     },
-    getDecanato(id) {
-        return apiServidor.get('/decanato/ver/' + id)
-    },
-    getUsuario(id) {
-        return apiServidor.get('/usuario/ver/' + id)
-    },
-    getUsuarioSesion() {
-        return apiServidor.get('/usuario/sesion')
+    getActasSecretario() {
+        return apiServidor.get('/acta/ver/decanato')
     },
     guardarActa(Acta) {
         return apiServidor.post('/acta/guardar', Acta)
@@ -50,11 +38,29 @@ export default {
                 console.log(error.response)
             })
     },
+
+
+    getDecanatos() {
+        return apiServidor.get('/decanato/ver/todos')
+    },
+    getDecanato(id) {
+        return apiServidor.get('/decanato/ver/' + id)
+    },
     guardarDecanato(Decanato) {
         return apiServidor.post('/decanato/guardar', Decanato)
             .catch((error) => {
                 console.log(error.response)
             })
+    },
+
+    getUsuario(id) {
+        return apiServidor.get('/usuario/ver/' + id)
+    },
+    getUsuarios() {
+        return apiServidor.get('/usuario/ver/todos')
+    },
+    getUsuarioSesion() {
+        return apiServidor.get('/usuario/sesion')
     },
     guardarUsuario(Usuario) {
         return apiServidor.post('/usuario/guardar', Usuario)

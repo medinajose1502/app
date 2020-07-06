@@ -40,6 +40,7 @@ public class ConfiguracionDeSeguridad extends WebSecurityConfigurerAdapter{
                 .anyRequest().authenticated()
                 .and()
             .formLogin().loginPage("/login").permitAll()
+            .and().logout()
             .and()
             .csrf().disable()
             .httpBasic();

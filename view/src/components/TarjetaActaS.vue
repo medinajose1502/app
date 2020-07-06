@@ -3,10 +3,18 @@
     <b-container fluid>
       <b-row>
         <b-col cols="10">
-          <p
-            align="left"
-          >Fecha de la sesión: {{acta.fecha}} | Tipo de sesión: {{tipoSesion}} | Acta número: {{acta.id}}</p>
-          <p align="left">Resumen de la descripción: {{resumenDesc}}</p>
+          <p align="left">
+            <strong>Fecha de la sesión:</strong>
+            {{acta.fecha}} |
+            <strong>Tipo de sesión:</strong>
+            {{tipoSesion}} |
+            <strong>Acta número:</strong>
+            {{acta.id}}
+          </p>
+          <p align="left">
+            <strong>Resumen de la descripción:</strong>
+            {{resumenDesc}}
+          </p>
         </b-col>
         <b-col>
           <router-link :to="{ name: 'SecretarioVerActa', params: {id: acta.id} }">
