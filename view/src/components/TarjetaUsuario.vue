@@ -17,7 +17,7 @@
           </p>
         </b-col>
         <b-col>
-          <router-link :to="{ name: 'AdminVerUsuario', params: {id: usuario.id} }">
+          <router-link :to="{ name: 'AdminVerUsuario', params: {cedula: usuario.cedula} }">
             <b-button variant="warning">
               Ver Usuario
               <b-icon-search></b-icon-search>
