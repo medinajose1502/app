@@ -55,14 +55,7 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      ServiciosAPI.login(this.formulario)
-            .then((response) => {
-                if(response.status == "200")
-                  
-            })
-            .catch((error) => {
-                console.log(error.data);
-            })
+      ServiciosAPI.login(this.formulario);
     },
     onReset(evt) {
       evt.preventDefault();

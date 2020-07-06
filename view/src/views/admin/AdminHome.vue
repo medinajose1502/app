@@ -7,7 +7,9 @@
         </b-card-header>
         <TarjetaDecanato v-for="decanato in decanatos" :key="decanato.id" :decanato="decanato" />
         <b-card-footer align="right" footer-bg-variant="primary">
-          <b-button variant="info">Crear decanato</b-button>
+          <router-link :to="{ name: 'AdminCrearDecanato'}">
+            <b-button variant="info">Crear decanato</b-button>
+          </router-link>
         </b-card-footer>
       </b-card>
     </b-col>
@@ -18,7 +20,9 @@
         </b-card-header>
         <TarjetaActaA v-for="acta in actas" :key="acta.id" :acta="acta" />
         <b-card-footer align="right" footer-bg-variant="primary">
-          <b-button variant="info">Crear acta</b-button>
+          <router-link :to="{ name: 'AdminCrearActa'}">
+            <b-button variant="info">Crear acta</b-button>
+          </router-link>
         </b-card-footer>
       </b-card>
     </b-col>
@@ -29,7 +33,9 @@
         </b-card-header>
         <TarjetaUsuario v-for="usuario in usuarios" :key="usuario.id" :usuario="usuario" />
         <b-card-footer align="right" footer-bg-variant="primary">
-          <b-button variant="info">Crear usuario</b-button>
+          <router-link :to="{ name: 'AdminCrearUsuario'}">
+            <b-button variant="info">Crear usuario</b-button>
+          </router-link>
         </b-card-footer>
       </b-card>
     </b-col>
@@ -58,6 +64,22 @@ export default {
     ServiciosAPI.getDecanatos()
       .then(response => {
         this.decanatos = response.data;
+      })
+      .catch(error => {
+        console.log("Ocurrió un error: " + error.response);
+      });
+
+    ServiciosAPI.getActas()
+      .then(response => {
+        this.actas = response.data;
+      })
+      .catch(error => {
+        console.log("Ocurrió un error: " + error.response);
+      });
+
+    ServiciosAPI.getUsuarios()
+      .then(response => {
+        this.usuarios = response.data;
       })
       .catch(error => {
         console.log("Ocurrió un error: " + error.response);

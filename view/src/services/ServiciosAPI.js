@@ -15,6 +15,12 @@ export default {
         formData.set("username", formulario.username);
         formData.set("password", formulario.password);
         apiServidor.post('/login', formData, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+            .then((result) => {
+                this.loginSuccessful(result);
+            })
+            .catch((error) => {
+                console.log(error.data);
+            })
     },
 
     getActas() {

@@ -9,23 +9,25 @@
           </b-card-header>
           <b-form text-variant="black" align="left">
             <p></p>
-            <label for="id">Número del acta</label>
+            <label for="id">Número de la acta:</label>
             <b-form-input v-model="acta.id" id="id" readonly></b-form-input>
             <p></p>
-            <label for="tipo">Tipo de sesión</label>
+            <label for="tipo">Tipo de sesión:</label>
             <b-form-input v-model="acta.tipo" id="tipo" readonly></b-form-input>
             <p></p>
-            <label for="fecha">Fecha de la sesión</label>
+            <label for="fecha">Fecha de la sesión:</label>
             <b-form-input v-model="acta.fecha" id="fecha" readonly></b-form-input>
             <p></p>
-            <label for="descripcion">Descripción del acta</label>
+            <label for="descripcion">Descripción de la acta:</label>
             <b-form-textarea v-model="acta.descripcion" id="descripcion" readonly></b-form-textarea>
             <p></p>
             <b-card-footer align="right" footer-bg-variant="primary">
-              <router-link :to="{ name: 'SecretarioHome'}">
+              <router-link :to="{ name: 'AdminHome'}">
                 <b-button variant="danger">Volver</b-button>
               </router-link>
-              <b-button type="submit" variant="info">Editar</b-button>
+              <router-link :to="{ name: 'AdminEditarActa', params: {id: this.id} }">
+                <b-button type="submit" variant="info">Editar</b-button>
+              </router-link>
             </b-card-footer>
           </b-form>
         </b-card>

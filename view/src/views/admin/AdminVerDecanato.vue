@@ -5,27 +5,31 @@
       <b-col cols="10">
         <b-card>
           <b-card-header header-bg-variant="primary" header-text-variant="white">
-            <h3>Ver acta</h3>
+            <h3>Ver decanato</h3>
           </b-card-header>
           <b-form text-variant="black" align="left">
-            <p></p>
-            <label for="id">Número del acta</label>
-            <b-form-input v-model="acta.id" id="id" readonly></b-form-input>
-            <p></p>
-            <label for="tipo">Tipo de sesión</label>
-            <b-form-input v-model="acta.tipo" id="tipo" readonly></b-form-input>
-            <p></p>
-            <label for="fecha">Fecha de la sesión</label>
-            <b-form-input v-model="acta.fecha" id="fecha" readonly></b-form-input>
-            <p></p>
-            <label for="descripcion">Descripción del acta</label>
-            <b-form-textarea v-model="acta.descripcion" id="descripcion" readonly></b-form-textarea>
-            <p></p>
+            <b-card-body>
+              <p></p>
+              <label for="nombres">Nombre del decanato:</label>
+              <b-form-input v-model="decanato.nombre" id="nombre" readonly></b-form-input>
+              <p></p>
+
+              <label for="descripcion">Descripción del decanato:</label>
+              <b-form-textarea v-model="decanato.descripcion" id="descripcion" readonly></b-form-textarea>
+              <p></p>
+
+              <label for="ubicacion">Ubicación:</label>
+              <b-form-input v-model="decanato.ubicacion" id="ubicacion" readonly></b-form-input>
+              <p></p>
+            </b-card-body>
+
             <b-card-footer align="right" footer-bg-variant="primary">
-              <router-link :to="{ name: 'SecretarioHome'}">
+              <router-link :to="{ name: 'AdminHome'}">
                 <b-button variant="danger">Volver</b-button>
               </router-link>
-              <b-button type="submit" variant="info">Editar</b-button>
+              <router-link :to="{ name: 'AdminEditarDecanato', params: {id: this.id} }">
+                <b-button type="submit" variant="info">Editar</b-button>
+              </router-link>
             </b-card-footer>
           </b-form>
         </b-card>
@@ -46,7 +50,7 @@ export default {
   },
   data() {
     return {
-      acta: {
+      decanato: {
         id: "",
         tipo: "",
         fecha: "",
@@ -55,9 +59,9 @@ export default {
     };
   },
   created() {
-    ServiciosAPI.getActa(this.id)
+    ServiciosAPI.getDecanato(this.id)
       .then(response => {
-        this.acta = response.data;
+        this.decanato = response.data;
       })
       .catch(error => {
         console.log("Ocurrió un error: " + error.response);

@@ -5,27 +5,32 @@
       <b-col cols="10">
         <b-card>
           <b-card-header header-bg-variant="primary" header-text-variant="white">
-            <h3>Ver acta</h3>
+            <h3>Ver usuario</h3>
           </b-card-header>
+
           <b-form text-variant="black" align="left">
-            <p></p>
-            <label for="id">Número del acta</label>
-            <b-form-input v-model="acta.id" id="id" readonly></b-form-input>
-            <p></p>
-            <label for="tipo">Tipo de sesión</label>
-            <b-form-input v-model="acta.tipo" id="tipo" readonly></b-form-input>
-            <p></p>
-            <label for="fecha">Fecha de la sesión</label>
-            <b-form-input v-model="acta.fecha" id="fecha" readonly></b-form-input>
-            <p></p>
-            <label for="descripcion">Descripción del acta</label>
-            <b-form-textarea v-model="acta.descripcion" id="descripcion" readonly></b-form-textarea>
-            <p></p>
+            <b-card-body>
+              <p></p>
+              <label for="cedula">Cédula:</label>
+              <b-form-input v-model="usuario.cedula" id="cedula" readonly></b-form-input>
+              <p></p>
+              <label for="nombres">Nombres:</label>
+              <b-form-input v-model="usuario.nombres" id="nombres" readonly></b-form-input>
+              <p></p>
+              <label for="apellidos">Apellidos</label>
+              <b-form-input v-model="usuario.apellidos" id="apellidos" readonly></b-form-input>
+              <p></p>
+              <label for="rol">Rol del usuario</label>
+              <b-form-textarea v-model="usuario.roles[0].tipo" id="rol" readonly></b-form-textarea>
+              <p></p>
+            </b-card-body>
             <b-card-footer align="right" footer-bg-variant="primary">
-              <router-link :to="{ name: 'SecretarioHome'}">
+              <router-link :to="{ name: 'AdminHome'}">
                 <b-button variant="danger">Volver</b-button>
               </router-link>
-              <b-button type="submit" variant="info">Editar</b-button>
+              <router-link :to="{ name: 'AdminEditarUsuario', params: {cedula: this.cedula} }">
+                <b-button type="submit" variant="info">Editar</b-button>
+              </router-link>
             </b-card-footer>
           </b-form>
         </b-card>
@@ -40,24 +45,25 @@ import ServiciosAPI from "@/services/ServiciosAPI.js";
 
 export default {
   props: {
-    id: {
+    cedula: {
       type: Number
     }
   },
   data() {
     return {
-      acta: {
-        id: "",
-        tipo: "",
-        fecha: "",
-        descripcion: ""
+      usuario: {
+        cedula: "",
+        nombres: "",
+        apellidos: "",
+        roles: [],
+        actas: []
       }
     };
   },
   created() {
-    ServiciosAPI.getActa(this.id)
+    ServiciosAPI.getUsuario(this.cedula)
       .then(response => {
-        this.acta = response.data;
+        this.usuario = response.data;
       })
       .catch(error => {
         console.log("Ocurrió un error: " + error.response);

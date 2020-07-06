@@ -26,6 +26,11 @@ const routes = [
     component: Login
   },
   {
+    path: '/logout',
+    name: 'Logout',
+    alias: '/',
+  },
+  {
     path: '/secretario',
     name: 'SecretarioHome',
     component: SecretarioHome

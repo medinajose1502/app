@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    usuario: {
+    usuarioSesion: {
       cedula: "",
       contrasenna: "",
       nombres: "",
@@ -19,15 +19,13 @@ export default new Vuex.Store({
 
   },
   mutations: {
-    USUARIO_SESION({ state }, usuario) {
-      state.usuario = usuario
+    USUARIO_SESION(state, usuario) {
+      state.usuarioSesion = usuario
     }
   },
   actions: {
-    actualizarUsuarioSesion({ state, commit }, usuario) {
-      if (state.usuario) {
-        commit('USUARIO_SESION', usuario)
-      }
+    actualizarUsuarioSesion({ commit }, usuario) {
+      commit('USUARIO_SESION', usuario)
     }
   },
   modules: {
