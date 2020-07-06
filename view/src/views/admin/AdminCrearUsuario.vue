@@ -32,7 +32,7 @@
               <b-form-group id="input-group-3" label="Nombres" label-for="input-3" align="left">
                 <b-form-input
                   id="input-3"
-                  v-model="usuario.nombre"
+                  v-model="usuario.nombres"
                   required
                   placeholder="Ingrese los nombres del usuario."
                 ></b-form-input>
@@ -49,7 +49,12 @@
 
               <p></p>
 
-              <b-form-select id="decanato" v-model="decanato" :options="opciones" class="mb-3"></b-form-select>
+              <b-form-select
+                id="decanato"
+                v-model="usuario.decanato.id"
+                :options="opc"
+                class="mb-3"
+              ></b-form-select>
 
               <b-form-select id="tipo" v-model="rol.tipo" class="mb-3">
                 <b-form-select-option value="ROLE_ADMIN">Admin</b-form-select-option>
@@ -74,17 +79,9 @@
 import ServiciosAPI from "@/services/ServiciosAPI.js";
 
 export default {
-  props: {
-    decanatos: {
-      type: Array
-    }
-  },
   data() {
     return {
-      opc: {
-        value: "",
-        text: ""
-      },
+      decanatos: [],
       rol: {
         id: "",
         tipo: ""
@@ -95,16 +92,29 @@ export default {
         nombres: "",
         apellidos: "",
         roles: [],
-        decanato: ""
+        decanato: {
+          id: ""
+        },
+        actas: []
       },
-      show: true
+      show: true,
+      opc: []
     };
+  },
+  created() {
+    ServiciosAPI.getDecanatos()
+      .then(response => {
+        this.decanatos = response.data;
+      })
+      .catch(error => {
+        console.log("Ocurrió un error: " + error.response);
+      });
   },
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      this.acta.roles.push(rol);
-      ServiciosAPI.guardarUsuario(this.acta);
+      this.usuario.roles.push(this.rol);
+      ServiciosAPI.guardarUsuario(this.usuario);
     },
     onReset(evt) {
       evt.preventDefault();
@@ -126,13 +136,10 @@ export default {
   },
   computed: {
     opciones: function() {
-      temp = [];
       this.decanatos.forEach(decanato => {
-        this.opc.value = decanato.id;
-        this.opc.text = decanato.nombres;
-        temp.push(this.opc);
+        var op = { value: decanato.id, text: decanato.nombre };
+        this.opc.push(op);
       });
-      return temp;
     }
   }
 };
