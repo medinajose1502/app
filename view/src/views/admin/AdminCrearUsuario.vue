@@ -49,7 +49,7 @@
 
               <p></p>
 
-              <b-form-select id="tipo" v-model="decanato" :options="opciones" class="mb-3"></b-form-select>
+              <b-form-select id="decanato" v-model="decanato" :options="opciones" class="mb-3"></b-form-select>
 
               <b-form-select id="tipo" v-model="rol.tipo" class="mb-3">
                 <b-form-select-option value="ROLE_ADMIN">Admin</b-form-select-option>
@@ -115,8 +115,6 @@ export default {
       this.usuario.apellidos = "";
       this.usuario.roles = [];
       this.usuario.decanato = "";
-      this.opc.value = "";
-      this.opc.text = "";
       this.rol.id = "";
       this.rol.tipo = "";
       // Trick to reset/clear native browser form validation state

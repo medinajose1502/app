@@ -26,8 +26,20 @@ export default {
     getActas() {
         return apiServidor.get('/acta/ver/todas')
     },
+    getDecanatos() {
+        return apiServidor.get('/decanato/ver/todos')
+    },
+    getUsuarios() {
+        return apiServidor.get('/usuario/ver/todos')
+    },
     getActa(id) {
         return apiServidor.get('/acta/ver/' + id)
+    },
+    getDecanato(id) {
+        return apiServidor.get('/decanato/ver/' + id)
+    },
+    getUsuario(id) {
+        return apiServidor.get('/usuario/ver/' + id)
     },
     guardarActa(Acta) {
         return apiServidor.post('/acta/guardar', Acta)
@@ -35,9 +47,19 @@ export default {
                 console.log(error.response)
             })
     },
-    getDecanatos() {
-        return apiServidor.get('/decanato/ver/todos')
-    }
+    guardarDecanato(Decanato) {
+        return apiServidor.post('/decanato/guardar', Decanato)
+            .catch((error) => {
+                console.log(error.response)
+            })
+    },
+    guardarUsuario(Usuario) {
+        return apiServidor.post('/usuario/guardar', Usuario)
+            .catch((error) => {
+                console.log(error.response)
+            })
+    },
+
 
 
 

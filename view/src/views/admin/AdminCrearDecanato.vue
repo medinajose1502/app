@@ -10,39 +10,46 @@
           <b-form @submit="onSubmit" @reset="onReset" v-if="show">
             <b-row>
               <p></p>
+              <b-card-body>
+                <b-form-group id="input-group-1" label="Cédula" label-for="input-1" align="left">
+                  <b-form-input
+                    id="input-1"
+                    v-model="decanato.nombre"
+                    required
+                    placeholder="Ingrese el nombre del decanato"
+                  ></b-form-input>
+                </b-form-group>
 
-              <b-form-group id="input-group-1" label="Cédula" label-for="input-1" align="left">
-                <b-form-input
-                  id="input-1"
-                  v-model="decanato.nombre"
-                  required
-                  placeholder="Ingrese el nombre del decanato"
-                ></b-form-input>
-              </b-form-group>
+                <p></p>
 
-              <p></p>
+                <label for="descripcion"></label>
+                <b-form-textarea
+                  id="descripcion"
+                  v-model="decanato.descripcion"
+                  placeholder="Ingrese una descripción para el decanato..."
+                  rows="17"
+                  max-rows="100"
+                ></b-form-textarea>
 
-              <label for="descripcion"></label>
-              <b-form-textarea
-                id="descripcion"
-                v-model="decanato.descripcion"
-                placeholder="Ingrese una descripción para el decanato..."
-                rows="17"
-                max-rows="100"
-              ></b-form-textarea>
+                <p></p>
 
-              <p></p>
-
-              <b-form-group id="input-group-2" label="Contraseña" label-for="input-2" align="left">
-                <b-form-input
-                  id="input-2"
-                  v-model="decanato.ubicacion"
-                  required
-                  placeholder="Ingrese la ubicación del decanato."
-                ></b-form-input>
-              </b-form-group>
+                <b-form-group
+                  id="input-group-2"
+                  label="Contraseña"
+                  label-for="input-2"
+                  align="left"
+                >
+                  <b-form-input
+                    id="input-2"
+                    v-model="decanato.ubicacion"
+                    required
+                    placeholder="Ingrese la ubicación del decanato."
+                  ></b-form-input>
+                </b-form-group>
+              </b-card-body>
             </b-row>
             <p></p>
+
             <b-card-footer align="right" footer-bg-variant="primary">
               <b-button variant="warning">Volver</b-button>
               <b-button type="reset" variant="danger">Limpiar</b-button>
