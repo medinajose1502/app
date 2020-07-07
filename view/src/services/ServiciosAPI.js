@@ -33,10 +33,17 @@ export default {
         return apiServidor.get('/acta/ver/decanato')
     },
     guardarActa(Acta) {
-        return apiServidor.post('/acta/guardar', Acta)
-            .catch((error) => {
-                console.log(error.response)
-            })
+        let formData = new FormData();
+        formData.append("tipo", Acta.tipo);
+        formData.append("fecha", Acta.fecha);
+        formData.append("descripcion", Acta.descripcion);
+        formData.append("archivo", Acta.archivo, "Acta-Sesion-" + Acta.tipo + "-" + Acta.fecha + ".pdf");
+
+        var headers = {
+            'Content-Type': 'multipart/form-data',
+        };
+
+        apiServidor.post('/acta/guardar', formData, headers)
     },
 
 

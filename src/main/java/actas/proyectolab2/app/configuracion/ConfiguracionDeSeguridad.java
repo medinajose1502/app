@@ -32,6 +32,7 @@ public class ConfiguracionDeSeguridad extends WebSecurityConfigurerAdapter{
     {
         this.authenticationSuccessHandler = authenticationSuccessHandler;
     }
+
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -39,7 +40,7 @@ public class ConfiguracionDeSeguridad extends WebSecurityConfigurerAdapter{
             .authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
-            .formLogin().loginPage("/login").permitAll()
+            .formLogin().loginPage("/login").successHandler(authenticationSuccessHandler).permitAll()
             .and().logout()
             .and()
             .csrf().disable()
