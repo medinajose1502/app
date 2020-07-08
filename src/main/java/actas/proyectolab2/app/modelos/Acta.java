@@ -16,6 +16,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
@@ -62,9 +63,4 @@ public class Acta {
 	@ManyToOne
     @JoinColumn(name="idusuario", nullable=false)
     private Usuario usuario;
-	
-	@JsonProperty
-	@Lob
-	@Column(name = "archivo")
-	private byte[] archivoacta;
 }

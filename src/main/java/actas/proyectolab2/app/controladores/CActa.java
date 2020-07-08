@@ -1,30 +1,32 @@
 package actas.proyectolab2.app.controladores;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
+import org.springframework.util.SystemPropertyUtils;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,6 +53,20 @@ public class CActa {
 		
 		@Autowired
 		SDecanato sDecanato;
+		
+		private static final String baseDir = esWindows();
+		
+		static String esWindows(){
+			String baseDir = "";
+			Path currentRelativePath = Paths.get("");
+			baseDir = currentRelativePath.toAbsolutePath().toString();
+			String so = System.getProperty("os.name").toLowerCase();
+			if(so.contains("win"))
+				return baseDir+"\\src\\main\\resources\\actas\\";
+			else
+				return baseDir+"/src/main/resources/actas/";
+		}
+				
 		
 		@GetMapping("/acta/ver/{id}")
 		Acta verActa(@PathVariable Long id, Authentication auth) throws RecursoNoEncontrado
@@ -97,20 +113,54 @@ public class CActa {
 				return actas;
 			else throw new RecursoNoEncontrado("No se pudieron encontrar actas registradas para el usuario");
 		}
-		
+				
 		@PostMapping(value = "/acta/guardar", headers = "Content-Type=multipart/form-data")
-		Acta guardarActa(@RequestParam("tipo") char tipo ,@RequestParam("fecha") String fecha,
-				@RequestParam("descripcion") String descripcion, @RequestParam("archivo") MultipartFile archivo, Authentication auth) throws IOException
-		{	
+		public Acta guardarActa(@RequestParam("tipo") char tipo ,@RequestParam("fecha") String fecha,
+				@RequestParam("descripcion") String descripcion,@RequestParam(name = "archivo") MultipartFile archivo,
+				Authentication auth) 
+		{
 			Usuario usuario = sUsuario.encontrarPorCedula(((UsuarioPrincipal)auth.getPrincipal()).getUsuario().getCedula());
 			Acta acta = new Acta();
 			acta.setTipo(tipo);
 			acta.setDescripcion(descripcion);
 			LocalDate fc = LocalDate.parse(fecha);
 			acta.setFecha(fc);
-			acta.setArchivoacta(archivo.getBytes());
 			acta.setUsuario(usuario);
 			acta.setDecanato(usuario.getDecanato());
+			acta = sActa.crearOActualizar(acta);
+			
+			Path path = Paths.get(baseDir + acta.getId().toString());
+			try {
+				Files.copy(archivo.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return acta;
+		}
+		
+		
+		@PostMapping(value = "/acta/editar", headers = "Content-Type=multipart/form-data")
+		Acta editarActa(@RequestParam("tipo") String id, @RequestParam("tipo") char tipo,
+						@RequestParam("fecha") String fecha, @RequestParam("descripcion") String descripcion,
+						@RequestParam(name = "archivo") MultipartFile archivo, Authentication auth) throws IOException
+		{	
+			Usuario usuario = sUsuario.encontrarPorCedula(((UsuarioPrincipal)auth.getPrincipal()).getUsuario().getCedula());
+			Long idl = Long.parseLong(id);
+			Acta acta = sActa.encontrarPorId(idl);
+			acta.setTipo(tipo);
+			acta.setDescripcion(descripcion);
+			LocalDate fc = LocalDate.parse(fecha);
+			acta.setFecha(fc);
+			acta.setUsuario(usuario);
+			acta.setDecanato(usuario.getDecanato());
+			
+			Path path = Paths.get(baseDir + id);
+			try {
+				Files.copy(archivo.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 			return sActa.crearOActualizar(acta);
 		}
 		
@@ -123,17 +173,23 @@ public class CActa {
 		}
 		
 		@GetMapping("/acta/descargar/{id}")
-		  public void getFile(@PathVariable Long id, HttpServletResponse response) {
-		    Acta acta = sActa.encontrarPorId(id);
-		    try {
-		        ByteArrayInputStream is = new ByteArrayInputStream(acta.getArchivoacta());
-		        // copy it to response's OutputStream
-		        response.setContentType("application/pdf");
-		        org.apache.commons.io.IOUtils.copy(is, response.getOutputStream());
-		        response.flushBuffer();
-		      }catch (IOException ex) {
-		      }
-		  }
+	    public ResponseEntity<Resource> downloadFileFromLocal(@PathVariable String id) {
+			Acta acta = sActa.encontrarPorId(Long.parseLong(id));
+	        Path path = Paths.get(baseDir + id);
+	        Resource resource = null;
+	        try {
+	            resource = new UrlResource(path.toUri());
+	        } catch (MalformedURLException e) {
+	            e.printStackTrace();
+	        }
+	        
+	        String nombreArchivo = "Acta-Sesion-"+acta.getTipo()+"-"+acta.getFecha().toString();
+	        
+	        return ResponseEntity.ok()
+	                .contentType(MediaType.APPLICATION_PDF)
+	                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + nombreArchivo + "\"")
+	                .body(resource);
+	    }
 		
 		@DeleteMapping("/acta/eliminar/{id}")
 		void eliminarActas(@PathVariable Long id)

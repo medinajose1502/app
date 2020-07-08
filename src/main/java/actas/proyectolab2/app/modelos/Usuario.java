@@ -20,6 +20,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -72,6 +73,7 @@ public class Usuario {
     private Decanato decanato;
 	
 	@JsonManagedReference(value = "usuario-acta")
+	@JsonIgnoreProperties("archivo")
 	@OneToMany(mappedBy="usuario", cascade = CascadeType.ALL)
     private List<Acta> actas = new ArrayList<Acta>();
 	

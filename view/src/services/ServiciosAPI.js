@@ -11,16 +11,11 @@ const apiServidor = axios.create({
 
 export default {
     login(formulario) {
+        var respuesta;
         let formData = new FormData();
         formData.set("username", formulario.username);
         formData.set("password", formulario.password);
-        apiServidor.post('/login', formData, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
-            .then((result) => {
-                this.loginSuccessful(result);
-            })
-            .catch((error) => {
-                console.log(error.data);
-            })
+        return apiServidor.post('/login', formData, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
     },
 
     getActas() {
@@ -37,13 +32,14 @@ export default {
         formData.append("tipo", Acta.tipo);
         formData.append("fecha", Acta.fecha);
         formData.append("descripcion", Acta.descripcion);
-        formData.append("archivo", Acta.archivo, "Acta-Sesion-" + Acta.tipo + "-" + Acta.fecha + ".pdf");
+        if (Acta.archivo != null)
+            formData.append("archivo", Acta.archivo);
 
         var headers = {
             'Content-Type': 'multipart/form-data',
         };
 
-        apiServidor.post('/acta/guardar', formData, headers)
+        return apiServidor.post('/acta/guardar', formData, headers)
     },
 
 
@@ -55,10 +51,9 @@ export default {
     },
     guardarDecanato(Decanato) {
         return apiServidor.post('/decanato/guardar', Decanato)
-            .catch((error) => {
-                console.log(error.response)
-            })
     },
+
+
 
     getUsuario(id) {
         return apiServidor.get('/usuario/ver/' + id)
@@ -71,9 +66,6 @@ export default {
     },
     guardarUsuario(Usuario) {
         return apiServidor.post('/usuario/guardar', Usuario)
-            .catch((error) => {
-                console.log(error.response)
-            })
     },
 
 

@@ -71,7 +71,6 @@ public class SActa {
                 Acta actaActualizada = actaEncontrada.get();
                 actaActualizada.setDescripcion(acta.getDescripcion());
                 actaActualizada.setFecha(acta.getFecha());
-                actaActualizada.setArchivoacta(acta.getArchivoacta());
                 actaActualizada = rActa.save(actaActualizada);
                 return actaActualizada;
             } 

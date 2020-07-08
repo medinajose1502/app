@@ -53,10 +53,15 @@ export default {
     };
   },
   methods: {
-    onSubmit(evt) {
+    async onSubmit(evt) {
       evt.preventDefault();
-      ServiciosAPI.login(this.formulario);
+      var respuesta = await ServiciosAPI.login(this.formulario);
+      if (respuesta.status == 200) {
+        var usuario = await ServiciosAPI.getUsuarioSesion();
+        console.log(usuario);
+      } else console.log(respuesta.status);
     },
+
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
