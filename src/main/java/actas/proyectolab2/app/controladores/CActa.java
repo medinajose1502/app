@@ -54,9 +54,9 @@ public class CActa {
 		@Autowired
 		SDecanato sDecanato;
 		
-		private static final String baseDir = esWindows();
+		private static final String baseDir = setDirectorio();
 		
-		static String esWindows(){
+		static String setDirectorio(){
 			String baseDir = "";
 			Path currentRelativePath = Paths.get("");
 			baseDir = currentRelativePath.toAbsolutePath().toString();
@@ -154,11 +154,14 @@ public class CActa {
 			acta.setUsuario(usuario);
 			acta.setDecanato(usuario.getDecanato());
 			
+			if(archivo.isEmpty()) {}
+			else {
 			Path path = Paths.get(baseDir + id);
-			try {
-				Files.copy(archivo.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-			} catch (IOException e) {
-				e.printStackTrace();
+				try {
+					Files.copy(archivo.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			
 			return sActa.crearOActualizar(acta);

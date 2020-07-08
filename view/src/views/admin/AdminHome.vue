@@ -84,23 +84,6 @@ export default {
       .catch(error => {
         console.log("Ocurrió un error: " + error.response);
       });
-  },
-  computed: {
-    extraerActas: function() {
-      this.decanatos.forEach(decanato => {
-        decanato.actas.forEach(acta => {
-          this.actas.push(acta);
-        });
-      });
-    },
-
-    extraerUsuarios: function() {
-      this.decanatos.forEach(decanato => {
-        decanato.usuarios.forEach(usuario => {
-          this.usuarios.push(usuario);
-        });
-      });
-    }
   }
 };
 </script>

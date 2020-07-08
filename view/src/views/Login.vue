@@ -58,7 +58,11 @@ export default {
       var respuesta = await ServiciosAPI.login(this.formulario);
       if (respuesta.status == 200) {
         var usuario = await ServiciosAPI.getUsuarioSesion();
-        console.log(usuario);
+        await this.$store.dispatch("actualizarUsuarioSesion", usuario.data);
+        console.log(this.$store.getters.rolUsuarioSesion);
+        if (this.$store.getters.rolUsuarioSesion == "ROLE_ADMIN")
+          this.$router.push("/admin");
+        else this.$router.push("/secretario");
       } else console.log(respuesta.status);
     },
 

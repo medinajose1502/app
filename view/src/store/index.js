@@ -6,28 +6,38 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     usuarioSesion: {
+      id: "",
       cedula: "",
-      contrasenna: "",
       nombres: "",
       apellidos: "",
+      estado: "",
       roles: [],
-      decanato: {
-        id: ""
-      },
       actas: []
-    }
+    },
+    enSesion: false,
 
   },
   mutations: {
-    USUARIO_SESION(state, usuario) {
+    SET_USUARIO_SESION(state, usuario) {
+      if (usuario.id != "")
+        state.enSesion = true
+      else state.enSesion = true
       state.usuarioSesion = usuario
     }
   },
   actions: {
     actualizarUsuarioSesion({ commit }, usuario) {
-      commit('USUARIO_SESION', usuario)
+      commit('SET_USUARIO_SESION', usuario)
     }
   },
   modules: {
+  },
+  getters: {
+    rolUsuarioSesion: state => {
+      return state.usuarioSesion.roles[0].tipo;
+    },
+    usuarioEnSesion: state => {
+      return state.enSesion;
+    }
   }
 })

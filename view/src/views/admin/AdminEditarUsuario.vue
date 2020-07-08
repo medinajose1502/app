@@ -81,7 +81,7 @@ import ServiciosAPI from "@/services/ServiciosAPI.js";
 export default {
   props: {
     cedula: {
-      type: Number
+      type: String
     }
   },
   data() {

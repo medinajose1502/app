@@ -5,7 +5,7 @@
       <b-col cols="10">
         <b-card>
           <b-card-header header-bg-variant="primary" header-text-variant="white">
-            <h3>Crear decanato</h3>
+            <h3>Editar decanato</h3>
           </b-card-header>
           <b-form @submit="onSubmit" @reset="onReset" v-if="show">
             <b-row>
