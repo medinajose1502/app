@@ -5,55 +5,85 @@
       <b-col cols="10">
         <b-card>
           <b-card-header header-bg-variant="primary" header-text-variant="white">
-            <h3>Crear decanato</h3>
+            <h4>Crear un decanato</h4>
           </b-card-header>
           <b-form @submit="onSubmit" @reset="onReset" v-if="show">
             <b-row>
               <p></p>
               <b-card-body>
-                <b-form-group id="input-group-1" label="Cédula" label-for="input-1" align="left">
-                  <b-form-input
-                    id="input-1"
-                    v-model="decanato.nombre"
-                    required
-                    placeholder="Ingrese el nombre del decanato"
-                  ></b-form-input>
-                </b-form-group>
+                <b-row>
+                  <b-col>
+                    <b-form-group
+                      id="grupo-nombre"
+                      label="Nombre del decanato:"
+                      label-for="nombre"
+                      align="left"
+                    >
+                      <b-form-input
+                        id="nombre"
+                        v-model="decanato.nombre"
+                        required
+                        placeholder="Ingrese el nombre del decanato"
+                      ></b-form-input>
+                    </b-form-group>
+                  </b-col>
+                  <b-col>
+                    <b-form-group
+                      id="grupo-ubicacion"
+                      label="Ubicación:"
+                      label-for="ubicacion"
+                      align="left"
+                    >
+                      <b-form-input
+                        id="ubicacion"
+                        v-model="decanato.ubicacion"
+                        required
+                        placeholder="Ingrese la ubicación del decanato."
+                      ></b-form-input>
+                    </b-form-group>
+                  </b-col>
+                </b-row>
 
                 <p></p>
-
-                <label for="descripcion"></label>
-                <b-form-textarea
-                  id="descripcion"
-                  v-model="decanato.descripcion"
-                  placeholder="Ingrese una descripción para el decanato..."
-                  rows="17"
-                  max-rows="100"
-                ></b-form-textarea>
+                <b-row>
+                  <b-col align="left">
+                    <label for="descripcion">Descripcion:</label>
+                    <b-form-textarea
+                      id="descripcion"
+                      v-model="decanato.descripcion"
+                      placeholder="Ingrese una descripción para el decanato..."
+                      rows="10"
+                      max-rows="100"
+                    ></b-form-textarea>
+                  </b-col>
+                </b-row>
 
                 <p></p>
-
-                <b-form-group
-                  id="input-group-2"
-                  label="Contraseña"
-                  label-for="input-2"
-                  align="left"
-                >
-                  <b-form-input
-                    id="input-2"
-                    v-model="decanato.ubicacion"
-                    required
-                    placeholder="Ingrese la ubicación del decanato."
-                  ></b-form-input>
-                </b-form-group>
               </b-card-body>
             </b-row>
             <p></p>
 
-            <b-card-footer align="right" footer-bg-variant="primary">
-              <b-button variant="warning">Volver</b-button>
-              <b-button type="reset" variant="danger">Limpiar</b-button>
-              <b-button type="submit" variant="info">Enviar</b-button>
+            <b-card-footer footer-bg-variant="primary">
+              <b-row align="left">
+                <b-col>
+                  <router-link :to="{ name: 'AdminHome'}">
+                    <b-button variant="info">
+                      Volver a inicio
+                      <b-icon icon="house-fill"></b-icon>
+                    </b-button>
+                  </router-link>
+                </b-col>
+                <b-col align="right">
+                  <b-button type="reset" variant="danger">
+                    Limpiar formulario
+                    <b-icon icon="trash-fill"></b-icon>
+                  </b-button>
+                  <b-button type="submit" variant="success">
+                    Crear
+                    <b-icon icon="plus-square-fill"></b-icon>
+                  </b-button>
+                </b-col>
+              </b-row>
             </b-card-footer>
           </b-form>
         </b-card>
@@ -85,7 +115,7 @@ export default {
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
-      this.decanato.nombre = "O";
+      this.decanato.nombre = "";
       this.decanato.ubicacion = "";
       this.decanato.descripcion = "";
       // Trick to reset/clear native browser form validation state

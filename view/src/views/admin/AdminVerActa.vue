@@ -31,18 +31,33 @@
             <b-row>
               <b-col cols="12">
                 <a :href="enlace" download>
-                  <b-button variant="success">Descargar acta</b-button>
+                  <b-button variant="success">
+                    Descargar acta
+                    <b-icon icon="arrow-down-square-fill"></b-icon>
+                  </b-button>
                 </a>
               </b-col>
             </b-row>
           </b-card-body>
-          <b-card-footer align="right" footer-bg-variant="primary">
-            <router-link :to="{ name: 'AdminHome'}">
-              <b-button variant="danger">Volver</b-button>
-            </router-link>
-            <router-link :to="{ name: 'AdminEditarActa', params: {id: this.id} }">
-              <b-button type="submit" variant="info">Editar</b-button>
-            </router-link>
+          <b-card-footer footer-bg-variant="primary">
+            <b-row>
+              <b-col align="left">
+                <router-link :to="{ name: 'AdminHome'}">
+                  <b-button variant="info">
+                    Volver a inicio
+                    <b-icon icon="house-fill"></b-icon>
+                  </b-button>
+                </router-link>
+              </b-col>
+              <b-col align="right">
+                <router-link :to="{ name: 'AdminEditarActa', params: {id: this.id} }">
+                  <b-button type="submit" variant="info">
+                    Editar
+                    <b-icon icon="brush"></b-icon>
+                  </b-button>
+                </router-link>
+              </b-col>
+            </b-row>
           </b-card-footer>
         </b-card>
       </b-col>

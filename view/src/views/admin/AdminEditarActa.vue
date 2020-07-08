@@ -5,7 +5,7 @@
       <b-col cols="10">
         <b-card>
           <b-card-header header-bg-variant="primary" header-text-variant="white">
-            <h3>Crear acta</h3>
+            <h4>Editar acta</h4>
           </b-card-header>
           <b-form @submit="onSubmit" @reset="onReset" v-if="show">
             <b-card-body>
@@ -49,12 +49,27 @@
               </b-row>
               <p></p>
             </b-card-body>
-            <b-card-footer align="right" footer-bg-variant="primary">
-              <router-link :to="{ name: 'SecretarioHome'}">
-                <b-button variant="warning">Volver</b-button>
-              </router-link>
-              <b-button type="reset" variant="danger">Limpiar</b-button>
-              <b-button type="submit" variant="info">Enviar</b-button>
+            <b-card-footer footer-bg-variant="primary">
+              <b-row align="left">
+                <b-col>
+                  <router-link :to="{ name: 'AdminHome'}">
+                    <b-button variant="info">
+                      Volver a inicio
+                      <b-icon icon="house-fill"></b-icon>
+                    </b-button>
+                  </router-link>
+                </b-col>
+                <b-col align="right">
+                  <b-button type="reset" variant="danger">
+                    Limpiar formulario
+                    <b-icon icon="trash-fill"></b-icon>
+                  </b-button>
+                  <b-button type="submit" variant="success">
+                    Editar
+                    <b-icon icon="brush"></b-icon>
+                  </b-button>
+                </b-col>
+              </b-row>
             </b-card-footer>
           </b-form>
         </b-card>

@@ -1,7 +1,7 @@
 <template>
   <b-card>
     <b-card-header header-bg-variant="primary" header-text-variant="white">
-      <h3>Actas:</h3>
+      <h4>Lista de actas</h4>
     </b-card-header>
     <p></p>
     <b-card-body>
@@ -55,9 +55,16 @@
       </b-row>
     </b-card-body>
     <b-card-footer footer-bg-variant="primary">
-      <router-link :to="{ name: 'AdminCrearActa'}">
-        <b-button variant="info">Crear acta</b-button>
-      </router-link>
+      <b-row>
+        <b-col align="right">
+          <router-link :to="{ name: 'AdminCrearActa'}">
+            <b-button variant="info">
+              Crear acta
+              <b-icon icon="plus-square-fill"></b-icon>
+            </b-button>
+          </router-link>
+        </b-col>
+      </b-row>
     </b-card-footer>
   </b-card>
 </template>

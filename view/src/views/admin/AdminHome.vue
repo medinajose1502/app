@@ -18,17 +18,11 @@
 
 <script>
 import ServiciosAPI from "@/services/ServiciosAPI.js";
-import TarjetaActaA from "@/components/TarjetaActaA.vue";
-import TarjetaDecanato from "@/components/TarjetaDecanato.vue";
-import TarjetaUsuario from "@/components/TarjetaUsuario.vue";
 import TablaDecanatos from "@/components/TablaDecanatos.vue";
 import TablaActas from "@/components/TablaActas.vue";
 import TablaUsuarios from "@/components/TablaUsuarios.vue";
 export default {
   components: {
-    TarjetaActaA,
-    TarjetaDecanato,
-    TarjetaUsuario,
     TablaDecanatos,
     TablaActas,
     TablaUsuarios

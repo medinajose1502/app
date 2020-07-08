@@ -1,7 +1,7 @@
 <template>
   <b-card>
     <b-card-header header-bg-variant="primary" header-text-variant="white">
-      <h3>Usuarios:</h3>
+      <h4>Lista de usuarios</h4>
     </b-card-header>
     <p></p>
     <b-card-body>
@@ -56,7 +56,10 @@
     </b-card-body>
     <b-card-footer footer-bg-variant="primary" align="right">
       <router-link :to="{ name: 'AdminCrearUsuario'}">
-        <b-button variant="info">Crear usuario</b-button>
+        <b-button variant="info">
+          Crear usuario
+          <b-icon icon="plus-square-fill"></b-icon>
+        </b-button>
       </router-link>
     </b-card-footer>
   </b-card>
