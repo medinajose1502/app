@@ -77,7 +77,7 @@ public class Usuario {
 	@OneToMany(mappedBy="usuario", cascade = CascadeType.ALL)
     private List<Acta> actas = new ArrayList<Acta>();
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name="roles_usuarios",
 	joinColumns=@JoinColumn(name="usuario_id"),
 	inverseJoinColumns=@JoinColumn(name="rol_id"))

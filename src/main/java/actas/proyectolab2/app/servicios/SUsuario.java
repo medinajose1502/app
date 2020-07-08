@@ -51,7 +51,7 @@ public class SUsuario {
     
     public Usuario crearOActualizar(Usuario usuario)
     {
-        if(usuario.getCedula() == null)
+        if(usuario.getId() == null)
         {
         	usuario.setEstado(true);
             usuario = rUsuario.save(usuario);
