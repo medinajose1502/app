@@ -2,7 +2,7 @@
   <div>
     <b-row>
       <b-col></b-col>
-      <b-col>
+      <b-col cols="8">
         <TablaActasS :items="actas" />
       </b-col>
       <b-col>
@@ -14,9 +14,11 @@
 
 <script>
 import ServiciosAPI from "@/services/ServiciosAPI.js";
-import TablasActasS from '@/components/TablasActasS.vue';
+import TablaActasS from "@/components/TablaActasS.vue";
 export default {
-  components: {},
+  components: {
+    TablaActasS
+  },
   data() {
     return {
       actas: []

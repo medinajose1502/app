@@ -10,6 +10,8 @@ const apiServidor = axios.create({
 })
 
 export default {
+
+
     login(formulario) {
         var respuesta;
         let formData = new FormData();
@@ -17,6 +19,13 @@ export default {
         formData.set("password", formulario.password);
         return apiServidor.post('/login', formData, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
     },
+
+    logout() {
+        return apiServidor.post('/logout')
+    },
+
+
+
 
     getActas() {
         return apiServidor.get('/acta/ver/todas')
@@ -59,6 +68,10 @@ export default {
     },
 
 
+
+
+
+
     getDecanatos() {
         return apiServidor.get('/decanato/ver/todos')
     },
@@ -68,6 +81,9 @@ export default {
     guardarDecanato(Decanato) {
         return apiServidor.post('/decanato/guardar', Decanato)
     },
+
+
+
 
 
 
@@ -86,8 +102,4 @@ export default {
     guardarUsuario(Usuario) {
         return apiServidor.post('/usuario/guardar', Usuario)
     },
-
-
-
-
 }

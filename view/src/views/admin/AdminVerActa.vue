@@ -68,7 +68,6 @@
 
 <script>
 import ServiciosAPI from "@/services/ServiciosAPI.js";
-import { saveAs } from "file-saver";
 
 export default {
   props: {

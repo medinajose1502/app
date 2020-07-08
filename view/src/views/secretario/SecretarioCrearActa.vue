@@ -44,16 +44,32 @@
                   drop-placeholder="¡Sueltalo aquí!"
                   accept=".pdf"
                   size="lg"
+                  browse-text="Buscar"
                 ></b-form-file>
               </b-row>
               <p></p>
             </b-card-body>
-            <b-card-footer align="right" footer-bg-variant="primary">
-              <router-link :to="{ name: 'SecretarioHome'}">
-                <b-button variant="warning">Volver</b-button>
-              </router-link>
-              <b-button type="reset" variant="danger">Limpiar</b-button>
-              <b-button type="submit" variant="info">Enviar</b-button>
+            <b-card-footer footer-bg-variant="primary">
+              <b-row align="left">
+                <b-col>
+                  <router-link :to="{ name: 'SecretarioHome'}">
+                    <b-button variant="info">
+                      Volver a inicio
+                      <b-icon icon="house-fill"></b-icon>
+                    </b-button>
+                  </router-link>
+                </b-col>
+                <b-col align="right">
+                  <b-button type="reset" variant="danger">
+                    Limpiar formulario
+                    <b-icon icon="trash-fill"></b-icon>
+                  </b-button>
+                  <b-button type="submit" variant="success">
+                    Crear
+                    <b-icon icon="plus-square-fill"></b-icon>
+                  </b-button>
+                </b-col>
+              </b-row>
             </b-card-footer>
           </b-form>
         </b-card>

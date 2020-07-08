@@ -16,10 +16,21 @@ import SecretarioHome from '@/views/secretario/SecretarioHome.vue';
 import SecretarioVerActa from '@/views/secretario/SecretarioVerActa.vue';
 import SecretarioCrearActa from '@/views/secretario/SecretarioCrearActa.vue';
 import SecretarioEditarActa from '@/views/secretario/SecretarioEditarActa.vue';
+import ServiciosAPI from '@/services/ServiciosAPI.js'
 import NProgress from 'nprogress'
 import store from '@/store/index.js'
 
 Vue.use(VueRouter)
+
+const usuarioSesionVacio = {
+  id: "",
+  cedula: "",
+  nombres: "",
+  apellidos: "",
+  estado: "",
+  roles: [],
+  actas: []
+}
 
 const routes = [
   {
@@ -31,7 +42,16 @@ const routes = [
   {
     path: '/logout',
     name: 'Logout',
-    component: Login
+    component: Login,
+    beforeEnter: (to, from, next) => {
+      ServiciosAPI.logout().then(respuesta => {
+        store.dispatch('actualizarUsuarioSesion', usuarioSesionVacio)
+        console.log(respuesta.status)
+        next("/login")
+      }).catch(error => {
+        console.log(error.data)
+      })
+    }
   },
   {
     path: '/secretario',
@@ -133,14 +153,6 @@ const router = new VueRouter({
   routes
 })
 
-const usuarioSesionVacio = {
-  id: "",
-  cedula: "",
-  nombres: "",
-  apellidos: "",
-  estado: "",
-  roles: [],
-  actas: []
-}
+
 
 export default router

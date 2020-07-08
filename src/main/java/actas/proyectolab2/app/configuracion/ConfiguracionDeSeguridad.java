@@ -7,12 +7,12 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -34,6 +34,11 @@ public class ConfiguracionDeSeguridad extends WebSecurityConfigurerAdapter{
     }
 
     
+    @Bean
+    public LogoutSuccessHandler logoutSuccessHandler() {
+        return new ManejadorLogout();
+    }
+    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -41,9 +46,8 @@ public class ConfiguracionDeSeguridad extends WebSecurityConfigurerAdapter{
                 .anyRequest().authenticated()
                 .and()
             .formLogin().loginPage("/login").successHandler(authenticationSuccessHandler).permitAll()
-            .and().logout()
-            .and()
-            .csrf().disable()
+            .and().logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler()).invalidateHttpSession(true).deleteCookies("JSESSIONID")
+            .and().csrf().disable()
             .httpBasic();
         
         http.cors().disable();
