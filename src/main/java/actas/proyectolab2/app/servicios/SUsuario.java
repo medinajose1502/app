@@ -69,8 +69,7 @@ public class SUsuario {
                 usuarioActualizado.setContrasenna(usuario.getContrasenna());
                 usuarioActualizado.setNombres(usuario.getNombres());
                 usuarioActualizado.setApellidos(usuario.getApellidos());
-                usuarioActualizado.setEstado(usuario.isEstado());
-                usuarioActualizado.setDecanato(usuario.getDecanato());
+                usuarioActualizado.setDecanato(usuarioEncontrado.get().getDecanato());
                 usuarioActualizado.setActas(usuarioEncontrado.get().getActas());
                 usuarioActualizado.setEstado(true);
                 usuarioActualizado = rUsuario.save(usuarioActualizado);
