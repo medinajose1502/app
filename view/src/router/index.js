@@ -31,6 +31,7 @@ const routes = [
   {
     path: '/logout',
     name: 'Logout',
+    component: Login
   },
   {
     path: '/secretario',

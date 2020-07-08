@@ -30,10 +30,13 @@
                     id="textarea"
                     v-model="acta.descripcion"
                     placeholder="Ingrese los detalles de la sesión a registrar..."
-                    rows="17"
+                    rows="16"
                     max-rows="10000"
                   ></b-form-textarea>
                 </b-col>
+              </b-row>
+              <p></p>
+              <b-row>
                 <b-form-file
                   v-model="acta.archivo"
                   :state="Boolean(acta.archivo)"

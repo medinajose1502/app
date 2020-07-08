@@ -5,14 +5,14 @@
       <b-col cols="10">
         <b-card>
           <b-card-header header-bg-variant="primary" header-text-variant="white">
-            <h3>Editar acta</h3>
+            <h3>Crear acta</h3>
           </b-card-header>
           <b-form @submit="onSubmit" @reset="onReset" v-if="show">
             <b-card-body>
               <b-row>
                 <p></p>
                 <b-col md="auto">
-                  <b-form-input v-model="acta.id" id="id" hidden readonly></b-form-input>
+                  <b-form-input v-model="acta.id" hidden></b-form-input>
                   <b-form-select id="tipo" v-model="acta.tipo" class="mb-3">
                     <b-form-select-option value="O">Ordinaria</b-form-select-option>
                     <b-form-select-option value="E">Extraordinaria</b-form-select-option>
@@ -31,17 +31,29 @@
                     id="textarea"
                     v-model="acta.descripcion"
                     placeholder="Ingrese los detalles de la sesión a registrar..."
-                    rows="17"
+                    rows="16"
                     max-rows="10000"
                   ></b-form-textarea>
                 </b-col>
               </b-row>
+              <p></p>
+              <b-row>
+                <b-form-file
+                  v-model="acta.archivo"
+                  :state="Boolean(acta.archivo)"
+                  placeholder="¡Elige un archivo o arrastralo hasta aquí!"
+                  drop-placeholder="¡Sueltalo aquí!"
+                  accept=".pdf"
+                  size="lg"
+                ></b-form-file>
+              </b-row>
+              <p></p>
             </b-card-body>
-            <p></p>
-
             <b-card-footer align="right" footer-bg-variant="primary">
-              <b-button variant="warning">Volver</b-button>
-              <b-button type="reset" variant="danger">Eliminar</b-button>
+              <router-link :to="{ name: 'SecretarioHome'}">
+                <b-button variant="warning">Volver</b-button>
+              </router-link>
+              <b-button type="reset" variant="danger">Limpiar</b-button>
               <b-button type="submit" variant="info">Enviar</b-button>
             </b-card-footer>
           </b-form>
@@ -67,7 +79,8 @@ export default {
         id: "",
         tipo: "O",
         fecha: "",
-        descripcion: ""
+        descripcion: "",
+        archivo: null
       },
       show: true,
       showDecadeNav: false,
@@ -99,19 +112,16 @@ export default {
       }
     };
   },
-  created() {
-    ServiciosAPI.getActa(this.id)
-      .then(response => {
-        this.acta = response.data;
-      })
-      .catch(error => {
-        console.log("Ocurrió un error: " + error.response);
-      });
+  async created() {
+    var act = await ServiciosAPI.getActa(this.id);
+    if (act.status == 200) {
+      this.acta = act.data;
+    }
   },
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      ServiciosAPI.guardarActa(this.acta);
+      ServiciosAPI.editarActa(this.acta);
     },
     onReset(evt) {
       evt.preventDefault();

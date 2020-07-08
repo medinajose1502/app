@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import actas.proyectolab2.app.modelos.Usuario;
@@ -18,6 +19,9 @@ public class SUsuario {
 	
 	@Autowired
 	RRol rRol;
+	
+	@Autowired
+	BCryptPasswordEncoder encoder;
      
     public List<Usuario> encontrarTodos()
     {
@@ -53,6 +57,7 @@ public class SUsuario {
     {
         if(usuario.getId() == null)
         {
+        	usuario.setContrasenna(encoder.encode(usuario.getContrasenna()));
         	usuario.setEstado(true);
             usuario = rUsuario.save(usuario);
             return usuario;
@@ -66,7 +71,7 @@ public class SUsuario {
             {
                 Usuario usuarioActualizado = usuarioEncontrado.get();
                 usuarioActualizado.setCedula(usuario.getCedula());
-                usuarioActualizado.setContrasenna(usuario.getContrasenna());
+                usuarioActualizado.setContrasenna(encoder.encode(usuario.getContrasenna()));
                 usuarioActualizado.setNombres(usuario.getNombres());
                 usuarioActualizado.setApellidos(usuario.getApellidos());
                 usuarioActualizado.setDecanato(usuarioEncontrado.get().getDecanato());

@@ -140,7 +140,7 @@ public class CActa {
 		
 		
 		@PostMapping(value = "/acta/editar", headers = "Content-Type=multipart/form-data")
-		Acta editarActa(@RequestParam("tipo") String id, @RequestParam("tipo") char tipo,
+		Acta editarActa(@RequestParam("id") String id, @RequestParam("tipo") char tipo,
 						@RequestParam("fecha") String fecha, @RequestParam("descripcion") String descripcion,
 						@RequestParam(name = "archivo") MultipartFile archivo, Authentication auth) throws IOException
 		{	

@@ -32,14 +32,27 @@ export default {
         formData.append("tipo", Acta.tipo);
         formData.append("fecha", Acta.fecha);
         formData.append("descripcion", Acta.descripcion);
-        if (Acta.archivo != null)
-            formData.append("archivo", Acta.archivo);
+        formData.append("archivo", Acta.archivo);
 
         var headers = {
             'Content-Type': 'multipart/form-data',
         };
 
         return apiServidor.post('/acta/guardar', formData, headers)
+    },
+    editarActa(Acta) {
+        let formData = new FormData();
+        formData.append("id", Acta.id);
+        formData.append("tipo", Acta.tipo);
+        formData.append("fecha", Acta.fecha);
+        formData.append("descripcion", Acta.descripcion);
+        formData.append("archivo", Acta.archivo);
+
+        var headers = {
+            'Content-Type': 'multipart/form-data',
+        };
+
+        return apiServidor.post('/acta/editar', formData, headers)
     },
 
 

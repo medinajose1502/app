@@ -32,6 +32,7 @@
                       id="input-2"
                       v-model="usuario.contrasenna"
                       required
+                      type="password"
                       placeholder="Ingrese la cédula del usuario."
                     ></b-form-input>
                   </b-form-group>
