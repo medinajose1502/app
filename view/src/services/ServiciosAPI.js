@@ -54,6 +54,9 @@ export default {
 
         return apiServidor.post('/acta/editar', formData, headers)
     },
+    getPDFActa(id) {
+        return apiServidor.get('/acta/descargar/' + id)
+    },
 
 
     getDecanatos() {

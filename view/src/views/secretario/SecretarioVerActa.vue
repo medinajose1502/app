@@ -7,29 +7,43 @@
           <b-card-header header-bg-variant="primary" header-text-variant="white">
             <h3>Ver acta</h3>
           </b-card-header>
-          <b-form text-variant="black" align="left">
+          <b-card-body>
+            <b-row>
+              <b-col>
+                <label for="id">Número de la acta:</label>
+                <b-form-input v-model="acta.id" id="id" readonly></b-form-input>
+              </b-col>
+              <b-col>
+                <label for="tipo">Tipo de sesión:</label>
+                <b-form-input v-model="acta.tipo" id="tipo" readonly></b-form-input>
+              </b-col>
+              <b-col>
+                <label for="fecha">Fecha de la sesión:</label>
+                <b-form-input v-model="acta.fecha" id="fecha" readonly></b-form-input>
+              </b-col>
+            </b-row>
             <p></p>
-            <label for="id">Número del acta</label>
-            <b-form-input v-model="acta.id" id="id" readonly></b-form-input>
+            <b-row>
+              <label for="descripcion">Descripción de la acta:</label>
+              <b-form-textarea v-model="acta.descripcion" id="descripcion" readonly></b-form-textarea>
+            </b-row>
             <p></p>
-            <label for="tipo">Tipo de sesión</label>
-            <b-form-input v-model="tipoSesion" id="tipo" readonly></b-form-input>
-            <p></p>
-            <label for="fecha">Fecha de la sesión</label>
-            <b-form-input v-model="acta.fecha" id="fecha" readonly></b-form-input>
-            <p></p>
-            <label for="descripcion">Descripción del acta</label>
-            <b-form-textarea v-model="acta.descripcion" id="descripcion" readonly></b-form-textarea>
-            <p></p>
-            <b-card-footer align="right" footer-bg-variant="primary">
-              <router-link :to="{ name: 'SecretarioHome'}">
-                <b-button variant="danger">Volver</b-button>
-              </router-link>
-              <router-link :to="{ name: 'SecretarioEditarActa', params: { id: this.id }}">
-                <b-button variant="info">Editar</b-button>
-              </router-link>
-            </b-card-footer>
-          </b-form>
+            <b-row>
+              <b-col cols="12">
+                <a :href="enlace" download>
+                  <b-button variant="success">Descargar acta</b-button>
+                </a>
+              </b-col>
+            </b-row>
+          </b-card-body>
+          <b-card-footer align="right" footer-bg-variant="primary">
+            <router-link :to="{ name: 'SecretarioHome'}">
+              <b-button variant="danger">Volver</b-button>
+            </router-link>
+            <router-link :to="{ name: 'SecretarioEditarActa', params: {id: this.id} }">
+              <b-button type="submit" variant="info">Editar</b-button>
+            </router-link>
+          </b-card-footer>
         </b-card>
       </b-col>
       <b-col></b-col>
@@ -39,6 +53,7 @@
 
 <script>
 import ServiciosAPI from "@/services/ServiciosAPI.js";
+import { saveAs } from "file-saver";
 
 export default {
   props: {
@@ -66,9 +81,8 @@ export default {
       });
   },
   computed: {
-    tipoSesion: function() {
-      if (this.acta.tipo == "E") return "Extraordinaria";
-      else return "Ordinaria";
+    enlace: function() {
+      return "http://localhost:8080/acta/descargar/" + this.acta.id;
     }
   }
 };

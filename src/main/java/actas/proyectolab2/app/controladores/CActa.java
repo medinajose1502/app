@@ -186,7 +186,7 @@ public class CActa {
 	            e.printStackTrace();
 	        }
 	        
-	        String nombreArchivo = "Acta-Sesion-"+acta.getTipo()+"-"+acta.getFecha().toString();
+	        String nombreArchivo = "Acta-Sesion-"+acta.getTipo()+"-"+acta.getFecha().toString()+".pdf";
 	        
 	        return ResponseEntity.ok()
 	                .contentType(MediaType.APPLICATION_PDF)
