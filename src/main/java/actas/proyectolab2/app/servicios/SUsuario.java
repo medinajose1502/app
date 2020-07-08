@@ -39,6 +39,16 @@ public class SUsuario {
         	return null;
     }
     
+    public Usuario encontrarPorId(Long id)
+    {
+        Optional<Usuario> usuarioEncontrado = rUsuario.findById(id);
+         
+        if(usuarioEncontrado.isPresent()) 
+            return usuarioEncontrado.get();     
+        else     
+        	return null;
+    }
+    
     public Usuario crearOActualizar(Usuario usuario)
     {
         if(usuario.getCedula() == null)

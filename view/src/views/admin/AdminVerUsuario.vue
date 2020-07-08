@@ -28,7 +28,7 @@
               <router-link :to="{ name: 'AdminHome'}">
                 <b-button variant="danger">Volver</b-button>
               </router-link>
-              <router-link :to="{ name: 'AdminEditarUsuario', params: {cedula: this.cedula} }">
+              <router-link :to="{ name: 'AdminEditarUsuario', params: {user: this.usuario} }">
                 <b-button type="submit" variant="info">Editar</b-button>
               </router-link>
             </b-card-footer>
@@ -45,13 +45,14 @@ import ServiciosAPI from "@/services/ServiciosAPI.js";
 
 export default {
   props: {
-    cedula: {
-      type: String
+    id: {
+      type: Number
     }
   },
   data() {
     return {
       usuario: {
+        id: null,
         cedula: "",
         nombres: "",
         apellidos: "",
@@ -61,7 +62,7 @@ export default {
     };
   },
   created() {
-    ServiciosAPI.getUsuario(this.cedula)
+    ServiciosAPI.getUsuarioId(this.id)
       .then(response => {
         this.usuario = response.data;
       })

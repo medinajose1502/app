@@ -1,7 +1,7 @@
 <template>
   <b-card>
     <b-card-header header-bg-variant="primary" header-text-variant="white">
-      <h3>Actas:</h3>
+      <h3>Usuarios:</h3>
     </b-card-header>
     <p></p>
     <b-card-body>
@@ -31,15 +31,15 @@
       </b-row>
       <b-row>
         <b-table
-          id="tabla-actas"
+          id="tabla-usuarios"
           hover
-          :items="act"
+          :items="usu"
           :fields="fields"
           :filtro="filtro"
           :per-page="perPage"
           :current-page="currentPage"
           primary-key="id"
-          @row-clicked="verActa"
+          @row-clicked="verUsuario"
         ></b-table>
       </b-row>
       <b-row>
@@ -49,14 +49,14 @@
             v-model="currentPage"
             :total-rows="rows"
             :per-page="perPage"
-            aria-controls="tabla-actas"
+            aria-controls="tabla-usuarios"
           ></b-pagination>
         </b-col>
       </b-row>
     </b-card-body>
-    <b-card-footer footer-bg-variant="primary">
-      <router-link :to="{ name: 'AdminCrearActa'}">
-        <b-button variant="info">Crear acta</b-button>
+    <b-card-footer footer-bg-variant="primary" align="right">
+      <router-link :to="{ name: 'AdminCrearUsuario'}">
+        <b-button variant="info">Crear usuario</b-button>
       </router-link>
     </b-card-footer>
   </b-card>
@@ -75,15 +75,15 @@ export default {
       currentPage: 1,
       fields: [
         {
-          key: "id",
+          key: "cedula",
           sortable: true
         },
         {
-          key: "fecha",
+          key: "nombres",
           sortable: true
         },
         {
-          key: "tipo",
+          key: "apellidos",
           sortable: true
         }
       ],
@@ -93,21 +93,22 @@ export default {
 
   computed: {
     rows() {
-      return this.act.length;
+      return this.usu.length;
     },
-    act() {
+    usu() {
       return this.filtro
         ? this.items.filter(
             item =>
-              item.fecha.includes(this.filtro) ||
-              item.tipo.includes(this.filtro)
+              item.cedula.includes(this.filtro) ||
+              item.nombres.includes(this.filtro) ||
+              item.apellidos.includes(this.filtro)
           )
         : this.items;
     }
   },
   methods: {
-    verActa(item) {
-      this.$router.push("/admin/acta/ver/" + item.id);
+    verUsuario(item) {
+      this.$router.push("/admin/usuario/ver/" + parseInt(item.id, 10));
     }
   }
 };

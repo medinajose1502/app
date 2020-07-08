@@ -58,6 +58,9 @@ export default {
     getUsuario(id) {
         return apiServidor.get('/usuario/ver/' + id)
     },
+    getUsuarioId(id) {
+        return apiServidor.get('/usuario/encontrar/' + id)
+    },
     getUsuarios() {
         return apiServidor.get('/usuario/ver/todos')
     },

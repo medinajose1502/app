@@ -1,45 +1,19 @@
 <template>
-  <b-row>
-    <b-col cols="4">
-      <b-card>
-        <b-card-header header-bg-variant="primary" header-text-variant="white">
-          <h3>Listado de decanatos</h3>
-        </b-card-header>
-        <TarjetaDecanato v-for="decanato in decanatos" :key="decanato.id" :decanato="decanato" />
-        <b-card-footer align="right" footer-bg-variant="primary">
-          <router-link :to="{ name: 'AdminCrearDecanato'}">
-            <b-button variant="info">Crear decanato</b-button>
-          </router-link>
-        </b-card-footer>
-      </b-card>
-    </b-col>
-    <b-col cols="5">
-      <b-card>
-        <b-card-header header-bg-variant="primary" header-text-variant="white">
-          <h3>Listado de actas</h3>
-        </b-card-header>
-        <TarjetaActaA v-for="acta in actas" :key="acta.id" :acta="acta" />
-        <b-card-footer align="right" footer-bg-variant="primary">
-          <router-link :to="{ name: 'AdminCrearActa'}">
-            <b-button variant="info">Crear acta</b-button>
-          </router-link>
-        </b-card-footer>
-      </b-card>
-    </b-col>
-    <b-col>
-      <b-card>
-        <b-card-header header-bg-variant="primary" header-text-variant="white">
-          <h3>Listado de usuarios</h3>
-        </b-card-header>
-        <TarjetaUsuario v-for="usuario in usuarios" :key="usuario.id" :usuario="usuario" />
-        <b-card-footer align="right" footer-bg-variant="primary">
-          <router-link :to="{ name: 'AdminCrearUsuario'}">
-            <b-button variant="info">Crear usuario</b-button>
-          </router-link>
-        </b-card-footer>
-      </b-card>
-    </b-col>
-  </b-row>
+  <div>
+    <b-row>
+      <b-col>
+        <TablaDecanatos :items="decanatos" />
+      </b-col>
+      <b-col>
+        <TablaActas :items="actas" />
+      </b-col>
+      <b-col>
+        <b-col>
+          <TablaUsuarios :items="usuarios" />
+        </b-col>
+      </b-col>
+    </b-row>
+  </div>
 </template>
 
 <script>
@@ -47,11 +21,17 @@ import ServiciosAPI from "@/services/ServiciosAPI.js";
 import TarjetaActaA from "@/components/TarjetaActaA.vue";
 import TarjetaDecanato from "@/components/TarjetaDecanato.vue";
 import TarjetaUsuario from "@/components/TarjetaUsuario.vue";
+import TablaDecanatos from "@/components/TablaDecanatos.vue";
+import TablaActas from "@/components/TablaActas.vue";
+import TablaUsuarios from "@/components/TablaUsuarios.vue";
 export default {
   components: {
     TarjetaActaA,
     TarjetaDecanato,
-    TarjetaUsuario
+    TarjetaUsuario,
+    TablaDecanatos,
+    TablaActas,
+    TablaUsuarios
   },
   data() {
     return {

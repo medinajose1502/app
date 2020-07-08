@@ -42,6 +42,15 @@ public class CUsuario {
 		else throw new RecursoNoEncontrado("No se pudo encontrar el usuario solicitado.");
 	}
 	
+	@GetMapping("/usuario/encontrar/{id}")
+	Usuario verUsuarioId(@PathVariable Long id) throws RecursoNoEncontrado
+	{
+		Usuario usuario = sUsuario.encontrarPorId(id);
+		if(usuario != null)
+			return usuario;
+		else throw new RecursoNoEncontrado("No se pudo encontrar el usuario solicitado.");
+	}
+	
 	@Secured("ROLE_ADMIN")
 	@GetMapping("/usuario/ver/todos")
 	List <Usuario> verUsuarios() throws RecursoNoEncontrado

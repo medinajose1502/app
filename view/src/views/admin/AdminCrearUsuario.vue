@@ -94,8 +94,7 @@ export default {
         roles: [],
         decanato: {
           id: ""
-        },
-        actas: []
+        }
       },
       show: true,
       opc: []

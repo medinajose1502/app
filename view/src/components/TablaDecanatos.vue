@@ -1,7 +1,7 @@
 <template>
   <b-card>
     <b-card-header header-bg-variant="primary" header-text-variant="white">
-      <h3>Actas:</h3>
+      <h3>Decanatos:</h3>
     </b-card-header>
     <p></p>
     <b-card-body>
@@ -31,15 +31,13 @@
       </b-row>
       <b-row>
         <b-table
-          id="tabla-actas"
+          id="tabla-decanatos"
           hover
-          :items="act"
+          :items="dec"
           :fields="fields"
           :filtro="filtro"
-          :per-page="perPage"
-          :current-page="currentPage"
           primary-key="id"
-          @row-clicked="verActa"
+          @row-clicked="verDecanato"
         ></b-table>
       </b-row>
       <b-row>
@@ -49,14 +47,14 @@
             v-model="currentPage"
             :total-rows="rows"
             :per-page="perPage"
-            aria-controls="tabla-actas"
+            aria-controls="tabla-decanatos"
           ></b-pagination>
         </b-col>
       </b-row>
     </b-card-body>
     <b-card-footer footer-bg-variant="primary">
-      <router-link :to="{ name: 'AdminCrearActa'}">
-        <b-button variant="info">Crear acta</b-button>
+      <router-link :to="{ name: 'AdminCrearDecanato'}">
+        <b-button variant="info">Crear decanato</b-button>
       </router-link>
     </b-card-footer>
   </b-card>
@@ -75,16 +73,13 @@ export default {
       currentPage: 1,
       fields: [
         {
-          key: "id",
+          key: "nombre",
           sortable: true
         },
         {
-          key: "fecha",
-          sortable: true
-        },
-        {
-          key: "tipo",
-          sortable: true
+          key: "ubicacion",
+          label: "Ubicación",
+          sortable: false
         }
       ],
       filtro: ""
@@ -93,21 +88,21 @@ export default {
 
   computed: {
     rows() {
-      return this.act.length;
+      return this.dec.length;
     },
-    act() {
+    dec() {
       return this.filtro
         ? this.items.filter(
             item =>
-              item.fecha.includes(this.filtro) ||
-              item.tipo.includes(this.filtro)
+              item.nombre.includes(this.filtro) ||
+              item.ubicacion.includes(this.filtro)
           )
         : this.items;
     }
   },
   methods: {
-    verActa(item) {
-      this.$router.push("/admin/acta/ver/" + item.id);
+    verDecanato(item) {
+      this.$router.push("/admin/decanato/ver/" + item.id);
     }
   }
 };
