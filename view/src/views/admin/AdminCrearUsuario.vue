@@ -176,10 +176,21 @@ export default {
     }
   },
   methods: {
-    onSubmit(evt) {
+    async onSubmit(evt) {
       evt.preventDefault();
+      if (this.rol.tipo == "ROLE_ADMIN") this.rol.id = 1;
+      else this.rol.id = 2;
       this.usuario.roles.push(this.rol);
-      ServiciosAPI.guardarUsuario(this.usuario);
+      var respuesta = await ServiciosAPI.guardarUsuario(this.usuario);
+      if (respuesta.status == 200) {
+        this.$alert(
+          "Se ha creado el decanato con éxito",
+          "Éxito",
+          "success"
+        ).then(click => {
+          this.onReset(evt);
+        });
+      } else this.$alert("Se ha producido un error", "Error", "error");
     },
     onReset(evt) {
       evt.preventDefault();

@@ -55,7 +55,7 @@
                     Eliminar
                     <b-icon icon="x-square-fill"></b-icon>
                   </b-button>
-                  <router-link :to="{ name: 'AdminEditarActa', params: {user: this.usuario} }">
+                  <router-link :to="{ name: 'AdminEditarUsuario', params: {id: this.id} }">
                     <b-button type="submit" variant="primary text-info">
                       Editar
                       <b-icon icon="brush"></b-icon>

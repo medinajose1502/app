@@ -128,9 +128,22 @@ export default {
       });
   },
   methods: {
-    onSubmit(evt) {
+    async onSubmit(evt) {
       evt.preventDefault();
-      ServiciosAPI.guardarDecanato(this.decanato);
+      var respuesta = await ServiciosAPI.guardarDecanato(this.decanato);
+      if (respuesta.status == 200)
+        this.$alert(
+          "¡Se ha editado el decanato con éxito!",
+          "Éxito",
+          "success"
+        ).then(click => {
+          this.$router.push({
+            name: "AdminVerDecanato",
+            params: { id: this.id }
+          });
+        });
+      else
+        this.$alert("¡No se ha podido editar el decanato!", "Error", "error");
     },
     onReset(evt) {
       evt.preventDefault();
