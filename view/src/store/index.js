@@ -21,7 +21,7 @@ export default new Vuex.Store({
     SET_USUARIO_SESION(state, usuario) {
       if (usuario.id != "")
         state.enSesion = true
-      else state.enSesion = true
+      else state.enSesion = false
       state.usuarioSesion = usuario
     }
   },
@@ -38,6 +38,9 @@ export default new Vuex.Store({
     },
     usuarioEnSesion: state => {
       return state.enSesion;
+    },
+    nombreUsuarioSesion: state => {
+      return state.usuarioSesion.nombres
     }
   }
 })

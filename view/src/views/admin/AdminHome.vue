@@ -1,18 +1,21 @@
 <template>
   <div>
-    <b-row>
-      <b-col>
-        <TablaDecanatos :items="decanatos" />
-      </b-col>
-      <b-col>
-        <TablaActas :items="actas" />
-      </b-col>
-      <b-col>
+    <NavBarA />
+    <div>
+      <b-row>
         <b-col>
-          <TablaUsuarios :items="usuarios" />
+          <TablaDecanatos :items="decanatos" />
         </b-col>
-      </b-col>
-    </b-row>
+        <b-col>
+          <TablaActas :items="actas" />
+        </b-col>
+        <b-col>
+          <b-col>
+            <TablaUsuarios :items="usuarios" />
+          </b-col>
+        </b-col>
+      </b-row>
+    </div>
   </div>
 </template>
 

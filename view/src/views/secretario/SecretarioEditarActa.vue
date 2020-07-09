@@ -45,6 +45,7 @@
                   drop-placeholder="¡Sueltalo aquí!"
                   accept=".pdf"
                   size="lg"
+                  browse-text="Buscar"
                 ></b-form-file>
               </b-row>
               <p></p>
