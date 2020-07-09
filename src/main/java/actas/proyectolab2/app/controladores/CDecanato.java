@@ -1,5 +1,6 @@
 package actas.proyectolab2.app.controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,12 +17,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import actas.proyectolab2.app.excepciones.MensajeErrorDeCampo;
 import actas.proyectolab2.app.excepciones.RecursoNoEncontrado;
+import actas.proyectolab2.app.modelos.Acta;
 import actas.proyectolab2.app.modelos.Decanato;
+import actas.proyectolab2.app.modelos.ReporteDecanato;
 import actas.proyectolab2.app.servicios.SDecanato;
 
 @RestController
@@ -72,8 +76,7 @@ public class CDecanato {
 	{
 		sDecanato.eliminarPorId(id);
 	}
-<<<<<<< Updated upstream
-=======
+
 	
 	@GetMapping
 	List<ReporteDecanato> reporteDecanato(@RequestParam int mes) {
@@ -91,6 +94,6 @@ public class CDecanato {
 		}
 		return Lrd;
 	}
->>>>>>> Stashed changes
+
 
 }

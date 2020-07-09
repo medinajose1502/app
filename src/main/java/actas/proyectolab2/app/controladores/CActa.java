@@ -196,6 +196,12 @@ public class CActa {
 		@DeleteMapping("/acta/eliminar/{id}")
 		void eliminarActas(@PathVariable Long id)
 		{
+			Path path = Paths.get(baseDir + id.toString());
+			try {
+				Files.deleteIfExists(path);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			sActa.eliminarPorId(id);
 		}
 }

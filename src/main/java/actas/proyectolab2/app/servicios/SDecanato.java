@@ -72,7 +72,8 @@ public class SDecanato {
         Optional<Decanato> decanatoEncontrado = rDecanato.findById(id);
          
         if(decanatoEncontrado.isPresent())
-            rDecanato.deleteById(id);        
+            decanatoEncontrado.get().setEstado(false);       
+        	rDecanato.save(decanatoEncontrado.get());
     }
 	
 }

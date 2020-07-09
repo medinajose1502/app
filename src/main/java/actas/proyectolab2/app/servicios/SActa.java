@@ -89,6 +89,7 @@ public class SActa {
         Optional<Acta> actaEncontrada = rActa.findById(id);
         
         if(actaEncontrada.isPresent())
-            rActa.deleteById(id);
+            actaEncontrada.get().setEstado(false);
+        	rActa.save(actaEncontrada.get());
     }
 }
