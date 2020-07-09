@@ -66,6 +66,9 @@ export default {
     getPDFActa(id) {
         return apiServidor.get('/acta/descargar/' + id)
     },
+    eliminarActa(id) {
+        return apiServidor.post('/acta/eliminar/' + id)
+    },
 
 
 
@@ -83,6 +86,9 @@ export default {
     },
     getReporteDecanato(anno, mes) {
         return apiServidor.get('/decanato/reporte/' + anno + '/' + mes)
+    },
+    eliminarDecanato(id) {
+        return apiServidor.post('/decanato/eliminar/' + id)
     },
 
 
@@ -105,4 +111,7 @@ export default {
     guardarUsuario(Usuario) {
         return apiServidor.post('/usuario/guardar', Usuario)
     },
+    eliminarUsuario(id) {
+        return apiServidor.post('/usuario/eliminar/' + id)
+    }
 }

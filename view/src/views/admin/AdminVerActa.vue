@@ -52,6 +52,10 @@
                   </router-link>
                 </b-col>
                 <b-col align="right">
+                  <b-button type="submit" @click="eliminarActa" variant="primary text-danger">
+                    Eliminar
+                    <b-icon icon="x-square-fill"></b-icon>
+                  </b-button>
                   <router-link :to="{ name: 'AdminEditarActa', params: {id: this.id} }">
                     <b-button type="submit" variant="primary text-info">
                       Editar
@@ -96,6 +100,12 @@ export default {
       .catch(error => {
         console.log("Ocurrió un error: " + error.response);
       });
+  },
+  methods: {
+    eliminarActa: async function() {
+      var respuesta = await ServiciosAPI.eliminarActa(this.id);
+      if (respuesta.status == 200) this.$router.push("/admin");
+    }
   },
   computed: {
     enlace: function() {

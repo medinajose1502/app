@@ -51,6 +51,10 @@
                   </router-link>
                 </b-col>
                 <b-col align="right">
+                  <b-button type="submit" @click="eliminarUsuario" variant="primary text-danger">
+                    Eliminar
+                    <b-icon icon="x-square-fill"></b-icon>
+                  </b-button>
                   <router-link :to="{ name: 'AdminEditarActa', params: {user: this.usuario} }">
                     <b-button type="submit" variant="primary text-info">
                       Editar
@@ -109,6 +113,12 @@ export default {
       .catch(error => {
         console.log("Ocurrió un error: " + error.response);
       });
+  },
+  methods: {
+    eliminarUsuario: async function() {
+      var respuesta = await ServiciosAPI.eliminarUsuario(this.id);
+      if (respuesta.status == 200) this.$router.push("/admin");
+    }
   }
 };
 </script>

@@ -50,7 +50,7 @@ const routes = [
         console.log(respuesta.status)
         next("/login")
       }).catch(error => {
-        console.log(error.data)
+        next("/login")
       })
     }
   },

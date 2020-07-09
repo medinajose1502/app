@@ -23,6 +23,15 @@ public class SDecanato {
         else 
             return null;
     }
+    
+    public List<Decanato> encontrarTodosActivos()
+    {
+        List<Decanato> result = (List<Decanato>) rDecanato.findByEstado(true);
+        if(result.size() > 0) 
+            return result;
+        else 
+            return null;
+    }
      
     public Decanato encontrarPorId(Long id)
     {

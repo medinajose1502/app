@@ -14,4 +14,5 @@ public interface RActa extends JpaRepository<Acta, Long>{
 
 	List <Acta> findByUsuario(Usuario usuario);
 	List <Acta> findByDecanato(Decanato decanato);
+	List <Acta> findByDecanatoAndEstado(Decanato decanato, boolean estado);
 }

@@ -25,7 +25,7 @@
                   placeholder="Ingrese su contraseña"
                 ></b-form-input>
               </b-form-group>
-
+              <p v-show="error">Las credenciales son incorrectas, vuelva a intentarlo.</p>
               <div align="right">
                 <b-button type="reset" variant="primary text-danger">Limpiar</b-button>
                 <b-button type="submit" variant="primary text-success">Ingresar</b-button>
@@ -49,12 +49,14 @@ export default {
         username: "",
         password: ""
       },
-      show: true
+      show: true,
+      error: false
     };
   },
   methods: {
     async onSubmit(evt) {
       evt.preventDefault();
+      this.error = false;
       var respuesta = await ServiciosAPI.login(this.formulario);
       if (respuesta.status == 200) {
         var usuario = await ServiciosAPI.getUsuarioSesion();
@@ -63,7 +65,7 @@ export default {
         if (this.$store.getters.rolUsuarioSesion == "ROLE_ADMIN")
           this.$router.push("/admin");
         else this.$router.push("/secretario");
-      } else console.log(respuesta.status);
+      } else this.error = true;
     },
 
     onReset(evt) {

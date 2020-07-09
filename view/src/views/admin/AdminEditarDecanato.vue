@@ -6,8 +6,8 @@
         <b-col></b-col>
         <b-col cols="10">
           <b-card class="shadow-soft">
-            <b-card-header header-bg-variant="primary shadow-inset" >
-              <h4>Crear un decanato</h4>
+            <b-card-header header-bg-variant="primary shadow-inset">
+              <h4>Editar un decanato</h4>
             </b-card-header>
             <b-form @submit="onSubmit" @reset="onReset" v-if="show">
               <b-row>
@@ -56,6 +56,7 @@
                         v-model="decanato.descripcion"
                         placeholder="Ingrese una descripción para el decanato..."
                         rows="10"
+                        required
                         max-rows="100"
                       ></b-form-textarea>
                     </b-col>

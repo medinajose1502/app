@@ -15,7 +15,7 @@
                   <p></p>
                   <b-col md="auto">
                     <b-form-input v-model="acta.id" hidden></b-form-input>
-                    <b-form-select id="tipo" v-model="acta.tipo" class="mb-3">
+                    <b-form-select required id="tipo" v-model="acta.tipo" class="mb-3">
                       <b-form-select-option value="O">Ordinaria</b-form-select-option>
                       <b-form-select-option value="E">Extraordinaria</b-form-select-option>
                     </b-form-select>
@@ -34,6 +34,7 @@
                       v-model="acta.descripcion"
                       placeholder="Ingrese los detalles de la sesión a registrar..."
                       rows="16"
+                      required
                       max-rows="10000"
                     ></b-form-textarea>
                   </b-col>

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -55,6 +54,15 @@ public class CDecanato {
 		else throw new RecursoNoEncontrado("No hay registros de decanatos.");
 	}
 	
+	@GetMapping("/decanato/ver/todos/activos")
+	List <Decanato> verDecanatosActivos() throws RecursoNoEncontrado
+	{
+		List<Decanato> decanatos = sDecanato.encontrarTodosActivos();
+		if(decanatos != null)
+			return decanatos;
+		else throw new RecursoNoEncontrado("No hay registros de decanatos.");
+	}
+	
 	@Secured("ROLE_ADMIN")
 	@PostMapping("/decanato/guardar")
 	Decanato guardarDecanato(@Valid @RequestBody Decanato decanato)
@@ -87,6 +95,7 @@ public class CDecanato {
 		List<Decanato> decanatos = sDecanato.encontrarTodos();
 		for (Decanato decanato : decanatos)
 		{
+			if(decanato.isEstado() == true)
 			for (Acta acta : decanato.getActas())
 			{
 				if(acta.getFecha().getMonthValue() == mes &&

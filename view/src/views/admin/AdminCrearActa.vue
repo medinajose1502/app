@@ -6,7 +6,7 @@
         <b-col></b-col>
         <b-col cols="10">
           <b-card class="shadow-soft">
-            <b-card-header header-bg-variant="primary shadow-inset" >
+            <b-card-header header-bg-variant="primary shadow-inset">
               <h3>Crear acta</h3>
             </b-card-header>
             <b-form @submit="onSubmit" @reset="onReset" v-if="show">
@@ -14,7 +14,7 @@
                 <b-row>
                   <p></p>
                   <b-col md="auto">
-                    <b-form-select id="tipo" v-model="acta.tipo" class="mb-3">
+                    <b-form-select required id="tipo" v-model="acta.tipo" class="mb-3">
                       <b-form-select-option value="O">Ordinaria</b-form-select-option>
                       <b-form-select-option value="E">Extraordinaria</b-form-select-option>
                     </b-form-select>
@@ -33,6 +33,7 @@
                       v-model="acta.descripcion"
                       placeholder="Ingrese los detalles de la sesión a registrar..."
                       rows="16"
+                      required
                       max-rows="10000"
                     ></b-form-textarea>
                   </b-col>
@@ -149,7 +150,7 @@ export default {
 
 
 <style>
-.b-calendar .b-calendar-grid-body .col[data-date] .btn{
-      height: auto !important;
+.b-calendar .b-calendar-grid-body .col[data-date] .btn {
+  height: auto !important;
 }
 </style>
