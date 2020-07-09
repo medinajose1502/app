@@ -65,7 +65,7 @@ export default {
         if (this.$store.getters.rolUsuarioSesion == "ROLE_ADMIN")
           this.$router.push("/admin");
         else this.$router.push("/secretario");
-      } else this.error = true;
+      } else this.$alert("Hello Vue Simple Alert.");
     },
 
     onReset(evt) {

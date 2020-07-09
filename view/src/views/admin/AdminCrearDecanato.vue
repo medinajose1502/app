@@ -111,9 +111,19 @@ export default {
     };
   },
   methods: {
-    onSubmit(evt) {
+    async onSubmit(evt) {
       evt.preventDefault();
-      ServiciosAPI.guardarDecanato(this.decanato);
+      var respuesta = await ServiciosAPI.guardarDecanato(this.decanato);
+      console.log(respuesta);
+      if (respuesta.status == 200) {
+        this.$alert(
+          "Se ha creado el decanato con éxito",
+          "Éxito",
+          "success"
+        ).then(click => {
+          this.onReset(evt);
+        });
+      } else this.$alert("Se ha producido un error", "Error", "error");
     },
     onReset(evt) {
       evt.preventDefault();

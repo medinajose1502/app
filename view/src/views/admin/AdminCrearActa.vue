@@ -126,7 +126,7 @@ export default {
     };
   },
   methods: {
-    onSubmit(evt) {
+    async onSubmit(evt) {
       evt.preventDefault();
       ServiciosAPI.guardarActa(this.acta);
     },
