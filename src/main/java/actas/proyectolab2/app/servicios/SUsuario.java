@@ -95,7 +95,8 @@ public class SUsuario {
         Optional<Usuario> usuarioEncontrado = rUsuario.findById(id);
          
         if(usuarioEncontrado.isPresent())
-            rUsuario.deleteById(id);
+            usuarioEncontrado.get().setEstado(false);
+        	rUsuario.save(usuarioEncontrado.get());
     }
 	
 }

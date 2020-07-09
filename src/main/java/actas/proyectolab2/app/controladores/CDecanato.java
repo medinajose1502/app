@@ -91,4 +91,24 @@ public class CDecanato {
 		return Lrp;
 	}
 
+	
+	@GetMapping
+	List<ReporteDecanato> reporteDecanato(@RequestParam int mes) {
+		List<ReporteDecanato> Lrd = new ArrayList<>();
+		int cuenta = 0;
+		
+		List<Decanato> decanatos = sDecanato.encontrarTodos();
+		for (Decanato decanato : decanatos) {
+			for (Acta acta : decanato.getActas()) {
+				if(acta.getFecha().getMonthValue() == mes && acta.isEstado())
+					++cuenta;
+			}
+			ReporteDecanato rd = new ReporteDecanato(decanato.getNombre(),cuenta);
+			Lrd.add(rd);
+			cuenta = 0;
+		}
+		return Lrd;
+	}
+
+
 }

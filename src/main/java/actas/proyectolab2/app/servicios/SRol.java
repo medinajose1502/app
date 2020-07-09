@@ -66,11 +66,12 @@ public class SRol
         }
     }
      
-    public void eliminarPorId(Long id)
+    /*public void eliminarPorId(Long id)
     {
         Optional<Rol> rolEncontrado = rRol.findById(id);
          
         if(rolEncontrado.isPresent())
             rRol.deleteById(id);
     }
+    */
 }
