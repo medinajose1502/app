@@ -69,6 +69,7 @@ public class SActa {
             if(actaEncontrada.isPresent())
             {
                 Acta actaActualizada = actaEncontrada.get();
+                actaActualizada.setTipo(acta.getTipo());
                 actaActualizada.setDescripcion(acta.getDescripcion());
                 actaActualizada.setFecha(acta.getFecha());
                 actaActualizada = rActa.save(actaActualizada);

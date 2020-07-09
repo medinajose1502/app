@@ -75,7 +75,7 @@ public class CActa {
 			Acta acta = sActa.encontrarPorId(id);
 			
 			if(acta != null)
-				if (usuario.getRoles().get(0).getTipo().toString() == "a")
+				if (usuario.getRoles().get(0).getTipo().toString() == "ROLE_ADMIN")
 					return acta;
 				else if(decanato == acta.getDecanato())
 					return acta;
