@@ -72,5 +72,25 @@ public class CDecanato {
 	{
 		sDecanato.eliminarPorId(id);
 	}
+<<<<<<< Updated upstream
+=======
+	
+	@GetMapping
+	List<ReporteDecanato> reporteDecanato(@RequestParam int mes) {
+		List<ReporteDecanato> Lrd = new ArrayList<>();
+		int cuenta = 0;
+		
+		List<Decanato> decanatos = sDecanato.encontrarTodos();
+		for (Decanato decanato : decanatos) {
+			for (Acta acta : decanato.getActas()) {
+				if(acta.getFecha().getMonthValue() == mes)
+					++cuenta;
+			}
+			ReporteDecanato rd = new ReporteDecanato(decanato.getNombre(),cuenta);
+			Lrd.add(rd);
+		}
+		return Lrd;
+	}
+>>>>>>> Stashed changes
 
 }
