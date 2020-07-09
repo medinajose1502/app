@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import actas.proyectolab2.app.modelos.Acta;
 import actas.proyectolab2.app.modelos.Decanato;
@@ -18,10 +17,6 @@ import actas.proyectolab2.app.servicios.SUsuario;
 
 @SpringBootTest
 class AgregarUsuario {
-
-	
-	@Autowired
-	BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 	
 	@Autowired
 	SActa sActa = new SActa();
@@ -70,7 +65,7 @@ class AgregarUsuario {
 		
 		
 		usuario.setCedula("18998003");
-		usuario.setContrasenna(bCryptPasswordEncoder.encode("1234"));
+		usuario.setContrasenna("1234");
 		usuario.setNombres("Daniel Adolfo");
 		usuario.setApellidos("Majano Manzano");
 		usuario.setDecanato(decanato);
@@ -79,7 +74,7 @@ class AgregarUsuario {
 		
 		
 		usuario2.setCedula("25148316");
-		usuario2.setContrasenna(bCryptPasswordEncoder.encode("1234"));
+		usuario2.setContrasenna("1234");
 		usuario2.setNombres("José David");
 		usuario2.setApellidos("Medina Escobar");
 		usuario2.setDecanato(decanato);
@@ -87,7 +82,7 @@ class AgregarUsuario {
 		sUsuario.crearOActualizar(usuario2);
 		
 		usuario3.setCedula("25627020");
-		usuario3.setContrasenna(bCryptPasswordEncoder.encode("1234"));
+		usuario3.setContrasenna("1234");
 		usuario3.setNombres("Rafael Enrique");
 		usuario3.setApellidos("Daza Torres");
 		usuario3.setDecanato(decanato);
@@ -95,7 +90,7 @@ class AgregarUsuario {
 		sUsuario.crearOActualizar(usuario3);
 		
 		usuario4.setCedula("27290740");
-		usuario4.setContrasenna(bCryptPasswordEncoder.encode("1234"));
+		usuario4.setContrasenna("1234");
 		usuario4.setNombres("Nicolás Alberto");
 		usuario4.setApellidos("Sira Delgado");
 		usuario4.setDecanato(decanato2);
@@ -103,7 +98,7 @@ class AgregarUsuario {
 		sUsuario.crearOActualizar(usuario4);
 		
 		usuario5.setCedula("12345678");
-		usuario5.setContrasenna(bCryptPasswordEncoder.encode("1234"));
+		usuario5.setContrasenna("1234");
 		usuario5.setNombres("Dummy User");
 		usuario5.setApellidos("McDummyface McUserface");
 		usuario5.setDecanato(decanato2);
