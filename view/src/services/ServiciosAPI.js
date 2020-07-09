@@ -81,6 +81,9 @@ export default {
     guardarDecanato(Decanato) {
         return apiServidor.post('/decanato/guardar', Decanato)
     },
+    getReporteDecanato(anno, mes) {
+        return apiServidor.get('/decanato/reporte/' + anno + '/' + mes)
+    },
 
 
 

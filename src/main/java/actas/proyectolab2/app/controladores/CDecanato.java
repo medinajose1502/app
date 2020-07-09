@@ -77,30 +77,20 @@ public class CDecanato {
 		sDecanato.eliminarPorId(id);
 	}
 	
-	@GetMapping
-	List<ReporteDecanato> reporteDecanato(@RequestParam int mes) {
-		List<ReporteDecanato> Lrp = new ArrayList<>();
-		
-		List<Decanato> decanatos = sDecanato.encontrarTodos();
-		for (Decanato decanato : decanatos) {
-			for (Acta acta : decanato.getActas()) {
-				int actas = acta.getFecha().getMonthValue();
-			}
-		}
-		
-		return Lrp;
-	}
 
 	
-	@GetMapping
-	List<ReporteDecanato> reporteDecanato(@RequestParam int mes) {
+	@GetMapping("/decanato/reporte/{anno}/{mes}")
+	List<ReporteDecanato> reporteDecanato(@PathVariable int anno, @PathVariable int mes) {
 		List<ReporteDecanato> Lrd = new ArrayList<>();
 		int cuenta = 0;
 		
 		List<Decanato> decanatos = sDecanato.encontrarTodos();
-		for (Decanato decanato : decanatos) {
-			for (Acta acta : decanato.getActas()) {
-				if(acta.getFecha().getMonthValue() == mes && acta.isEstado())
+		for (Decanato decanato : decanatos)
+		{
+			for (Acta acta : decanato.getActas())
+			{
+				if(acta.getFecha().getMonthValue() == mes &&
+				   acta.getFecha().getYear() == anno && acta.isEstado() == true)
 					++cuenta;
 			}
 			ReporteDecanato rd = new ReporteDecanato(decanato.getNombre(),cuenta);

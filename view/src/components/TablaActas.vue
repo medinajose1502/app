@@ -1,6 +1,6 @@
 <template>
   <b-card class="bg-primary border-light shadow-soft">
-    <b-card-header header-bg-variant="card bg-primary shadow-inset border-light" >
+    <b-card-header header-bg-variant="card bg-primary shadow-inset border-light">
       <h4>Lista de actas</h4>
     </b-card-header>
     <p></p>
@@ -23,7 +23,11 @@
                 placeholder="Escriba algo para buscar"
               ></b-form-input>
               <b-input-group-append>
-                <b-button variant="primary rounded-right shadow-soft text-secondary" :disabled="!filtro" @click="filtro = ''">Filtrar</b-button>
+                <b-button
+                  variant="primary rounded-right shadow-soft text-secondary"
+                  :disabled="!filtro"
+                  @click="filtro = ''"
+                >Filtrar</b-button>
               </b-input-group-append>
             </b-input-group>
           </b-form-group>

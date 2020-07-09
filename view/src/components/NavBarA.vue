@@ -4,6 +4,9 @@
       <router-link :to="{ name: 'AdminHome'}">
         <b-navbar-brand class="primary text-secondary">Inicio</b-navbar-brand>
       </router-link>
+      <router-link :to="{ name: 'AdminReporteDecanatos'}">
+        <b-navbar-brand class="primary text-secondary">Reporte</b-navbar-brand>
+      </router-link>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <!-- Right aligned nav items -->
@@ -24,15 +27,7 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      admin: false,
-      secretario: false,
-      sesion: false
-    };
-  }
-};
+export default {};
 </script>
 
 <style>

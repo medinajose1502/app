@@ -8,6 +8,7 @@ import AdminEditarActa from '@/views/admin/AdminEditarActa.vue';
 import AdminVerDecanato from '@/views/admin/AdminVerDecanato.vue';
 import AdminCrearDecanato from '@/views/admin/AdminCrearDecanato.vue';
 import AdminEditarDecanato from '@/views/admin/AdminEditarDecanato.vue';
+import AdminReporteDecanatos from '@/views/admin/AdminReporteDecanatos.vue';
 import AdminVerUsuario from '@/views/admin/AdminVerUsuario.vue';
 import AdminCrearUsuario from '@/views/admin/AdminCrearUsuario.vue';
 import AdminEditarUsuario from '@/views/admin/AdminEditarUsuario.vue';
@@ -122,6 +123,13 @@ const routes = [
     path: '/admin/decanato/editar/:id',
     name: 'AdminEditarDecanato',
     component: AdminEditarDecanato,
+    props: true,
+    meta: { requiereAdmin: true }
+  },
+  {
+    path: '/admin/decanato/reporte',
+    name: 'AdminReporteDecanatos',
+    component: AdminReporteDecanatos,
     props: true,
     meta: { requiereAdmin: true }
   },
