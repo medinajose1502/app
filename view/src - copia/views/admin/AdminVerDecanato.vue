@@ -5,8 +5,8 @@
       <b-row>
         <b-col></b-col>
         <b-col cols="10">
-          <b-card class="shadow-soft">
-            <b-card-header header-bg-variant="primary shadow-inset">
+          <b-card>
+            <b-card-header header-bg-variant="primary" header-text-variant="white">
               <h3>Ver decanato</h3>
             </b-card-header>
             <b-form text-variant="black" align="left">
@@ -29,7 +29,7 @@
                 <b-row>
                   <b-col>
                     <router-link :to="{ name: 'AdminHome'}">
-                      <b-button align="left" variant="primary text-info">
+                      <b-button align="left" variant="info">
                         Volver a inicio
                         <b-icon icon="house-fill"></b-icon>
                       </b-button>
@@ -37,7 +37,7 @@
                   </b-col>
                   <b-col align="right">
                     <router-link :to="{ name: 'AdminEditarDecanato', params: {id: this.id} }">
-                      <b-button type="submit" variant="primary text-info">
+                      <b-button type="submit" variant="info">
                         Editar
                         <b-icon icon="brush"></b-icon>
                       </b-button>

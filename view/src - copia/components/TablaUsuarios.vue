@@ -1,10 +1,10 @@
 <template>
-  <b-card class="shadow-soft">
-    <b-card-header header-bg-variant="primary shadow-inset">
-      <h4>Lista de decanatos</h4>
+  <b-card>
+    <b-card-header header-bg-variant="primary" header-text-variant="white">
+      <h4>Lista de usuarios</h4>
     </b-card-header>
     <p></p>
-    <b-card-body class="card bg-primary shadow-inset border-light">
+    <b-card-body>
       <b-row>
         <b-col class="my-1">
           <b-form-group
@@ -15,7 +15,7 @@
             label-for="filtro"
             class="mb-0"
           >
-            <b-input-group size="sm" class="filtrico">
+            <b-input-group size="sm">
               <b-form-input
                 v-model="filtro"
                 type="search"
@@ -23,7 +23,7 @@
                 placeholder="Escriba algo para buscar"
               ></b-form-input>
               <b-input-group-append>
-                <b-button variant="primary rounded-right shadow-soft text-secondary" :disabled="!filtro" @click="filtro = ''">Filtrar</b-button>
+                <b-button :disabled="!filtro" @click="filtro = ''">Filtrar</b-button>
               </b-input-group-append>
             </b-input-group>
           </b-form-group>
@@ -31,13 +31,15 @@
       </b-row>
       <b-row>
         <b-table
-          id="tabla-decanatos"
+          id="tabla-usuarios"
           hover
-          :items="dec"
+          :items="usu"
           :fields="fields"
           :filtro="filtro"
+          :per-page="perPage"
+          :current-page="currentPage"
           primary-key="id"
-          @row-clicked="verDecanato"
+          @row-clicked="verUsuario"
         ></b-table>
       </b-row>
       <b-row>
@@ -47,22 +49,18 @@
             v-model="currentPage"
             :total-rows="rows"
             :per-page="perPage"
-            aria-controls="tabla-decanatos"
+            aria-controls="tabla-usuarios"
           ></b-pagination>
         </b-col>
       </b-row>
     </b-card-body>
-    <b-card-footer footer-bg-variant="primary">
-      <b-row>
-        <b-col align="right">
-          <router-link :to="{ name: 'AdminCrearDecanato'}">
-            <b-button variant="primary text-info">
-              Crear decanato
-              <b-icon icon="plus-square-fill"></b-icon>
-            </b-button>
-          </router-link>
-        </b-col>
-      </b-row>
+    <b-card-footer footer-bg-variant="primary" align="right">
+      <router-link :to="{ name: 'AdminCrearUsuario'}">
+        <b-button variant="info">
+          Crear usuario
+          <b-icon icon="plus-square-fill"></b-icon>
+        </b-button>
+      </router-link>
     </b-card-footer>
   </b-card>
 </template>
@@ -80,13 +78,16 @@ export default {
       currentPage: 1,
       fields: [
         {
-          key: "nombre",
+          key: "cedula",
           sortable: true
         },
         {
-          key: "ubicacion",
-          label: "Ubicación",
-          sortable: false
+          key: "nombres",
+          sortable: true
+        },
+        {
+          key: "apellidos",
+          sortable: true
         }
       ],
       filtro: ""
@@ -95,21 +96,22 @@ export default {
 
   computed: {
     rows() {
-      return this.dec.length;
+      return this.usu.length;
     },
-    dec() {
+    usu() {
       return this.filtro
         ? this.items.filter(
             item =>
-              item.nombre.includes(this.filtro) ||
-              item.ubicacion.includes(this.filtro)
+              item.cedula.includes(this.filtro) ||
+              item.nombres.includes(this.filtro) ||
+              item.apellidos.includes(this.filtro)
           )
         : this.items;
     }
   },
   methods: {
-    verDecanato(item) {
-      this.$router.push("/admin/decanato/ver/" + item.id);
+    verUsuario(item) {
+      this.$router.push("/admin/usuario/ver/" + parseInt(item.id, 10));
     }
   }
 };

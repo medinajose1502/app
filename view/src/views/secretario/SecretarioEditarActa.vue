@@ -3,8 +3,8 @@
     <b-row>
       <b-col></b-col>
       <b-col cols="10">
-        <b-card>
-          <b-card-header header-bg-variant="primary" header-text-variant="white">
+        <b-card class="shadow-soft">
+          <b-card-header header-bg-variant="primary shadow-inset">
             <h4>Editar acta</h4>
           </b-card-header>
           <b-form @submit="onSubmit" @reset="onReset" v-if="show">
@@ -54,18 +54,18 @@
               <b-row align="left">
                 <b-col>
                   <router-link :to="{ name: 'SecretarioHome'}">
-                    <b-button variant="info">
+                    <b-button variant="primary text-info">
                       Volver a inicio
                       <b-icon icon="house-fill"></b-icon>
                     </b-button>
                   </router-link>
                 </b-col>
                 <b-col align="right">
-                  <b-button type="reset" variant="danger">
+                  <b-button type="reset" variant="primary text-danger">
                     Limpiar formulario
                     <b-icon icon="trash-fill"></b-icon>
                   </b-button>
-                  <b-button type="submit" variant="success">
+                  <b-button type="submit" variant="primary text-success">
                     Editar
                     <b-icon icon="brush"></b-icon>
                   </b-button>

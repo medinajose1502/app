@@ -27,8 +27,8 @@
               </b-form-group>
 
               <div align="right">
-                <b-button type="reset" variant="primary text-danger">Limpiar</b-button>
-                <b-button type="submit" variant="primary text-success">Ingresar</b-button>
+                <b-button type="reset" variant="danger">Limpiar</b-button>
+                <b-button type="submit" variant="primary">Ingresar</b-button>
               </div>
             </b-form>
           </b-card>

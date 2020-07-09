@@ -5,16 +5,15 @@
       <b-row>
         <b-col></b-col>
         <b-col cols="10">
-          <b-card class="shadow-soft">
-            <b-card-header header-bg-variant="primary shadow-inset">
-              <h4>Editar acta</h4>
+          <b-card>
+            <b-card-header header-bg-variant="primary" header-text-variant="white">
+              <h3>Crear acta</h3>
             </b-card-header>
             <b-form @submit="onSubmit" @reset="onReset" v-if="show">
               <b-card-body>
                 <b-row>
                   <p></p>
                   <b-col md="auto">
-                    <b-form-input v-model="acta.id" hidden></b-form-input>
                     <b-form-select id="tipo" v-model="acta.tipo" class="mb-3">
                       <b-form-select-option value="O">Ordinaria</b-form-select-option>
                       <b-form-select-option value="E">Extraordinaria</b-form-select-option>
@@ -56,20 +55,20 @@
                 <b-row align="left">
                   <b-col>
                     <router-link :to="{ name: 'AdminHome'}">
-                      <b-button variant="primary text-info">
+                      <b-button variant="info">
                         Volver a inicio
                         <b-icon icon="house-fill"></b-icon>
                       </b-button>
                     </router-link>
                   </b-col>
                   <b-col align="right">
-                    <b-button type="reset" variant="primary text-danger">
+                    <b-button type="reset" variant="danger">
                       Limpiar formulario
                       <b-icon icon="trash-fill"></b-icon>
                     </b-button>
-                    <b-button type="submit" variant="primary text-success">
-                      Editar
-                      <b-icon icon="brush"></b-icon>
+                    <b-button type="submit" variant="success">
+                      Crear
+                      <b-icon icon="plus-square-fill"></b-icon>
                     </b-button>
                   </b-col>
                 </b-row>
@@ -87,15 +86,9 @@
 import ServiciosAPI from "@/services/ServiciosAPI.js";
 
 export default {
-  props: {
-    id: {
-      type: Number
-    }
-  },
   data() {
     return {
       acta: {
-        id: "",
         tipo: "O",
         fecha: "",
         descripcion: "",
@@ -131,16 +124,10 @@ export default {
       }
     };
   },
-  async created() {
-    var act = await ServiciosAPI.getActa(this.id);
-    if (act.status == 200) {
-      this.acta = act.data;
-    }
-  },
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      ServiciosAPI.editarActa(this.acta);
+      ServiciosAPI.guardarActa(this.acta);
     },
     onReset(evt) {
       evt.preventDefault();
@@ -148,6 +135,7 @@ export default {
       this.acta.tipo = "O";
       this.acta.fecha = "";
       this.acta.descripcion = "";
+      this.acta.archivo = null;
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {

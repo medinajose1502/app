@@ -5,8 +5,8 @@
       <b-row>
         <b-col></b-col>
         <b-col cols="10">
-          <b-card class="shadow-soft">
-            <b-card-header header-bg-variant="primary shadow-inset" >
+          <b-card>
+            <b-card-header header-bg-variant="primary" header-text-variant="white">
               <h4>Crear un decanato</h4>
             </b-card-header>
             <b-form @submit="onSubmit" @reset="onReset" v-if="show">
@@ -70,18 +70,18 @@
                 <b-row align="left">
                   <b-col>
                     <router-link :to="{ name: 'AdminHome'}">
-                      <b-button variant="primary text-info">
+                      <b-button variant="info">
                         Volver a inicio
                         <b-icon icon="house-fill"></b-icon>
                       </b-button>
                     </router-link>
                   </b-col>
                   <b-col align="right">
-                    <b-button type="reset" variant="primary text-danger">
+                    <b-button type="reset" variant="danger">
                       Limpiar formulario
                       <b-icon icon="trash-fill"></b-icon>
                     </b-button>
-                    <b-button type="submit" variant="primary text-success">
+                    <b-button type="submit" variant="success">
                       Editar
                       <b-icon icon="brush"></b-icon>
                     </b-button>

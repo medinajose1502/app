@@ -5,8 +5,8 @@
       <b-row>
         <b-col></b-col>
         <b-col cols="10">
-          <b-card class="shadow-soft">
-            <b-card-header header-bg-variant="primary shadow-inset">
+          <b-card>
+            <b-card-header header-bg-variant="primary" header-text-variant="white">
               <h3>Ver acta</h3>
             </b-card-header>
             <b-card-body>
@@ -33,7 +33,7 @@
               <b-row>
                 <b-col cols="12">
                   <a :href="enlace" download>
-                    <b-button variant="primary text-success">
+                    <b-button variant="success">
                       Descargar acta
                       <b-icon icon="arrow-down-square-fill"></b-icon>
                     </b-button>
@@ -45,7 +45,7 @@
               <b-row>
                 <b-col align="left">
                   <router-link :to="{ name: 'AdminHome'}">
-                    <b-button variant="primary text-info">
+                    <b-button variant="info">
                       Volver a inicio
                       <b-icon icon="house-fill"></b-icon>
                     </b-button>
@@ -53,7 +53,7 @@
                 </b-col>
                 <b-col align="right">
                   <router-link :to="{ name: 'AdminEditarActa', params: {id: this.id} }">
-                    <b-button type="submit" variant="primary text-info">
+                    <b-button type="submit" variant="info">
                       Editar
                       <b-icon icon="brush"></b-icon>
                     </b-button>

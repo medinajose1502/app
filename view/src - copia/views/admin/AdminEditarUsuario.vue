@@ -3,15 +3,13 @@
     <NavBarA />
     <b-container>
       <b-row>
-        <b-col></b-col>
-        <b-col cols="10">
-          <b-card class="shadow-soft border-light">
-            <b-card-header header-bg-variant="primary shadow-inset">
-              <h3>Crear usuario</h3>
+        <b-col>
+          <b-card>
+            <b-card-header header-bg-variant="primary" header-text-variant="white">
+              <h3>Editar usuario</h3>
             </b-card-header>
-            <b-card-body>
-              <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-                <p></p>
+            <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+              <b-card-body>
                 <b-row>
                   <b-col>
                     <b-form-group
@@ -38,13 +36,14 @@
                       <b-form-input
                         id="input-2"
                         v-model="usuario.contrasenna"
-                        required
                         type="password"
-                        placeholder="Ingrese la cédula del usuario."
+                        required
+                        placeholder="Ingrese la contraseña del usuario."
                       ></b-form-input>
                     </b-form-group>
                   </b-col>
                 </b-row>
+
                 <b-row>
                   <b-col>
                     <b-form-group
@@ -77,66 +76,35 @@
                     </b-form-group>
                   </b-col>
                 </b-row>
-                <p></p>
 
-                <b-row>
-                  <b-col>
-                    <b-form-group
-                      id="input-group-3"
-                      label="Decanato"
-                      label-for="decanato"
-                      align="left"
-                    >
-                      <b-form-select
-                        id="decanato"
-                        v-model="usuario.decanato.id"
-                        :options="opc"
-                        class="mb-3"
-                      ></b-form-select>
-                    </b-form-group>
-                  </b-col>
-                  <b-col>
-                    <b-form-group
-                      id="input-group-3"
-                      label="Rol de usuario"
-                      label-for="tipo"
-                      align="left"
-                    >
-                      <b-form-select id="tipo" v-model="rol.tipo" class="mb-3">
-                        <b-form-select-option value="ROLE_ADMIN">Admin</b-form-select-option>
-                        <b-form-select-option value="ROLE_SECRETARIO">Secretario</b-form-select-option>
-                      </b-form-select>
-                    </b-form-group>
-                  </b-col>
-                </b-row>
                 <p></p>
                 <b-card-footer footer-bg-variant="primary">
                   <b-row align="left">
                     <b-col>
                       <router-link :to="{ name: 'AdminHome'}">
-                        <b-button variant="primary text-info">
+                        <b-button variant="info">
                           Volver a inicio
                           <b-icon icon="house-fill"></b-icon>
                         </b-button>
                       </router-link>
                     </b-col>
                     <b-col align="right">
-                      <b-button type="reset" variant="primary text-danger">
+                      <b-button type="reset" variant="danger">
                         Limpiar formulario
                         <b-icon icon="trash-fill"></b-icon>
                       </b-button>
-                      <b-button type="submit" variant="primary text-success">
-                        Crear
-                        <b-icon icon="plus-square-fill"></b-icon>
+                      <b-button type="submit" variant="success">
+                        Editar
+                        <b-icon icon="brush"></b-icon>
                       </b-button>
                     </b-col>
                   </b-row>
                 </b-card-footer>
-              </b-form>
-            </b-card-body>
+                <p></p>
+              </b-card-body>
+            </b-form>
           </b-card>
         </b-col>
-        <b-col></b-col>
       </b-row>
     </b-container>
   </div>
@@ -144,16 +112,13 @@
 
 <script>
 import ServiciosAPI from "@/services/ServiciosAPI.js";
-
 export default {
+  props: ["id"],
   data() {
     return {
       decanatos: [],
-      rol: {
-        id: "",
-        tipo: ""
-      },
       usuario: {
+        id: null,
         cedula: "",
         contrasenna: "",
         nombres: "",
@@ -169,10 +134,13 @@ export default {
   },
   async created() {
     var dec = await ServiciosAPI.getDecanatos();
-    {
-      if (dec.status == 200) this.decanatos = dec.data;
+    if (dec.status == 200) {
+      this.decanatos = dec.data;
       this.crearOpciones();
     }
+
+    var usu = await ServiciosAPI.getUsuarioId(this.id);
+    if (usu.status == 200) this.usuario = usu.data;
   },
   methods: {
     onSubmit(evt) {
@@ -189,8 +157,6 @@ export default {
       this.usuario.apellidos = "";
       this.usuario.roles = [];
       this.usuario.decanato.id = "";
-      this.rol.id = "";
-      this.rol.tipo = "";
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="primary shadow-soft">
+    <b-navbar toggleable="lg" type="dark" variant="primary">
       <router-link :to="{ name: 'SecretarioHome'}">
-        <b-navbar-brand class="primary text-secondary">Inicio</b-navbar-brand>
+        <b-navbar-brand>Inicio</b-navbar-brand>
       </router-link>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
