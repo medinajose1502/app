@@ -49,23 +49,29 @@ export default {
         username: "",
         password: ""
       },
-      show: true,
-      error: false
+      show: true
     };
   },
   methods: {
     async onSubmit(evt) {
       evt.preventDefault();
-      this.error = false;
-      var respuesta = await ServiciosAPI.login(this.formulario);
-      if (respuesta.status == 200) {
-        var usuario = await ServiciosAPI.getUsuarioSesion();
-        await this.$store.dispatch("actualizarUsuarioSesion", usuario.data);
-        console.log(this.$store.getters.rolUsuarioSesion);
-        if (this.$store.getters.rolUsuarioSesion == "ROLE_ADMIN")
-          this.$router.push("/admin");
-        else this.$router.push("/secretario");
-      } else this.$alert("Hello Vue Simple Alert.");
+      try {
+        var respuesta = await ServiciosAPI.login(this.formulario);
+        if (respuesta.status == 200) {
+          var usuario = await ServiciosAPI.getUsuarioSesion();
+          await this.$store.dispatch("actualizarUsuarioSesion", usuario.data);
+          console.log(this.$store.getters.rolUsuarioSesion);
+          if (this.$store.getters.rolUsuarioSesion == "ROLE_ADMIN")
+            this.$router.push("/admin");
+          else this.$router.push("/secretario");
+        }
+      } catch (error) {
+        this.$alert(
+          "Combinación de usuario / contraseña erronea",
+          "Error",
+          "error"
+        );
+      }
     },
 
     onReset(evt) {

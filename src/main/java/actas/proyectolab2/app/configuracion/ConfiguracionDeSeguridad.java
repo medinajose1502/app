@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
@@ -45,7 +46,7 @@ public class ConfiguracionDeSeguridad extends WebSecurityConfigurerAdapter{
             .authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
-            .formLogin().loginPage("/login").successHandler(authenticationSuccessHandler).permitAll()
+            .formLogin().loginPage("/login").successHandler(authenticationSuccessHandler).failureHandler(customAuthenticationFailureHandler()).permitAll()
             .and().logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler()).invalidateHttpSession(true).deleteCookies("JSESSIONID")
             .and().csrf().disable()
             .httpBasic();
@@ -54,6 +55,10 @@ public class ConfiguracionDeSeguridad extends WebSecurityConfigurerAdapter{
         http.headers().disable();
     }
     
+    @Bean
+    public AuthenticationFailureHandler customAuthenticationFailureHandler() {
+        return new ManejadorFalloAutenticacion();
+    }
     
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Bean
