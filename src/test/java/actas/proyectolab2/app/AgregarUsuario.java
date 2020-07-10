@@ -8,10 +8,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import actas.proyectolab2.app.modelos.Acta;
 import actas.proyectolab2.app.modelos.Decanato;
+import actas.proyectolab2.app.modelos.Estatus;
 import actas.proyectolab2.app.modelos.Rol;
 import actas.proyectolab2.app.modelos.Usuario;
 import actas.proyectolab2.app.servicios.SActa;
 import actas.proyectolab2.app.servicios.SDecanato;
+import actas.proyectolab2.app.servicios.SEstatus;
 import actas.proyectolab2.app.servicios.SRol;
 import actas.proyectolab2.app.servicios.SUsuario;
 
@@ -29,6 +31,9 @@ class AgregarUsuario {
 	
 	@Autowired
 	SRol sRol = new SRol();
+	
+	@Autowired
+	SEstatus sEstatus = new SEstatus();
 
 	@Test
 	void crearUsuario() {
@@ -53,6 +58,19 @@ class AgregarUsuario {
 		Usuario usuario7 = new Usuario();
 		Rol rol = new Rol();
 		Rol rol2 = new Rol();
+		Estatus estatus = new Estatus();
+		Estatus estatus2 = new Estatus();
+		Estatus estatus3 = new Estatus();
+		Estatus estatus4 = new Estatus();
+		
+		estatus.setEstado("Creada");
+		sEstatus.crearOActualizar(estatus);
+		estatus2.setEstado("En Revisión");
+		sEstatus.crearOActualizar(estatus2);
+		estatus3.setEstado("Aprobada");
+		sEstatus.crearOActualizar(estatus3);
+		estatus4.setEstado("Rechazada");
+		sEstatus.crearOActualizar(estatus4);
 		
 		decanato.setNombre("Decanato de Ciencias y Tecnología");
 		decanato.setDescripcion("En este decanatos están las carreras relacionadas a la ciencia y la tecnología.");
@@ -139,6 +157,7 @@ class AgregarUsuario {
 		acta.setDescripcion("Acta de la sesión de prueba 1");
 		acta.setFecha(LocalDate.now());
 		acta.setUsuario(usuario5);
+		acta.setEstatus(estatus);
 		sActa.crearOActualizar(acta);
 		
 		acta2.setDecanato(decanato2);
@@ -146,6 +165,7 @@ class AgregarUsuario {
 		acta2.setDescripcion("Acta de la sesión de prueba 2");
 		acta2.setFecha(LocalDate.now());
 		acta2.setUsuario(usuario6);
+		acta2.setEstatus(estatus);
 		sActa.crearOActualizar(acta2);
 		
 		acta3.setDecanato(decanato3);
@@ -153,6 +173,7 @@ class AgregarUsuario {
 		acta3.setDescripcion("Acta de la sesión de prueba 3");
 		acta3.setFecha(LocalDate.now());
 		acta3.setUsuario(usuario7);
+		acta3.setEstatus(estatus2);
 		sActa.crearOActualizar(acta3);
 		
 		acta4.setDecanato(decanato2);
@@ -160,6 +181,7 @@ class AgregarUsuario {
 		acta4.setDescripcion("Acta de la sesión de prueba 4");
 		acta4.setFecha(LocalDate.now());
 		acta4.setUsuario(usuario6);
+		acta4.setEstatus(estatus3);
 		sActa.crearOActualizar(acta4);
 		
 		acta5.setDecanato(decanato);
@@ -167,6 +189,7 @@ class AgregarUsuario {
 		acta5.setDescripcion("Acta de la sesión de prueba 5");
 		acta5.setFecha(LocalDate.now());
 		acta5.setUsuario(usuario5);
+		acta5.setEstatus(estatus4);
 		sActa.crearOActualizar(acta5);
 		
 		acta6.setDecanato(decanato);
@@ -174,6 +197,7 @@ class AgregarUsuario {
 		acta6.setDescripcion("Acta DCYT Junio");
 		acta6.setFecha(LocalDate.parse("2020-06-12"));
 		acta6.setUsuario(usuario5);
+		acta6.setEstatus(estatus2);
 		sActa.crearOActualizar(acta6);
 		
 		acta7.setDecanato(decanato2);
@@ -181,6 +205,7 @@ class AgregarUsuario {
 		acta7.setDescripcion("Acta DCV Junio");
 		acta7.setFecha(LocalDate.parse("2020-06-12"));
 		acta7.setUsuario(usuario6);
+		acta7.setEstatus(estatus);
 		sActa.crearOActualizar(acta7);
 	}
 
