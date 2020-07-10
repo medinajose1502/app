@@ -80,9 +80,8 @@ public class SDecanato {
     {
         Optional<Decanato> decanatoEncontrado = rDecanato.findById(id);
          
-        if(decanatoEncontrado.isPresent())
-            decanatoEncontrado.get().setEstado(false);       
-        	rDecanato.save(decanatoEncontrado.get());
+        if(decanatoEncontrado.isPresent())    
+        	rDecanato.delete(decanatoEncontrado.get());
     }
 	
 }
