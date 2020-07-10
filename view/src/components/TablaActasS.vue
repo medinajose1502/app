@@ -114,7 +114,7 @@ export default {
   },
   methods: {
     verActa(item) {
-      this.$router.push("/admin/acta/ver/" + item.id);
+      this.$router.push("/secretario/acta/ver/" + item.id);
     }
   }
 };

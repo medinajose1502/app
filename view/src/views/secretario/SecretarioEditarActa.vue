@@ -135,9 +135,22 @@ export default {
     }
   },
   methods: {
-    onSubmit(evt) {
+    async onSubmit(evt) {
       evt.preventDefault();
-      ServiciosAPI.editarActa(this.acta);
+      var respuesta = await ServiciosAPI.editarActa(this.acta);
+      if (respuesta.status == 200)
+        this.$alert(
+          "¡Se ha editado el acta con éxito!",
+          "Éxito",
+          "success"
+        ).then(click => {
+          this.$router.push({
+            name: "SecretarioVerActa",
+            params: { id: this.id }
+          });
+        });
+      else
+        this.$alert("¡No se ha podido editar el decanato!", "Error", "error");
     },
     onReset(evt) {
       evt.preventDefault();

@@ -184,13 +184,14 @@ export default {
       var respuesta = await ServiciosAPI.guardarUsuario(this.usuario);
       if (respuesta.status == 200) {
         this.$alert(
-          "Se ha creado el decanato con éxito",
+          "¡Se ha creado el usuario con éxito!",
           "Éxito",
           "success"
         ).then(click => {
           this.onReset(evt);
         });
-      } else this.$alert("Se ha producido un error", "Error", "error");
+      } else
+        this.$alert("¡No se ha podido crear el usuario!", "Error", "error");
     },
     onReset(evt) {
       evt.preventDefault();

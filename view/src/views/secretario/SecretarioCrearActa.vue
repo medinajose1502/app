@@ -122,10 +122,21 @@ export default {
     };
   },
   methods: {
-    onSubmit(evt) {
+    async onSubmit(evt) {
       evt.preventDefault();
-      ServiciosAPI.guardarActa(this.acta);
+      var respuesta = await ServiciosAPI.guardarActa(this.acta);
+      console.log(respuesta);
+      if (respuesta.status == 200) {
+        this.$alert(
+          "Se ha creado el acta con éxito",
+          "Éxito",
+          "success"
+        ).then(click => {
+          this.onReset(evt);
+        });
+      } else this.$alert("Se ha producido un error", "Error", "error");
     },
+    
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values

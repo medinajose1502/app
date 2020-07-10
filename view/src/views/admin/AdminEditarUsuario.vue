@@ -5,7 +5,7 @@
       <b-row>
         <b-col>
           <b-card class="shadow-soft">
-            <b-card-header header-bg-variant="primary shadow-inset" >
+            <b-card-header header-bg-variant="primary shadow-inset">
               <h3>Editar usuario</h3>
             </b-card-header>
             <b-form @submit="onSubmit" @reset="onReset" v-if="show">
@@ -93,7 +93,7 @@
                         Limpiar formulario
                         <b-icon icon="trash-fill"></b-icon>
                       </b-button>
-                      <b-button type="submit" variant="primary text-success">
+                      <b-button type="submit" @click="onSubmit" variant="primary text-success">
                         Editar
                         <b-icon icon="brush"></b-icon>
                       </b-button>
@@ -143,10 +143,21 @@ export default {
     if (usu.status == 200) this.usuario = usu.data;
   },
   methods: {
-    onSubmit(evt) {
+    async onSubmit(evt) {
       evt.preventDefault();
-      this.usuario.roles.push(this.rol);
-      ServiciosAPI.guardarUsuario(this.usuario);
+      var respuesta = await ServiciosAPI.guardarUsuario(this.usuario);
+      if (respuesta.status == 200)
+        this.$alert(
+          "¡Se ha editado el usuario con éxito!",
+          "Éxito",
+          "success"
+        ).then(click => {
+          this.$router.push({
+            name: "AdminVerUsuario",
+            params: { id: this.id }
+          });
+        });
+      else this.$alert("¡No se ha podido editar el usuario!", "Error", "error");
     },
     onReset(evt) {
       evt.preventDefault();

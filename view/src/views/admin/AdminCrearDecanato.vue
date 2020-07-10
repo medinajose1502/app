@@ -117,13 +117,14 @@ export default {
       console.log(respuesta);
       if (respuesta.status == 200) {
         this.$alert(
-          "Se ha creado el decanato con éxito",
+          "¡Se ha creado el decanato con éxito!",
           "Éxito",
           "success"
         ).then(click => {
           this.onReset(evt);
         });
-      } else this.$alert("Se ha producido un error", "Error", "error");
+      } else
+        this.$alert("¡No se ha podido crear el decanato!", "Error", "error");
     },
     onReset(evt) {
       evt.preventDefault();

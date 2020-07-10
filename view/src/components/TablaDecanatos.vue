@@ -23,7 +23,11 @@
                 placeholder="Escriba algo para buscar"
               ></b-form-input>
               <b-input-group-append>
-                <b-button variant="primary rounded-right shadow-soft text-secondary" :disabled="!filtro" @click="filtro = ''">Filtrar</b-button>
+                <b-button
+                  variant="primary rounded-right shadow-soft text-secondary"
+                  :disabled="!filtro"
+                  @click="filtro = ''"
+                >Filtrar</b-button>
               </b-input-group-append>
             </b-input-group>
           </b-form-group>
@@ -36,6 +40,8 @@
           :items="dec"
           :fields="fields"
           :filtro="filtro"
+          :per-page="perPage"
+          :current-page="currentPage"
           primary-key="id"
           @row-clicked="verDecanato"
         ></b-table>
