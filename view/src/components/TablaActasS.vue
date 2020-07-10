@@ -1,10 +1,10 @@
 <template>
-  <b-card>
-    <b-card-header header-bg-variant="primary" header-text-variant="white">
+  <b-card class="bg-primary border-light shadow-soft">
+    <b-card-header header-bg-variant="card bg-primary shadow-inset border-light">
       <h4>Lista de actas</h4>
     </b-card-header>
     <p></p>
-    <b-card-body>
+    <b-card-body class="card bg-primary shadow-inset border-light">
       <b-row>
         <b-col class="my-1">
           <b-form-group
@@ -15,7 +15,7 @@
             label-for="filtro"
             class="mb-0"
           >
-            <b-input-group size="sm">
+            <b-input-group size="sm" class="filtrico">
               <b-form-input
                 v-model="filtro"
                 type="search"
@@ -23,7 +23,11 @@
                 placeholder="Escriba algo para buscar"
               ></b-form-input>
               <b-input-group-append>
-                <b-button :disabled="!filtro" @click="filtro = ''">Filtrar</b-button>
+                <b-button
+                  variant="primary rounded-right shadow-soft text-secondary"
+                  :disabled="!filtro"
+                  @click="filtro = ''"
+                >Filtrar</b-button>
               </b-input-group-append>
             </b-input-group>
           </b-form-group>
@@ -58,7 +62,7 @@
       <b-row>
         <b-col align="right">
           <router-link :to="{ name: 'SecretarioCrearActa'}">
-            <b-button variant="info">
+            <b-button variant="primary text-info">
               Crear acta
               <b-icon icon="plus-square-fill"></b-icon>
             </b-button>

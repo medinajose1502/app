@@ -92,14 +92,12 @@ export default {
       }
     };
   },
-  created() {
-    ServiciosAPI.getActa(this.id)
-      .then(response => {
-        this.acta = response.data;
-      })
-      .catch(error => {
-        console.log("Ocurrió un error: " + error.response);
-      });
+  async created() {
+    var act = await ServiciosAPI.getActa(this.id);
+    consola.log(act.data);
+    if (act.status == 200) {
+      this.acta = act.data;
+    }
   },
   methods: {
     eliminarActa: async function() {

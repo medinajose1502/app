@@ -58,9 +58,6 @@ export default {
       evt.preventDefault();
       this.error = false;
       var respuesta = await ServiciosAPI.login(this.formulario);
-      console.log(respuesta);
-      console.log(respuesta.data);
-      console.log(respuesta.status);
       if (respuesta.status == 200) {
         var usuario = await ServiciosAPI.getUsuarioSesion();
         await this.$store.dispatch("actualizarUsuarioSesion", usuario.data);
