@@ -104,7 +104,15 @@ export default {
   methods: {
     async eliminarActa() {
       var respuesta = await ServiciosAPI.eliminarActa(this.id);
-      if (respuesta.status == 200) this.$router.push("/admin");
+      if (respuesta.status == 200) {
+        this.$confirm(
+          "¿De verdad está seguro de querer eliminar el acta? No podrá recuperar los datos.",
+          "¿Eliminar?",
+          "warning"
+        ).then(click => {
+          this.$router.push("/admin");
+        });
+      } else this.$alert("¡No se pudo eliminar el acta!", "Error", "error");
     }
   },
   computed: {

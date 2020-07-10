@@ -115,9 +115,17 @@ export default {
       });
   },
   methods: {
-    eliminarUsuario: async function() {
+    async eliminarUsuario() {
       var respuesta = await ServiciosAPI.eliminarUsuario(this.id);
-      if (respuesta.status == 200) this.$router.push("/admin");
+      if (respuesta.status == 200) {
+        this.$confirm(
+          "¿De verdad está seguro de querer eliminar el usuario? No podrán recuperar los datos del usuario, ni aquellos asociados.",
+          "¿Eliminar?",
+          "warning"
+        ).then(click => {
+          this.$router.push("/admin");
+        });
+      } else this.$alert("¡No se pudo eliminar el usuario!", "Error", "error");
     }
   }
 };

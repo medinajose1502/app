@@ -101,9 +101,17 @@ export default {
       });
   },
   methods: {
-    eliminarDecanato: async function() {
+    async eliminarDecanato() {
       var respuesta = await ServiciosAPI.eliminarDecanato(this.id);
-      if (respuesta.status == 200) this.$router.push("/admin");
+      if (respuesta.status == 200) {
+        this.$confirm(
+          "¿De verdad está seguro de querer eliminar el decanato? No podrá recuperar los datos del decanato, ni aquellos asociados.",
+          "¿Eliminar?",
+          "warning"
+        ).then(click => {
+          this.$router.push("/admin");
+        });
+      } else this.$alert("¡No se pudo eliminar el decanato!", "Error", "error");
     }
   }
 };
