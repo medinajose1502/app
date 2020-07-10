@@ -49,6 +49,10 @@ public class Acta {
 	@JsonProperty
 	@Column (name = "estado")
 	private boolean estado;
+	
+	@JsonProperty
+	@Column (name = "padre")
+	private String padre;
 
 	@JsonProperty
 	@JsonBackReference(value = "decanato-acta")

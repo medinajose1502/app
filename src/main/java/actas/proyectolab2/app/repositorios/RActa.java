@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import actas.proyectolab2.app.modelos.Acta;
 import actas.proyectolab2.app.modelos.Decanato;
+import actas.proyectolab2.app.modelos.Estatus;
 import actas.proyectolab2.app.modelos.Usuario;
 
 @Repository
@@ -15,4 +16,5 @@ public interface RActa extends JpaRepository<Acta, Long>{
 	List <Acta> findByUsuario(Usuario usuario);
 	List <Acta> findByDecanato(Decanato decanato);
 	List <Acta> findByDecanatoAndEstado(Decanato decanato, boolean estado);
+	List <Acta> findByEstatus(Estatus estatus);
 }

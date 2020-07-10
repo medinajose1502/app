@@ -82,7 +82,7 @@ export default {
     };
   },
   created() {
-    ServiciosAPI.getEstado(this.id)
+    ServiciosAPI.getEstatus(this.id)
       .then(response => {
         this.estatus = response.data;
       })

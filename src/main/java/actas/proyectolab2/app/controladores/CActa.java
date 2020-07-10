@@ -36,9 +36,11 @@ import actas.proyectolab2.app.excepciones.RecursoNoEncontrado;
 import actas.proyectolab2.app.miscelaneos.UsuarioPrincipal;
 import actas.proyectolab2.app.modelos.Acta;
 import actas.proyectolab2.app.modelos.Decanato;
+import actas.proyectolab2.app.modelos.Estatus;
 import actas.proyectolab2.app.modelos.Usuario;
 import actas.proyectolab2.app.servicios.SActa;
 import actas.proyectolab2.app.servicios.SDecanato;
+import actas.proyectolab2.app.servicios.SEstatus;
 import actas.proyectolab2.app.servicios.SUsuario;
 
 @RestController
@@ -52,6 +54,9 @@ public class CActa {
 		
 		@Autowired
 		SDecanato sDecanato;
+		
+		@Autowired
+		SEstatus sEstatus;
 		
 		private static final String baseDir = setDirectorio();
 		
@@ -141,11 +146,14 @@ public class CActa {
 		@PostMapping(value = "/acta/editar", headers = "Content-Type=multipart/form-data")
 		Acta editarActa(@RequestParam("id") String id, @RequestParam("tipo") char tipo,
 						@RequestParam("fecha") String fecha, @RequestParam("descripcion") String descripcion,
-						@RequestParam(name = "archivo") MultipartFile archivo, Authentication auth) throws IOException
+						@RequestParam(name = "archivo") MultipartFile archivo, Authentication auth, @RequestParam("padre") String padre) throws IOException
 		{	
 			Usuario usuario = sUsuario.encontrarPorCedula(((UsuarioPrincipal)auth.getPrincipal()).getUsuario().getCedula());
 			Long idl = Long.parseLong(id);
 			Acta acta = sActa.encontrarPorId(idl);
+			
+			Estatus estatus = sEstatus.encontrarPorId(Long.parseLong(padre));
+			
 			acta.setTipo(tipo);
 			acta.setDescripcion(descripcion);
 			LocalDate fc = LocalDate.parse(fecha);
@@ -162,7 +170,7 @@ public class CActa {
 					e.printStackTrace();
 				}
 			}
-			
+			acta.setEstatus(estatus);
 			return sActa.crearOActualizar(acta);
 		}
 		
@@ -203,6 +211,19 @@ public class CActa {
 				e.printStackTrace();
 			}
 			sActa.eliminarPorId(id);
+		}
+		
+		@GetMapping("/acta/estatus/{id}")
+		Estatus getEstatusActa(@PathVariable Long id) throws RecursoNoEncontrado
+		{
+			Acta acta = sActa.encontrarPorId(id);
+			return acta.getEstatus();
+		}
+		
+		@GetMapping("/acta/reporte/estatus/{id}")
+		List<Acta> getActaEstatus(@PathVariable String id){
+			Estatus estatus =  sEstatus.encontrarPorId(Long.parseLong(id));
+			return sActa.encontrarPorEstatus(estatus);
 		}
 }
 

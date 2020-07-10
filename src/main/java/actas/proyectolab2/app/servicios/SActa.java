@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import actas.proyectolab2.app.modelos.Acta;
 import actas.proyectolab2.app.modelos.Decanato;
+import actas.proyectolab2.app.modelos.Estatus;
 import actas.proyectolab2.app.modelos.Usuario;
 import actas.proyectolab2.app.repositorios.RActa;
 
@@ -16,7 +17,18 @@ public class SActa {
 
 	@Autowired
     RActa rActa;
+	
+	@Autowired
+	SEstatus sEstatus;
      
+	public List<Acta> encontrarPorEstatus(Estatus estatus){
+		List<Acta> result = (List<Acta>) rActa.findByEstatus(estatus);
+		if(result.size() > 0) 
+            return result;
+        else 
+        	return null;
+	}
+	
     public List<Acta> encontrarTodas()
     {
         List<Acta> result = (List<Acta>) rActa.findAll();
@@ -58,6 +70,8 @@ public class SActa {
     {
         if(acta.getId() == null)
         {
+        	Estatus estatus =sEstatus.encontrarPorId((long)1);
+        	acta.setEstatus(estatus);
         	acta.setEstado(true);
             acta = rActa.save(acta);
             return acta;

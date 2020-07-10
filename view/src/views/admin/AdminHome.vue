@@ -17,7 +17,7 @@
       </b-row>
       <b-row>
         <b-col>
-          <TablaEstatus :items="estatus" />
+          <TablaEstatus :items="estatuses" />
         </b-col>
       </b-row>
     </div>
@@ -42,7 +42,7 @@ export default {
       decanatos: [],
       actas: [],
       usuarios: [],
-      estatus: []
+      estatuses: []
     };
   },
   created() {
@@ -70,9 +70,9 @@ export default {
         console.log("Ocurrió un error: " + error.response);
       });
 
-    ServiciosAPI.getEstatus()
+    ServiciosAPI.getEstatuses()
       .then(response => {
-        this.estatus = response.data;
+        this.estatuses = response.data;
       })
       .catch(error => {
         console.log("Ocurrió un error: " + error.response);

@@ -7,7 +7,7 @@
         <b-col cols="10">
           <b-card class="shadow-soft">
             <b-card-header header-bg-variant="primary shadow-inset">
-              <h4>Crear un decanato</h4>
+              <h4>Crear un estatus</h4>
             </b-card-header>
             <b-form @submit="onSubmit" @reset="onReset" v-if="show">
               <b-row>
@@ -17,7 +17,7 @@
                     <b-col>
                       <b-form-group
                         id="grupo-nombre"
-                        label="Nombre del decanato:"
+                        label="Nombre del estatus:"
                         label-for="nombre"
                         align="left"
                       >
@@ -25,7 +25,7 @@
                           id="nombre"
                           v-model="estatus.estado"
                           required
-                          placeholder="Ingrese el nombre del decanato"
+                          placeholder="Ingrese el estatus"
                         ></b-form-input>
                       </b-form-group>
                     </b-col>
@@ -81,7 +81,7 @@ export default {
   methods: {
     async onSubmit(evt) {
       evt.preventDefault();
-      var respuesta = await ServiciosAPI.guardarEstatus(this.decanato);
+      var respuesta = await ServiciosAPI.guardarEstatus(this.estatus);
       console.log(respuesta);
       if (respuesta.status == 200) {
         this.$alert(

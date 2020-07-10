@@ -93,7 +93,10 @@ export default {
         tipo: "O",
         fecha: "",
         descripcion: "",
-        archivo: null
+        archivo: null,
+        estatus: {
+          id: 1
+        }
       },
       show: true,
       showDecadeNav: false,

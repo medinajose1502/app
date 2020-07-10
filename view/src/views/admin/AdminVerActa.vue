@@ -23,6 +23,10 @@
                   <label for="fecha">Fecha de la sesión:</label>
                   <b-form-input v-model="acta.fecha" id="fecha" readonly></b-form-input>
                 </b-col>
+                <b-col>
+                  <label for="fecha">Estatus:</label>
+                  <b-form-input v-model="estatus.estado" id="estatus" readonly></b-form-input>
+                </b-col>
               </b-row>
               <p></p>
               <b-row>
@@ -84,6 +88,10 @@ export default {
   },
   data() {
     return {
+      estatus: {
+        id: "",
+        estado: ""
+      },
       acta: {
         id: "",
         tipo: "",
@@ -96,6 +104,14 @@ export default {
     ServiciosAPI.getActa(this.id)
       .then(response => {
         this.acta = response.data;
+      })
+      .catch(error => {
+        console.log("Ocurrió un error: " + error.response);
+      });
+
+    ServiciosAPI.getEstatusActa(this.id)
+      .then(response => {
+        this.estatus = response.data;
       })
       .catch(error => {
         console.log("Ocurrió un error: " + error.response);

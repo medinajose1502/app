@@ -7,6 +7,9 @@
       <router-link :to="{ name: 'AdminReporteDecanatos'}">
         <b-navbar-brand class="primary text-secondary">Reporte</b-navbar-brand>
       </router-link>
+      <router-link :to="{ name: 'AdminReporteActaEstado'}">
+        <b-navbar-brand class="primary text-secondary">Actas</b-navbar-brand>
+      </router-link>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <!-- Right aligned nav items -->
@@ -29,12 +32,16 @@
 <script>
 export default {
   methods: {
-    cerrarSesion(){
-      this.$confirm("¿Esta seguro que desea cerrar sesión?","Cierre de sesión").then(()=>{this.$router.push("/logout")})
+    cerrarSesion() {
+      this.$confirm(
+        "¿Esta seguro que desea cerrar sesión?",
+        "Cierre de sesión"
+      ).then(() => {
+        this.$router.push("/logout");
+      });
     }
   }
 };
-
 </script>
 
 <style>

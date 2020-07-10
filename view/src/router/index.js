@@ -15,6 +15,7 @@ import AdminEditarUsuario from '@/views/admin/AdminEditarUsuario.vue';
 import AdminVerEstatus from '@/views/admin/AdminVerEstatus.vue';
 import AdminCrearEstatus from '@/views/admin/AdminCrearEstatus.vue';
 import AdminEditarEstatus from '@/views/admin/AdminEditarEstatus.vue';
+import AdminReporteActaEstado from '@/views/admin/AdminReporteActaEstado.vue';
 
 
 import SecretarioHome from '@/views/secretario/SecretarioHome.vue';
@@ -174,6 +175,13 @@ const routes = [
     path: '/admin/estatus/editar/:id',
     name: 'AdminEditarEstatus',
     component: AdminEditarEstatus,
+    props: true,
+    meta: { requiereAdmin: true }
+  },
+  {
+    path: '/admin/acta/reporte',
+    name: 'AdminReporteActaEstado',
+    component: AdminReporteActaEstado,
     props: true,
     meta: { requiereAdmin: true }
   },

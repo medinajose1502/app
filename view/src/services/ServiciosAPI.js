@@ -55,6 +55,7 @@ export default {
         formData.append("fecha", Acta.fecha);
         formData.append("descripcion", Acta.descripcion);
         formData.append("archivo", Acta.archivo);
+        formData.append("padre", Acta.padre);
 
         var headers = {
             'Content-Type': 'multipart/form-data',
@@ -67,6 +68,12 @@ export default {
     },
     eliminarActa(id) {
         return apiServidor.delete('/acta/eliminar/' + id)
+    },
+    getEstatusActa(id) {
+        return apiServidor.get('/acta/estatus/' + id)
+    },
+    getEstatusActaReporte(id) {
+        return apiServidor.get('/acta/reporte/estatus/' + id)
     },
 
 

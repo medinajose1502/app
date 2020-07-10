@@ -15,6 +15,13 @@
                   <p></p>
                   <b-col md="auto">
                     <b-form-input v-model="acta.id" hidden></b-form-input>
+                    <b-form-select
+                      id="estatus"
+                      v-model="acta.padre"
+                      :options="opc"
+                      class="mb-3"
+                      required
+                    ></b-form-select>
                     <b-form-select required id="tipo" v-model="acta.tipo" class="mb-3">
                       <b-form-select-option value="O">Ordinaria</b-form-select-option>
                       <b-form-select-option value="E">Extraordinaria</b-form-select-option>
@@ -95,14 +102,17 @@ export default {
   },
   data() {
     return {
+      estatuses: [],
       acta: {
         id: "",
         tipo: "O",
         fecha: "",
         descripcion: "",
-        archivo: null
+        archivo: null,
+        padre: ""
       },
       show: true,
+      opc: [],
       showDecadeNav: false,
       hideHeader: false,
       weekday: 0,
@@ -137,6 +147,12 @@ export default {
     if (act.status == 200) {
       this.acta = act.data;
     }
+
+    var est = await ServiciosAPI.getEstatuses();
+    {
+      if (est.status == 200) this.estatuses = est.data;
+      this.crearOpciones();
+    }
   },
   methods: {
     async onSubmit(evt) {
@@ -165,6 +181,12 @@ export default {
       this.show = false;
       this.$nextTick(() => {
         this.show = true;
+      });
+    },
+    crearOpciones() {
+      this.estatuses.forEach(estatu => {
+        var op = { value: estatu.id, text: estatu.estado };
+        this.opc.push(op);
       });
     }
   }
