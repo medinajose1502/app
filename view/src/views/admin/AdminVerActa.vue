@@ -102,7 +102,7 @@ export default {
       });
   },
   methods: {
-    eliminarActa: async function() {
+    async eliminarActa() {
       var respuesta = await ServiciosAPI.eliminarActa(this.id);
       if (respuesta.status == 200) this.$router.push("/admin");
     }

@@ -67,7 +67,7 @@ export default {
         return apiServidor.get('/acta/descargar/' + id)
     },
     eliminarActa(id) {
-        return apiServidor.post('/acta/eliminar/' + id)
+        return apiServidor.delete('/acta/eliminar/' + id)
     },
 
 
@@ -88,7 +88,7 @@ export default {
         return apiServidor.get('/decanato/reporte/' + anno + '/' + mes)
     },
     eliminarDecanato(id) {
-        return apiServidor.post('/decanato/eliminar/' + id)
+        return apiServidor.delete('/decanato/eliminar/' + id)
     },
 
 
@@ -112,6 +112,6 @@ export default {
         return apiServidor.post('/usuario/guardar', Usuario)
     },
     eliminarUsuario(id) {
-        return apiServidor.post('/usuario/eliminar/' + id)
+        return apiServidor.delete('/usuario/eliminar/' + id)
     }
 }
