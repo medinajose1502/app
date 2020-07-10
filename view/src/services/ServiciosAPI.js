@@ -112,5 +112,24 @@ export default {
     },
     eliminarUsuario(id) {
         return apiServidor.delete('/usuario/eliminar/' + id)
-    }
+    },
+
+
+
+
+    getEstatuses() {
+        return apiServidor.get('/estatus/ver/todos')
+    },
+    getEstatus(id) {
+        return apiServidor.get('/estatus/ver/' + id)
+    },
+    guardarEstatus(Decanato) {
+        return apiServidor.post('/estatus/guardar', Decanato)
+    },
+    getReporteEstatus(anno, mes) {
+        return apiServidor.get('/estatus/reporte/' + anno + '/' + mes)
+    },
+    eliminarEstatus(id) {
+        return apiServidor.delete('/estatus/eliminar/' + id)
+    },
 }

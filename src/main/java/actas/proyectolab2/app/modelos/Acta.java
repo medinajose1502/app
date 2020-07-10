@@ -61,4 +61,9 @@ public class Acta {
 	@ManyToOne
     @JoinColumn(name="idusuario", nullable=false)
     private Usuario usuario;
+	
+	@JsonBackReference(value = "estatus-acta")
+	@ManyToOne
+    @JoinColumn(name="idestatus", nullable=false)
+    private Estatus estatus;
 }
