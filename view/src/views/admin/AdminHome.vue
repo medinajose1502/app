@@ -15,6 +15,11 @@
           </b-col>
         </b-col>
       </b-row>
+      <b-row>
+        <b-col>
+          <TablaEstatus :items="estatus" />
+        </b-col>
+      </b-row>
     </div>
   </div>
 </template>
@@ -24,17 +29,20 @@ import ServiciosAPI from "@/services/ServiciosAPI.js";
 import TablaDecanatos from "@/components/TablaDecanatos.vue";
 import TablaActas from "@/components/TablaActas.vue";
 import TablaUsuarios from "@/components/TablaUsuarios.vue";
+import TablaEstatus from "@/components/TablaEstatus.vue";
 export default {
   components: {
     TablaDecanatos,
     TablaActas,
-    TablaUsuarios
+    TablaUsuarios,
+    TablaEstatus
   },
   data() {
     return {
       decanatos: [],
       actas: [],
-      usuarios: []
+      usuarios: [],
+      estatus: []
     };
   },
   created() {
@@ -57,6 +65,14 @@ export default {
     ServiciosAPI.getUsuarios()
       .then(response => {
         this.usuarios = response.data;
+      })
+      .catch(error => {
+        console.log("Ocurrió un error: " + error.response);
+      });
+
+    ServiciosAPI.getEstatus()
+      .then(response => {
+        this.estatus = response.data;
       })
       .catch(error => {
         console.log("Ocurrió un error: " + error.response);

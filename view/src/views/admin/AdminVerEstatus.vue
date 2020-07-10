@@ -7,21 +7,13 @@
         <b-col cols="10">
           <b-card class="shadow-soft">
             <b-card-header header-bg-variant="primary shadow-inset">
-              <h3>Ver decanato</h3>
+              <h3>Ver estatus</h3>
             </b-card-header>
             <b-form text-variant="black" align="left">
               <b-card-body>
                 <p></p>
-                <label for="nombres">Nombre del decanato:</label>
-                <b-form-input v-model="decanato.nombre" id="nombre" readonly></b-form-input>
-                <p></p>
-
-                <label for="descripcion">Descripción del decanato:</label>
-                <b-form-textarea v-model="decanato.descripcion" id="descripcion" readonly></b-form-textarea>
-                <p></p>
-
-                <label for="ubicacion">Ubicación:</label>
-                <b-form-input v-model="decanato.ubicacion" id="ubicacion" readonly></b-form-input>
+                <label for="estado">Descripción del estado:</label>
+                <b-form-textarea v-model="estatus.estado" id="estado" readonly></b-form-textarea>
                 <p></p>
               </b-card-body>
 
@@ -36,11 +28,11 @@
                     </router-link>
                   </b-col>
                   <b-col align="right">
-                    <b-button type="submit" @click="eliminarDecanato" variant="primary text-danger">
+                    <b-button type="submit" @click="eliminarEstatus" variant="primary text-danger">
                       Eliminar
                       <b-icon icon="x-square-fill"></b-icon>
                     </b-button>
-                    <router-link :to="{ name: 'AdminEditarDecanato', params: {id: this.id} }">
+                    <router-link :to="{ name: 'AdminEditarEstatus', params: {id: this.id} }">
                       <b-button type="submit" variant="primary text-info">
                         Editar
                         <b-icon icon="brush"></b-icon>
@@ -59,7 +51,7 @@
       <b-row>
         <b-col></b-col>
         <b-col cols="10">
-          <TablaActas :items="decanato.actas" />
+          <!--<TablaActas :items="estatus.actas" />-->
         </b-col>
         <b-col></b-col>
       </b-row>
@@ -82,36 +74,34 @@ export default {
   },
   data() {
     return {
-      decanato: {
+      estatus: {
         id: "",
-        tipo: "",
-        fecha: "",
-        descripcion: "",
+        estado: "",
         actas: []
       }
     };
   },
   created() {
-    ServiciosAPI.getDecanato(this.id)
+    ServiciosAPI.getEstado(this.id)
       .then(response => {
-        this.decanato = response.data;
+        this.estatus = response.data;
       })
       .catch(error => {
         console.log("Ocurrió un error: " + error.response);
       });
   },
   methods: {
-    async eliminarDecanato() {
-      var respuesta = await ServiciosAPI.eliminarDecanato(this.id);
+    async eliminarEstatus() {
+      var respuesta = await ServiciosAPI.eliminarEstatus(this.id);
       if (respuesta.status == 200) {
         this.$confirm(
-          "¿De verdad está seguro de querer eliminar el decanato? No podrá recuperar los datos del decanato, ni aquellos asociados.",
+          "¿De verdad está seguro de querer eliminar el estatus? No podrá recuperar los datos del estatus, ni aquellos asociados.",
           "¿Eliminar?",
           "warning"
         ).then(click => {
           this.$router.push("/admin");
         });
-      } else this.$alert("¡No se pudo eliminar el decanato!", "Error", "error");
+      } else this.$alert("¡No se pudo eliminar el estatus!", "Error", "error");
     }
   }
 };

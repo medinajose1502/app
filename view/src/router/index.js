@@ -12,6 +12,10 @@ import AdminReporteDecanatos from '@/views/admin/AdminReporteDecanatos.vue';
 import AdminVerUsuario from '@/views/admin/AdminVerUsuario.vue';
 import AdminCrearUsuario from '@/views/admin/AdminCrearUsuario.vue';
 import AdminEditarUsuario from '@/views/admin/AdminEditarUsuario.vue';
+import AdminVerEstatus from '@/views/admin/AdminVerEstatus.vue';
+import AdminCrearEstatus from '@/views/admin/AdminCrearEstatus.vue';
+import AdminEditarEstatus from '@/views/admin/AdminEditarEstatus.vue';
+
 
 import SecretarioHome from '@/views/secretario/SecretarioHome.vue';
 import SecretarioVerActa from '@/views/secretario/SecretarioVerActa.vue';
@@ -150,6 +154,26 @@ const routes = [
     path: '/admin/usuario/editar/:id',
     name: 'AdminEditarUsuario',
     component: AdminEditarUsuario,
+    props: true,
+    meta: { requiereAdmin: true }
+  },
+  {
+    path: '/admin/estatus/ver/:id',
+    name: 'AdminVerEstatus',
+    component: AdminVerEstatus,
+    props: true,
+    meta: { requiereAdmin: true }
+  },
+  {
+    path: '/admin/estatus/crear',
+    name: 'AdminCrearEstatus',
+    component: AdminCrearEstatus,
+    meta: { requiereAdmin: true }
+  },
+  {
+    path: '/admin/estatus/editar/:id',
+    name: 'AdminEditarEstatus',
+    component: AdminEditarEstatus,
     props: true,
     meta: { requiereAdmin: true }
   },

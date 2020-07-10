@@ -7,7 +7,7 @@
         <b-col cols="10">
           <b-card class="shadow-soft">
             <b-card-header header-bg-variant="primary shadow-inset">
-              <h4>Editar un decanato</h4>
+              <h4>Editar un Estatus</h4>
             </b-card-header>
             <b-form @submit="onSubmit" @reset="onReset" v-if="show">
               <b-row>
@@ -15,52 +15,25 @@
                 <b-card-body>
                   <b-row>
                     <b-col>
-                      <b-form-input v-model="decanato.id" id="id" hidden readonly></b-form-input>
+                      <b-form-input v-model="estatus.id" id="id" hidden readonly></b-form-input>
                       <b-form-group
-                        id="grupo-nombre"
-                        label="Nombre del decanato:"
-                        label-for="nombre"
-                        align="left"
+                        id="grupo-estado"
+                        label="estado del estatus:"
+                        label-for="estado"
+                        align="center"
                       >
                         <b-form-input
-                          id="nombre"
-                          v-model="decanato.nombre"
+                          id="estado"
+                          v-model="estatus.estado"
                           required
-                          placeholder="Ingrese el nombre del decanato"
-                        ></b-form-input>
-                      </b-form-group>
-                    </b-col>
-                    <b-col>
-                      <b-form-group
-                        id="grupo-ubicacion"
-                        label="Ubicación:"
-                        label-for="ubicacion"
-                        align="left"
-                      >
-                        <b-form-input
-                          id="ubicacion"
-                          v-model="decanato.ubicacion"
-                          required
-                          placeholder="Ingrese la ubicación del decanato."
+                          placeholder="Ingrese el estado del estatus"
                         ></b-form-input>
                       </b-form-group>
                     </b-col>
                   </b-row>
 
                   <p></p>
-                  <b-row>
-                    <b-col align="left">
-                      <label for="descripcion">Descripcion:</label>
-                      <b-form-textarea
-                        id="descripcion"
-                        v-model="decanato.descripcion"
-                        placeholder="Ingrese una descripción para el decanato..."
-                        rows="10"
-                        required
-                        max-rows="100"
-                      ></b-form-textarea>
-                    </b-col>
-                  </b-row>
+                  
 
                   <p></p>
                 </b-card-body>
@@ -109,19 +82,17 @@ export default {
   },
   data() {
     return {
-      decanato: {
+      estatus: {
         id: "",
-        nombre: "",
-        descripcion: "",
-        ubicacion: ""
+        estado: ""
       },
       show: true
     };
   },
   created() {
-    ServiciosAPI.getDecanato(this.id)
+    ServiciosAPI.getEstatus(this.id)
       .then(response => {
-        this.decanato = response.data;
+        this.estatus = response.data;
       })
       .catch(error => {
         console.log("Ocurrió un error: " + error.response);
@@ -130,27 +101,25 @@ export default {
   methods: {
     async onSubmit(evt) {
       evt.preventDefault();
-      var respuesta = await ServiciosAPI.guardarDecanato(this.decanato);
+      var respuesta = await ServiciosAPI.guardarEstatus(this.estatus);
       if (respuesta.status == 200)
         this.$alert(
-          "¡Se ha editado el decanato con éxito!",
+          "¡Se ha editado el Estatus con éxito!",
           "Éxito",
           "success"
         ).then(click => {
           this.$router.push({
-            name: "AdminVerDecanato",
+            name: "AdminVerEstatus",
             params: { id: this.id }
           });
         });
       else
-        this.$alert("¡No se ha podido editar el decanato!", "Error", "error");
+        this.$alert("¡No se ha podido editar el Estatus!", "Error", "error");
     },
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
-      this.decanato.nombre = "";
-      this.decanato.ubicacion = "";
-      this.decanato.descripcion = "";
+      this.estatus.estado = "";
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {
