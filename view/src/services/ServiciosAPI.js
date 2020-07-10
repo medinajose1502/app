@@ -13,7 +13,6 @@ export default {
 
 
     login(formulario) {
-        var respuesta;
         let formData = new FormData();
         formData.set("username", formulario.username);
         formData.set("password", formulario.password);

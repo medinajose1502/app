@@ -36,25 +36,38 @@ class AgregarUsuario {
 		
 		Decanato decanato = new Decanato();
 		Decanato decanato2 = new Decanato();
+		Decanato decanato3 = new Decanato();
 		Acta acta = new Acta();
 		Acta acta2 = new Acta();
+		Acta acta3 = new Acta();
+		Acta acta4 = new Acta();
+		Acta acta5 = new Acta();
+		Acta acta6 = new Acta();
+		Acta acta7 = new Acta();
 		Usuario usuario = new Usuario();
 		Usuario usuario2 = new Usuario();
 		Usuario usuario3 = new Usuario();
 		Usuario usuario4 = new Usuario();
 		Usuario usuario5 = new Usuario();
+		Usuario usuario6 = new Usuario();
+		Usuario usuario7 = new Usuario();
 		Rol rol = new Rol();
 		Rol rol2 = new Rol();
 		
-		decanato.setNombre("DCYT");
-		decanato.setDescripcion("DCYT");
-		decanato.setUbicacion("Oeste");
+		decanato.setNombre("Decanato de Ciencias y Tecnología");
+		decanato.setDescripcion("En este decanatos están las carreras relacionadas a la ciencia y la tecnología.");
+		decanato.setUbicacion("Oeste, Barquisimeto");
 		sDecanato.crearOActualizar(decanato);
 		
-		decanato2.setNombre("DEHA");
-		decanato2.setDescripcion("DEHA");
-		decanato2.setUbicacion("CENTRO");
+		decanato2.setNombre("Decanato de Ciencias Veterinarias");
+		decanato2.setDescripcion("En este decanato están las carreras relacionadas a la veterinaria.");
+		decanato2.setUbicacion("Agua viva, Cabudare");
 		sDecanato.crearOActualizar(decanato2);
+		
+		decanato3.setNombre("Decanato de Ingeniería Civil");
+		decanato3.setDescripcion("En este decanato están las carreras relacionadas a la ingeniería civil.");
+		decanato3.setUbicacion("Oeste, Barquisimeto");
+		sDecanato.crearOActualizar(decanato3);
 		
 		rol.setTipo("ROLE_ADMIN");
 		Rol admin = sRol.crearOActualizar(rol);
@@ -99,25 +112,76 @@ class AgregarUsuario {
 		
 		usuario5.setCedula("12345678");
 		usuario5.setContrasenna("1234");
-		usuario5.setNombres("Dummy User");
+		usuario5.setNombres("Secretario DCYT");
 		usuario5.setApellidos("McDummyface McUserface");
-		usuario5.setDecanato(decanato2);
+		usuario5.setDecanato(decanato);
 		usuario5.agregarRol(secretario);
 		sUsuario.crearOActualizar(usuario5);
+		
+		usuario6.setCedula("11111111");
+		usuario6.setContrasenna("1234");
+		usuario6.setNombres("Secretario DCV");
+		usuario6.setApellidos("McDummyface McUserface");
+		usuario6.setDecanato(decanato2);
+		usuario6.agregarRol(secretario);
+		sUsuario.crearOActualizar(usuario6);
+		
+		usuario7.setCedula("22222222");
+		usuario7.setContrasenna("1234");
+		usuario7.setNombres("Secretario DIC");
+		usuario7.setApellidos("McDummyface McUserface");
+		usuario7.setDecanato(decanato3);
+		usuario7.agregarRol(secretario);
+		sUsuario.crearOActualizar(usuario7);
 		
 		acta.setDecanato(decanato);
 		acta.setTipo('E');
 		acta.setDescripcion("Acta de la sesión de prueba 1");
 		acta.setFecha(LocalDate.now());
-		acta.setUsuario(usuario2);
+		acta.setUsuario(usuario5);
 		sActa.crearOActualizar(acta);
 		
 		acta2.setDecanato(decanato2);
 		acta2.setTipo('O');
 		acta2.setDescripcion("Acta de la sesión de prueba 2");
 		acta2.setFecha(LocalDate.now());
-		acta2.setUsuario(usuario5);
+		acta2.setUsuario(usuario6);
 		sActa.crearOActualizar(acta2);
+		
+		acta3.setDecanato(decanato3);
+		acta3.setTipo('O');
+		acta3.setDescripcion("Acta de la sesión de prueba 3");
+		acta3.setFecha(LocalDate.now());
+		acta3.setUsuario(usuario7);
+		sActa.crearOActualizar(acta3);
+		
+		acta4.setDecanato(decanato2);
+		acta4.setTipo('O');
+		acta4.setDescripcion("Acta de la sesión de prueba 4");
+		acta4.setFecha(LocalDate.now());
+		acta4.setUsuario(usuario6);
+		sActa.crearOActualizar(acta4);
+		
+		acta5.setDecanato(decanato);
+		acta5.setTipo('O');
+		acta5.setDescripcion("Acta de la sesión de prueba 5");
+		acta5.setFecha(LocalDate.now());
+		acta5.setUsuario(usuario5);
+		sActa.crearOActualizar(acta5);
+		
+		acta6.setDecanato(decanato);
+		acta6.setTipo('O');
+		acta6.setDescripcion("Acta DCYT Junio");
+		acta6.setFecha(LocalDate.parse("2020-06-12"));
+		acta6.setUsuario(usuario5);
+		sActa.crearOActualizar(acta6);
+		
+		acta7.setDecanato(decanato2);
+		acta7.setTipo('O');
+		acta7.setDescripcion("Acta DCV Junio");
+		acta7.setFecha(LocalDate.parse("2020-06-12"));
+		acta7.setUsuario(usuario6);
+		sActa.crearOActualizar(acta7);
 	}
 
 }
