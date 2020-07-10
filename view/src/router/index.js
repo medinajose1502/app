@@ -61,7 +61,7 @@ const routes = [
     meta: { requiereSecretario: true }
   },
   {
-    path: '/secretario/acta/:id',
+    path: '/secretario/acta/ver/:id',
     name: 'SecretarioVerActa',
     component: SecretarioVerActa,
     props: true,

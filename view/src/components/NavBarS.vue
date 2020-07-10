@@ -14,7 +14,7 @@
               <template v-slot:button-content>
                 <em>{{$store.getters.nombreUsuarioSesion}}</em>
               </template>
-              <b-dropdown-item href="/logout">Cerrar Sesión</b-dropdown-item>
+              <b-dropdown-item @click="cerrarSesion">Cerrar Sesión</b-dropdown-item>
             </b-nav-item-dropdown>
           </div>
         </b-navbar-nav>
@@ -31,6 +31,11 @@ export default {
       secretario: false,
       sesion: false
     };
+  },
+  methods: {
+    cerrarSesion(){
+      this.$confirm("¿Esta seguro que desea cerrar sesión?","Cierre de sesión").then(()=>{this.$router.push("/logout")})
+    }
   }
 };
 </script>

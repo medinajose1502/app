@@ -1,5 +1,6 @@
 <template>
   <div>
+    <NavBarS />
     <b-row>
       <b-col></b-col>
       <b-col cols="8">
